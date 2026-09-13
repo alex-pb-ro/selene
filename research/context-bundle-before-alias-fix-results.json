@@ -1,0 +1,93 @@
+{
+  "method": {
+    "fixture": "aliased payment policy, data type, test, docs and config with 40 similarly named distractors",
+    "model_calls": 0,
+    "budget_json_characters": 15000,
+    "baseline": "explicit anchor plus top 12 local lexical matches, first 13 lines, same JSON page renderer",
+    "measurement": "single first-page observation after language-server startup and index warmup",
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "limitations": "One synthetic fixture; source-file recall is not symbol recall or agent task success. No paired model evaluation, grep, map or language-wide comparison.",
+    "source_sha256": {
+      "src/selene/context/__init__.py": "d42c5c1af9ecd71d4849cc1d16133cd5c102688eb105d52f9beaf70797691999",
+      "src/selene/context/bundles.py": "a611fc415d8690697845f81600e55cefe2f0242c22498644fdb67b41d8a48b13",
+      "src/selene/context/model.py": "75003b67e422b52ec12d7345823d776f0090627f297afa1eae75881216ac1030",
+      "src/selene/context/selection.py": "60dd2e2e31b76e2c26c12d106b53eb8550e19bc6dda342c407b5c3f18c7444de",
+      "src/selene/context/semantic.py": "0d3fff13292bbf5743efb4a69e7f38d2eafd9c035282a9dd432efbdc24c80cb0",
+      "src/selene/context/sources.py": "1044060044ef660a66683634d5254337e3a2ef2cd1e1035f5e670f5d2d060515",
+      "src/selene/tools/context_tools.py": "e981ce77c4b17fe24ec84247c2d4b135df718718d2f6bd3b22d9634b3e7852b3",
+      "research/probes/context_bundles.py": "b9d5126deda30632a72570491ebe044f6dc582b1068cf6e4c6eb0f36af12b9cd"
+    }
+  },
+  "anchored_lexical": {
+    "elapsed_ms": 5.238,
+    "json_characters": 5982,
+    "expected_paths": [
+      "checkout.py",
+      "docs/approval.md",
+      "models.py",
+      "policy.py",
+      "settings.toml",
+      "tests/test_checkout.py"
+    ],
+    "returned_paths": [
+      "checkout.py",
+      "docs/approval.md",
+      "noise_00.py",
+      "noise_01.py",
+      "noise_02.py",
+      "noise_03.py",
+      "noise_04.py",
+      "noise_05.py",
+      "noise_06.py",
+      "noise_07.py",
+      "noise_08.py",
+      "tests/test_checkout.py"
+    ],
+    "expected_source_recall": 0.5,
+    "overlapping_range_pairs": 0,
+    "items": 12,
+    "semantic_operations": 0,
+    "limitations": [
+      "bounded_selection_not_exhaustive"
+    ],
+    "has_continuation": false
+  },
+  "context_bundle": {
+    "elapsed_ms": 2160.255,
+    "json_characters": 6693,
+    "expected_paths": [
+      "checkout.py",
+      "docs/approval.md",
+      "models.py",
+      "policy.py",
+      "settings.toml",
+      "tests/test_checkout.py"
+    ],
+    "returned_paths": [
+      "checkout.py",
+      "docs/approval.md",
+      "noise_00.py",
+      "noise_01.py",
+      "noise_02.py",
+      "noise_03.py",
+      "noise_04.py",
+      "noise_05.py",
+      "noise_06.py",
+      "noise_07.py",
+      "noise_08.py",
+      "settings.toml",
+      "tests/test_checkout.py"
+    ],
+    "expected_source_recall": 0.6666666666666666,
+    "overlapping_range_pairs": 0,
+    "items": 13,
+    "semantic_operations": 6,
+    "limitations": [
+      "bounded_selection_not_exhaustive",
+      "file_role_names_are_heuristics",
+      "language_server_relationships_are_static_not_runtime_guarantees",
+      "out_of_scope_or_unsearchable_semantic_targets_omitted"
+    ],
+    "has_continuation": false
+  }
+}

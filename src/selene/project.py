@@ -28,6 +28,7 @@ from solidlsp.ls_config import LanguageServerIdLike
 
 if TYPE_CHECKING:
     from selene.agent import SeleneAgent
+    from selene.context.bundles import ContextBundleService
 
 log = logging.getLogger(__name__)
 
@@ -65,6 +66,8 @@ class Project(ToStringMixin):
         self._agent: Optional["SeleneAgent"] = None
         self._local_index: LocalSourceIndex | None = None
         self._local_index_lock = threading.Lock()
+        self._context_service: ContextBundleService | None = None
+        self._context_service_lock = threading.Lock()
 
         # create .gitignore file in the project's Selene data folder if not yet present
         selene_data_gitignore_path = os.path.join(self._selene_data_folder, ".gitignore")
@@ -147,6 +150,15 @@ class Project(ToStringMixin):
         with self._local_index_lock:
             if self._local_index is not None:
                 self._local_index.record_local_write(relative_path)
+
+    def get_context_service(self) -> "ContextBundleService":
+        """Return the project-owned, lazily initialized context plan service."""
+        from selene.context.bundles import ContextBundleService
+
+        with self._context_service_lock:
+            if self._context_service is None:
+                self._context_service = ContextBundleService(self)
+            return self._context_service
 
     def _tostring_includes(self) -> list[str]:
         return []
@@ -539,7 +551,7 @@ class Project(ToStringMixin):
                         "To trust the project, modify the trusted path patterns in the global configuration."
                     )
             factory = LanguageServerFactory(
-                project_root=self.project_root,
+                project_root=str(Path(self.project_root).resolve(strict=True)),
                 project_config=self.project_config,
                 project_data_path=self._selene_data_folder,
                 encoding=self.project_config.encoding,
@@ -635,6 +647,10 @@ class Project(ToStringMixin):
         return 0
 
     def shutdown(self, timeout: float = 2.0) -> None:
+        with self._context_service_lock:
+            if self._context_service is not None:
+                self._context_service.close()
+                self._context_service = None
         with self._local_index_lock:
             if self._local_index is not None:
                 self._local_index.close()
