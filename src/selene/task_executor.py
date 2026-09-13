@@ -1,6 +1,6 @@
 import concurrent.futures
 import threading
-import time
+from collections import deque
 from collections.abc import Callable
 from concurrent.futures import Future
 from dataclasses import dataclass
@@ -22,14 +22,14 @@ class TaskExecutor:
         :param task_completion_callback: an optional callback function that will be called after each task completion
             (regardless of success, failure, or cancellation)
         """
-        self._task_executor_lock = threading.Lock()
-        self._task_executor_queue: list[TaskExecutor.Task] = []
-        self._task_executor_thread = Thread(target=self._process_task_queue, name=name, daemon=True)
-        self._task_executor_thread.start()
+        self._task_executor_lock = threading.Condition()
+        self._task_executor_queue: deque[TaskExecutor.Task] = deque()
         self._task_executor_task_index = 1
         self._task_executor_current_task: TaskExecutor.Task | None = None
         self._task_executor_last_executed_task_info: TaskExecutor.TaskInfo | None = None
         self._task_completion_callback = task_completion_callback
+        self._task_executor_thread = Thread(target=self._process_task_queue, name=name, daemon=True)
+        self._task_executor_thread.start()
 
     class Task(ToStringMixin, Generic[T]):
         def __init__(self, function: Callable[[], T], name: str, logged: bool = True, timeout: float | None = None):
@@ -124,17 +124,12 @@ class TaskExecutor:
     def _process_task_queue(self) -> None:
         while True:
             # obtain task from the queue
-            task: TaskExecutor.Task | None = None
             with self._task_executor_lock:
-                if len(self._task_executor_queue) > 0:
-                    task = self._task_executor_queue.pop(0)
-            if task is None:
-                time.sleep(0.1)
-                continue
+                self._task_executor_lock.wait_for(lambda: bool(self._task_executor_queue))
+                task = self._task_executor_queue.popleft()
+                self._task_executor_current_task = task
 
             # start task execution asynchronously
-            with self._task_executor_lock:
-                self._task_executor_current_task = task
             if task.logged:
                 log.info("Starting execution of %s", task.name)
             task.start()
@@ -217,6 +212,7 @@ class TaskExecutor:
                 log.info(f"Scheduling {task_name}")
             task_obj = self.Task(function=task, name=task_name, logged=logged, timeout=timeout)
             self._task_executor_queue.append(task_obj)
+            self._task_executor_lock.notify()
             return task_obj
 
     def execute_task(self, task: Callable[[], T], name: str | None = None, logged: bool = True, timeout: float | None = None) -> T:

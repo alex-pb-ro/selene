@@ -1,0 +1,63 @@
+{
+  "sequential_noop_dispatch": {
+    "n": 30,
+    "median_ms": 0.036,
+    "p95_ms": 0.064,
+    "min_ms": 0.03,
+    "max_ms": 0.068
+  },
+  "mcp_contexts": [
+    {
+      "context": "desktop-app",
+      "tool_count": 29,
+      "serialized_tool_catalog_bytes": 37204,
+      "initial_instructions_chars": 130,
+      "initialization_ms": 976.44,
+      "protocol": "2025-11-25",
+      "list_memories_round_trip": {
+        "n": 12,
+        "median_ms": 1.24,
+        "p95_ms": 2.296,
+        "min_ms": 1.161,
+        "max_ms": 2.296
+      }
+    },
+    {
+      "context": "ide",
+      "tool_count": 22,
+      "serialized_tool_catalog_bytes": 30469,
+      "initial_instructions_chars": 130,
+      "initialization_ms": 594.096,
+      "protocol": "2025-11-25",
+      "list_memories_round_trip": {
+        "n": 12,
+        "median_ms": 1.164,
+        "p95_ms": 2.256,
+        "min_ms": 1.067,
+        "max_ms": 2.256
+      }
+    },
+    {
+      "context": "codex",
+      "tool_count": 23,
+      "serialized_tool_catalog_bytes": 29651,
+      "initial_instructions_chars": 130,
+      "initialization_ms": 598.15,
+      "protocol": "2025-11-25",
+      "list_memories_round_trip": {
+        "n": 12,
+        "median_ms": 1.203,
+        "p95_ms": 2.399,
+        "min_ms": 1.101,
+        "max_ms": 2.399
+      }
+    }
+  ],
+  "method": {
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "python": "3.11.15",
+    "source_sha256": "9d57c74e7fc81c820df0b319a507e602dfa21d0875d10a7ad2516c4d21b3fc3b",
+    "model_calls": 0,
+    "scope": "Single-machine synthetic microbenchmark; MCP over stdio; no language servers or model inference."
+  }
+}
