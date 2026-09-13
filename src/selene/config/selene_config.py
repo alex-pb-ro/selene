@@ -852,6 +852,8 @@ class SeleneConfig(SharedConfig, ModeSelectionDefinitionWithBaseModes):
     gui_log_window: bool = False
     log_level: int = logging.INFO
     trace_lsp_communication: bool = False
+    persist_symbol_cache: bool = True
+    """Whether to reload and persist document-symbol caches, which can contain source text."""
     web_dashboard: bool = True
     web_dashboard_open_on_launch: bool = True
     web_dashboard_interface: str | None = None

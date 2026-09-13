@@ -1,0 +1,25 @@
+{
+  "observations": {
+    "ipv4_socket_denied": true,
+    "ipv6_socket_denied": true,
+    "raw_socket_denied": true,
+    "unix_connect_denied": true,
+    "unix_sendto_denied": true,
+    "unix_sendmsg_denied": true,
+    "unix_bind_denied": true,
+    "private_socketpair_works": true,
+    "event_loop_thread_wakeup_works": true,
+    "exec_child_inherits_denial": true,
+    "parent_secret_not_inherited": true,
+    "non_root": true,
+    "kernel_filter_and_no_new_privileges_active": true,
+    "control_received_but_filtered_payload_not_received": true
+  },
+  "method": {
+    "image": "python@sha256:9534e5a8e315485d4061ed659af0fd78a284c015f9b73661b41d6bab25604534",
+    "source_sha256": "eb838d44cee1b5aa69cbedab8fae6fff89fbd42e9539614aa27f11de67a45a0a",
+    "synthetic_only": true,
+    "model_calls": 0,
+    "scope": "Real Linux ARM64 Docker processes, including an exec child and a separate Unix-socket receiver. No project or user-home mounts. This validates the network-filter component, not a complete Selene deployment."
+  }
+}

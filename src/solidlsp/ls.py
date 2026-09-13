@@ -2999,6 +2999,8 @@ class SolidLanguageServer(ABC):
         return version[0] if len(version) == 1 else tuple(version)
 
     def _save_raw_document_symbols_cache(self) -> None:
+        if not self._solidlsp_settings.persist_symbol_cache:
+            return
         cache_file = self.cache_dir / self.RAW_DOCUMENT_SYMBOL_CACHE_FILENAME
 
         if not self._raw_document_symbols_cache_is_modified:
@@ -3047,6 +3049,8 @@ class SolidLanguageServer(ABC):
         return base_version
 
     def _load_raw_document_symbols_cache(self) -> None:
+        if not self._solidlsp_settings.persist_symbol_cache:
+            return
         cache_file = self.cache_dir / self.RAW_DOCUMENT_SYMBOL_CACHE_FILENAME
 
         if not cache_file.exists():
@@ -3092,6 +3096,8 @@ class SolidLanguageServer(ABC):
                 )
 
     def _save_document_symbols_cache(self) -> None:
+        if not self._solidlsp_settings.persist_symbol_cache:
+            return
         cache_file = self.cache_dir / self.DOCUMENT_SYMBOL_CACHE_FILENAME
 
         if not self._document_symbols_cache_is_modified:
@@ -3110,6 +3116,8 @@ class SolidLanguageServer(ABC):
             )
 
     def _load_document_symbols_cache(self) -> None:
+        if not self._solidlsp_settings.persist_symbol_cache:
+            return
         cache_file = self.cache_dir / self.DOCUMENT_SYMBOL_CACHE_FILENAME
         if cache_file.exists():
             log.info("Loading document symbols cache from %s", cache_file)
