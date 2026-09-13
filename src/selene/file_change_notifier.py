@@ -1,12 +1,12 @@
 """Ordered source observations and retryable delivery to language servers."""
 
 import threading
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 from selene.util.cancellation import CancellationToken
-from selene.util.file_snapshot import FileSnapshotReader
 from solidlsp import SolidLanguageServer
 from solidlsp.lsp_protocol_handler.lsp_types import DidChangeWatchedFilesParams, FileChangeType, FileEvent
 
@@ -24,20 +24,22 @@ class LanguageServerFileChangeNotifier:
 
     @dataclass
     class _ServerState:
-        snapshot: dict[str, str]
+        snapshot: Mapping[str, str]
         uncertain_paths: set[str] = field(default_factory=set)
 
     def __init__(self, project: "Project", language_server_manager: "LanguageServerManager", initial_poll: bool = True) -> None:
         self._project = project
         self._language_server_manager = language_server_manager
-        self._last_observed: dict[str, str] | None = None
+        self._last_observed: Mapping[str, str] | None = None
         self._server_states: dict[SolidLanguageServer, LanguageServerFileChangeNotifier._ServerState] = {}
         self._lock = threading.Lock()
         if initial_poll:
             self.poll_and_notify()
 
     @staticmethod
-    def _events(previous: dict[str, str], current: dict[str, str], uncertain: set[str]) -> dict[str, FileChangeType]:
+    def _events(previous: Mapping[str, str], current: Mapping[str, str], uncertain: set[str]) -> dict[str, FileChangeType]:
+        if previous is current and not uncertain:
+            return {}
         events = {}
         for path, fingerprint in current.items():
             if path not in previous:
@@ -49,22 +51,14 @@ class LanguageServerFileChangeNotifier:
                 events[path] = FileChangeType.Deleted
         return events
 
-    def _observe(self) -> dict[str, str]:
-        snapshot = {}
-        for relative_path in self._project.gather_source_files():
-            CancellationToken.check_current()
-            try:
-                snapshot[relative_path] = FileSnapshotReader.fingerprint(Path(self._project.project_root, relative_path))
-            except FileNotFoundError:
-                # discovery may race with deletion; other read errors must not look like deletions
-                continue
-        return snapshot
+    def _observe(self) -> Mapping[str, str]:
+        return self._project.get_local_index().refresh().source_fingerprints
 
     def poll_and_notify(self) -> int:
         """Observe source files in order and deliver changes to every language server.
 
-        The first observation establishes a baseline. Subsequent observations hash the files
-        tracked by the project, so same-size edits with restored timestamps remain visible.
+        The first observation establishes a baseline. Subsequent observations consume the local
+        content index, including its reconciliation when native event coverage is unavailable.
         Notification failures are raised and retained for retry, including ambiguous deliveries
         followed by a source change back to the previous contents.
 
@@ -108,7 +102,7 @@ class LanguageServerFileChangeNotifier:
 
     def _notify(self, server: SolidLanguageServer, events: dict[str, FileChangeType], uncertain: set[str]) -> None:
         changes: list[FileEvent] = [
-            {"uri": Path(self._project.project_root, path).resolve().as_uri(), "type": change_type}
+            {"uri": (Path(self._project.project_root).resolve() / path).as_uri(), "type": change_type}
             for path, change_type in sorted(events.items())
         ]
         params: DidChangeWatchedFilesParams = {"changes": changes}
