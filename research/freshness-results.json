@@ -1,0 +1,50 @@
+{
+  "freshness_correctness": {
+    "content_changed": true,
+    "events_after_preserving_mtime": 1,
+    "events_after_decreasing_mtime": 1,
+    "scope": "Real file-discovery/notifier code; no live language server. Its own watcher may independently detect changes."
+  },
+  "unchanged_project_poll": [
+    {
+      "files": 100,
+      "n": 10,
+      "median_ms": 3.231,
+      "p95_ms": 3.27,
+      "min_ms": 3.155,
+      "max_ms": 3.27
+    },
+    {
+      "files": 1000,
+      "n": 10,
+      "median_ms": 33.281,
+      "p95_ms": 38.482,
+      "min_ms": 31.865,
+      "max_ms": 38.482
+    },
+    {
+      "files": 10000,
+      "n": 10,
+      "median_ms": 378.63,
+      "p95_ms": 384.192,
+      "min_ms": 364.194,
+      "max_ms": 384.192
+    }
+  ],
+  "method": {
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "python": "3.11.15",
+    "synthetic_only": true,
+    "model_calls": 0,
+    "language_servers": 0,
+    "scope": "Same freshness workload as optimization_baseline.py; ten warm sequential full scans at each size.",
+    "caveats": "Single-machine microbenchmark of discovery plus file hashing, not language-server indexing latency. This correctness change does not implement incremental indexing. File metadata is checked around each read; the project is not observed atomically. No packet capture was performed.",
+    "source_sha256": {
+      "src/selene/file_change_notifier.py": "e3aaaefa1e62d467d54f065935748bf93de855cefce3aa96f89f72b762d70fa0",
+      "src/selene/util/file_snapshot.py": "10920ce9c536158d95b6dfd46d70577803fe96bd86be85825d1e228a58e53094",
+      "src/selene/project.py": "13ed6cc188fe979d64a41d7b869c6c9a5ee9b1192dfd15b933e499a003aff1df",
+      "src/solidlsp/ls.py": "3f4893328ec462a248ca28835c5a1f44c0cad6bfce302264eecb9553ef6593aa",
+      "src/solidlsp/ls_utils.py": "cc558f1e1235f4dcc66333ecbb0becabd6bcf699739f38b0d137c4250bb1c4a0"
+    }
+  }
+}

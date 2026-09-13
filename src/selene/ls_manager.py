@@ -2,15 +2,14 @@ import logging
 import os.path
 import threading
 from collections.abc import Iterator
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from sensai.util.logging import LogTime
 
 from selene.config.selene_config import ProjectConfig, SelenePaths
+from selene.file_change_notifier import LanguageServerFileChangeNotifier
 from solidlsp import SolidLanguageServer
 from solidlsp.ls_config import LanguageServerConfig, LanguageServerIdLike
-from solidlsp.lsp_protocol_handler.lsp_types import DidChangeWatchedFilesParams, FileChangeType, FileEvent
 from solidlsp.settings import SolidLSPSettings
 
 if TYPE_CHECKING:
@@ -280,97 +279,3 @@ class LanguageServerManager:
         num_changes = self._file_change_notifier.poll_and_notify()
         log.info(f"File system polling complete; {num_changes} change events sent to language servers.")
         return num_changes
-
-
-class LanguageServerFileChangeNotifier:
-    """
-    Detects changes to source files on disk and notifies language servers of those changes.
-    """
-
-    def __init__(self, project: "Project", language_server_manager: LanguageServerManager, initial_poll: bool = True) -> None:
-        self._project = project
-        self._language_server_manager = language_server_manager
-        self._freshness_last_seen_mtimes: dict[str, float] | None = None
-        self._freshness_lock = threading.Lock()
-
-        if initial_poll:
-            # Establish the baseline for the first poll; no notifications are sent on the first call.
-            with LogTime("Initialising file change notifier (polling for baseline)"):
-                self.poll_and_notify()
-
-    def poll_and_notify(self) -> int:
-        """
-        Detects source files that were changed, created or deleted on disk since the last call
-        and notifies every language server managed for this project via the LSP
-        ``workspace/didChangeWatchedFiles`` notification.
-
-        This exists because Selene's own file and symbol tools notify the language server inline
-        (via didOpen/didChange/didClose) when they edit a file, but edits made through any other
-        channel (another editor, a second agent, a git checkout, a build step) are otherwise
-        invisible to a warm language server, causing symbolic queries to answer from a stale index.
-
-        The set of files considered is exactly the set Selene itself tracks (see
-        :meth:`gather_source_files`), so no separate file-discovery logic has to be kept in sync.
-        The dominant cost is the directory walk plus one ``os.stat`` per tracked file; this is
-        intended to be called before symbolic tool invocations rather than on a timer.
-
-        :return: the number of change events sent (0 if nothing changed, if no language server is
-            running yet, or on the first call, which only establishes the baseline).
-        """
-        current: dict[str, float] = {}
-        for rel_path in self._project.gather_source_files():
-            try:
-                current[rel_path] = os.stat(os.path.join(self._project.project_root, rel_path)).st_mtime
-            except OSError:
-                continue
-
-        # Read-diff-swap under the lock only; the filesystem walk above and the LSP notifications
-        # below stay outside it so concurrent callers do not serialize on I/O.
-        with self._freshness_lock:
-            previous = self._freshness_last_seen_mtimes
-            self._freshness_last_seen_mtimes = current
-
-            if previous is None:
-                return 0
-
-            # compute the set of individual events (created, changed, deleted)
-            events: list[tuple[str, FileChangeType]] = []
-            for rel_path, mtime in current.items():
-                prev_mtime = previous.get(rel_path)
-                if prev_mtime is None:
-                    events.append((rel_path, FileChangeType.Created))
-                elif mtime > prev_mtime:
-                    events.append((rel_path, FileChangeType.Changed))
-            events.extend((rel_path, FileChangeType.Deleted) for rel_path in previous if rel_path not in current)
-
-        if not events:
-            return 0
-
-        # create the change didChangeWatchedFiles notification
-        changes: list[FileEvent] = [
-            {"uri": Path(self._project.project_root, rel_path).resolve().as_uri(), "type": change_type} for rel_path, change_type in events
-        ]
-        params: DidChangeWatchedFilesParams = {"changes": changes}
-        created_paths = [rel_path for rel_path, change_type in events if change_type == FileChangeType.Created]
-
-        for ls in self._language_server_manager.iter_language_servers():
-            # send the didChangeWatchedFiles notification to the language server
-            try:
-                ls.server.notify.did_change_watched_files(params)
-            except Exception as e:
-                log.error("Failed to notify language server of watched file changes", exc_info=e)
-
-            # A didChangeWatchedFiles(Created) notification alone is not enough for every backend
-            # (observed with pyright) to fold a brand-new file into its cross-file reference graph;
-            # an open/close cycle forces the parse+bind that Selene's own file tools trigger via
-            # SolidLanguageServer.open_file().
-            for rel_path in created_paths:
-                if ls.is_ignored_path(rel_path, ignore_unsupported_files=True):
-                    continue
-                try:
-                    with ls.open_file(rel_path):
-                        pass
-                except Exception as e:
-                    log.error(f"Failed to refresh newly created file {rel_path!r} in language server", exc_info=e)
-
-        return len(events)
