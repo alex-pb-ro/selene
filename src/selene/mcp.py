@@ -7,9 +7,12 @@ from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager
 from copy import deepcopy
 from dataclasses import dataclass
+from functools import partial
 from typing import Any, Literal, cast
 
+import anyio
 import docstring_parser
+from anyio.to_thread import run_sync
 from mcp.server.fastmcp import server
 from mcp.server.fastmcp.exceptions import ToolError
 from mcp.server.fastmcp.server import Context, FastMCP, Settings
@@ -28,6 +31,7 @@ from selene.config.context_mode import SeleneAgentContext
 from selene.config.selene_config import LanguageBackend, ModeSelectionDefinition, SeleneConfig
 from selene.constants import DEFAULT_CONTEXT, SELENE_LOG_FORMAT
 from selene.tools import Tool, ToolCallError
+from selene.util.cancellation import CancellationToken
 from selene.util.exception import show_fatal_exception_safe
 from selene.util.logging import MemoryLogHandler
 
@@ -61,7 +65,7 @@ class SeleneFastMCPTool(FastMCPTool):
         func_name = tool.get_name()
         func_doc = tool.get_apply_docstring() or ""
         func_arg_metadata = tool.get_apply_fn_metadata(structured_output=structured_output)
-        is_async = False
+        is_async = True
         parameters = func_arg_metadata.arg_model.model_json_schema()
         if openai_tool_compatible:
             parameters = SeleneMCPFactory._sanitize_for_openai_tools(parameters)
@@ -95,11 +99,16 @@ class SeleneFastMCPTool(FastMCPTool):
                 param_desc = f"{param_doc.description.strip().strip('.') + '.'}"
                 properties["description"] = param_desc[0].upper() + param_desc[1:]
 
-        def execute_fn(**kwargs) -> str:
-            try:
-                return tool.apply_ex(log_call=True, catch_exceptions=False, **kwargs)
-            except ToolCallError as e:
-                raise ToolError(e.get_error_message()) from e
+        async def execute_fn(**kwargs) -> str:
+            cancellation = CancellationToken()
+            with cancellation.bind():
+                try:
+                    return await run_sync(partial(tool.apply_ex, log_call=True, catch_exceptions=False, **kwargs), abandon_on_cancel=True)
+                except anyio.get_cancelled_exc_class():
+                    cancellation.cancel()
+                    raise
+                except ToolCallError as e:
+                    raise ToolError(e.get_error_message()) from e
 
         # Generate human-readable title from snake_case tool name
         tool_title = " ".join(word.capitalize() for word in func_name.split("_"))

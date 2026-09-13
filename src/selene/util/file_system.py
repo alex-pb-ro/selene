@@ -13,6 +13,8 @@ import pathspec
 from pathspec import PathSpec
 from sensai.util.logging import LogTime
 
+from selene.util.cancellation import CancellationToken
+
 log = logging.getLogger(__name__)
 
 
@@ -71,6 +73,7 @@ def _replace_with_retry(src: str, dst: str, *, attempts: int = 10, delay_s: floa
     """
     for attempt in range(attempts):
         try:
+            CancellationToken.check_current()
             os.replace(src, dst)
             return
         except PermissionError:

@@ -1,5 +1,9 @@
 """Tests for the mcp.py module in selene."""
 
+import asyncio
+from concurrent.futures import CancelledError
+from threading import Event
+
 import pytest
 from mcp.server.fastmcp.tools.base import Tool as MCPTool
 
@@ -8,6 +12,7 @@ from selene.agent import Tool, ToolRegistry
 from selene.config.context_mode import SeleneAgentContext
 from selene.config.selene_config import SeleneConfig
 from selene.mcp import SeleneMCPFactory
+from selene.util.cancellation import CancellationToken
 
 make_tool = SeleneMCPFactory.make_mcp_tool
 
@@ -49,6 +54,7 @@ class BasicTool(BaseMockTool):
         **kwargs,
     ) -> str:
         """Mock implementation of apply_ex."""
+        kwargs.pop("mcp_ctx", None)
         return self.apply(**kwargs)
 
 
@@ -96,9 +102,46 @@ def test_make_tool_execution() -> None:
     mcp_tool = make_tool(mock_tool)
 
     # Execute the MCP tool function
-    result = mcp_tool.fn(name="Alice", age=30)
+    result = asyncio.run(mcp_tool.run({"name": "Alice", "age": 30}))
 
     assert result == "Hello Alice, you are 30 years old!"
+
+
+def test_mcp_tool_keeps_event_loop_responsive_and_propagates_cancellation():
+    started, release, stopped, cancellation_observed = Event(), Event(), Event(), Event()
+
+    class SlowTool(BaseMockTool):
+        def apply(self) -> str:
+            """Run a synthetic slow operation."""
+            return "unused"
+
+        def apply_ex(self, **kwargs) -> str:
+            started.set()
+            try:
+                assert release.wait(3)
+                CancellationToken.check_current()
+                return "Operation continued"
+            except CancelledError:
+                cancellation_observed.set()
+                raise
+            finally:
+                stopped.set()
+
+    async def scenario():
+        request = asyncio.create_task(make_tool(SlowTool()).run({}))
+        try:
+            assert await asyncio.to_thread(started.wait, 1)
+            # another tool must complete while the first request is blocked
+            assert await asyncio.wait_for(make_tool(BasicTool()).run({"name": "Bob"}), timeout=1) == "Hello Bob, you are 0 years old!"
+            request.cancel()
+            with pytest.raises(asyncio.CancelledError):
+                await request
+        finally:
+            release.set()
+        assert await asyncio.to_thread(stopped.wait, 1)
+        assert cancellation_observed.is_set()
+
+    asyncio.run(scenario())
 
 
 def test_make_tool_no_params() -> None:

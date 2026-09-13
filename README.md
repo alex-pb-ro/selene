@@ -38,6 +38,8 @@ Choose a client context such as `claude-code`, `codex`, or `ide` with `selene co
 
 Configuration and logs live in `~/.selene` (override with `SELENE_HOME`). Project configuration, memories, and caches use `.selene/`. See the [installation guide](docs/02-usage/010_installation.md), [client setup](docs/02-usage/030_clients.md), and [configuration guide](docs/02-usage/050_configuration.md).
 
+See [cancellation and timeouts](docs/02-usage/071_cancellation.md) for operation ordering, cleanup and recovery after an interrupted edit.
+
 ## Privacy
 
 The fork removes startup usage reporting, remote dashboard news and advertising, dashboard update checks, and API-based token counting. Dashboard scripts are bundled locally; the browser does not need third-party fonts or scripts.

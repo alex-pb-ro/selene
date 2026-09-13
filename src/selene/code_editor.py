@@ -8,6 +8,7 @@ from typing import Generic, TypeVar, cast
 
 from selene.jetbrains.jetbrains_plugin_client import JetBrainsPluginClient
 from selene.symbol import JetBrainsSymbol, LanguageServerSymbol, LanguageServerSymbolRetriever, PositionInFile, Symbol
+from selene.util.cancellation import CancellationToken
 from solidlsp import SolidLanguageServer, ls_types
 from solidlsp.ls import LSPFileBuffer
 from solidlsp.ls_utils import PathUtils, TextStepper, TextUtils
@@ -89,6 +90,7 @@ class CodeEditor(Generic[TSymbol], ABC):
     def _save_edited_file(self, edited_file: "CodeEditor.EditedFile") -> None:
         abs_path = os.path.join(self.project_root, edited_file.relative_path)
         new_contents = edited_file.get_contents()
+        CancellationToken.check_current()
         with open(abs_path, "w", encoding=self.encoding, newline=self.newline) as f:
             f.write(new_contents)
 

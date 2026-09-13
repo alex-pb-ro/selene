@@ -1,0 +1,21 @@
+{
+  "protocol": "2025-11-25",
+  "ping_during_slow_tool_ms": 1.525,
+  "next_tool_after_cancellation_ms": 25.588,
+  "child_stopped_before_next_tool_returned": true,
+  "configured_timeout_returned_tool_error": true,
+  "child_stopped_before_next_tool_after_timeout": true,
+  "child_stopped_before_server_exit_on_disconnect": true,
+  "late_effect_occurred": false,
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "python": "3.11.15",
+  "model_calls": 0,
+  "scope": "Actual stdio MCP and a synthetic local shell child. No language servers or Internet calls. Not an OS egress audit.",
+  "source_sha256": {
+    "src/selene/task_executor.py": "aec7245bf2f4d28b8b5426bf859b2cabce6115000eb3872c589f6bac79b9bdcb",
+    "src/selene/mcp.py": "7b42ce1a8c96079be0f620e363a234d7256200fe5bd97c280ca283e655e15723",
+    "src/selene/util/cancellation.py": "2c7de9e343ab4284b4f1abfa759ad3e923df453da50cd8a0289421bbdd167557",
+    "src/selene/util/shell.py": "8bcefafc2f2e4e9622069cc3b6d51f31cd96dd77100e143360d1b6ac66934fc5",
+    "src/selene/agent.py": "26b417d4bfe3afbefc066ecc110e5a7f705bfbe0119fbddeaad9f6e1d3da461f"
+  }
+}

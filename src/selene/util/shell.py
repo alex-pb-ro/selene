@@ -1,10 +1,12 @@
 import os
+import signal
 import subprocess
 
 from pydantic import BaseModel
 
+from selene.util.cancellation import CancellationToken
 from solidlsp.util.privacy import SubprocessPrivacy
-from solidlsp.util.subprocess_util import subprocess_kwargs
+from solidlsp.util.subprocess_util import subprocess_kwargs, terminate_process_tree_with_kill_fallback
 
 
 class ShellCommandResult(BaseModel):
@@ -26,6 +28,7 @@ def execute_shell_command(command: str, cwd: str | None = None, capture_stderr: 
     if cwd is None:
         cwd = os.getcwd()
 
+    CancellationToken.check_current()
     process = subprocess.Popen(
         command,
         shell=True,
@@ -37,10 +40,31 @@ def execute_shell_command(command: str, cwd: str | None = None, capture_stderr: 
         errors="replace",
         cwd=cwd,
         env=SubprocessPrivacy.environment(),
+        start_new_session=True,
         **subprocess_kwargs(),
     )
 
-    stdout, stderr = process.communicate()
+    try:
+        while True:
+            CancellationToken.check_current()
+            try:
+                stdout, stderr = process.communicate(timeout=0.1)
+                break
+            except subprocess.TimeoutExpired:
+                continue
+    except BaseException:
+        # retain task ownership while stopping the shell and draining its output pipes
+        process_group_id = process.pid if os.name == "posix" else None
+        terminate_process_tree_with_kill_fallback(process, terminate_timeout=0.25, process_group_id=process_group_id)
+        if process_group_id is not None:
+            # the shell may exit before descendants that ignore SIGTERM
+            try:
+                os.killpg(process_group_id, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                # still wait for pipe closure if the OS refuses to signal the group
+                pass
+        process.communicate()
+        raise
     return ShellCommandResult(stdout=stdout, stderr=stderr, return_code=process.returncode, cwd=cwd)
 
 

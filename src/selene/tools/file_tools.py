@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Literal
 
 from selene.tools import SUCCESS_RESULT, EditedFileContext, EditingToolWithDiagnostics, Tool, ToolMarkerOptional
+from selene.util.cancellation import CancellationToken
 from selene.util.file_system import scan_directory
 from selene.util.text_utils import (
     ContentReplacer,
@@ -82,6 +83,7 @@ class CreateTextFileTool(EditingToolWithDiagnostics):
                 )
 
             # writing the file
+            CancellationToken.check_current()
             abs_path.parent.mkdir(parents=True, exist_ok=True)
             abs_path.write_text(content, encoding=self.project.project_config.encoding, newline=self.project.line_ending.newline_str)
             answer = f"File created: {relative_path}."

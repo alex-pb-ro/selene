@@ -11,6 +11,8 @@ from sensai.util import logging
 from sensai.util.logging import LogTime
 from sensai.util.string import ToStringMixin
 
+from selene.util.cancellation import CancellationToken
+
 log = logging.getLogger(__name__)
 T = TypeVar("T")
 
@@ -28,6 +30,7 @@ class TaskExecutor:
         self._task_executor_current_task: TaskExecutor.Task | None = None
         self._task_executor_last_executed_task_info: TaskExecutor.TaskInfo | None = None
         self._task_completion_callback = task_completion_callback
+        self._closed = False
         self._task_executor_thread = Thread(target=self._process_task_queue, name=name, daemon=True)
         self._task_executor_thread.start()
 
@@ -44,6 +47,24 @@ class TaskExecutor:
             self.logged = logged
             self.timeout = timeout
             self._function = function
+            self._cancellation = CancellationToken(timeout, on_cancel=self._cancel_result)
+            self._execution_finished = threading.Event()
+            self._execution_thread: Thread | None = None
+            self.future.add_done_callback(self._on_result_completed)
+
+        def _cancel_result(self) -> None:
+            self.future.cancel()
+
+        def _on_result_completed(self, future: Future) -> None:
+            if future.cancelled():
+                self._cancellation.cancel()
+
+        def _set_exception(self, error: BaseException) -> None:
+            try:
+                self.future.set_exception(error)
+            except concurrent.futures.InvalidStateError:
+                # retain a result already delivered by cancellation or deadline expiry
+                pass
 
         def _tostring_includes(self) -> list[str]:
             return ["name"]
@@ -59,21 +80,37 @@ class TaskExecutor:
                         if self.logged:
                             log.info(f"Task {self.name} was already completed/cancelled; skipping execution")
                         return
-                    with LogTime(self.name, logger=log, enabled=self.logged):
+                    with self._cancellation.bind(), LogTime(self.name, logger=log, enabled=self.logged):
+                        self._cancellation.check()
                         result = self._function()
-                        if not self.future.done():
+                        self._cancellation.check()
+                        try:
                             self.future.set_result(result)
-                except Exception as e:
+                        except concurrent.futures.InvalidStateError:
+                            # cancellation may race with publishing the completed result
+                            pass
+                except BaseException as e:
                     if not self.future.done():
-                        log.error(f"Error during execution of {self.name}: {e}", exc_info=e)
-                        self.future.set_exception(e)
+                        if not isinstance(e, concurrent.futures.CancelledError | TimeoutError):
+                            log.error(f"Error during execution of {self.name}: {e}", exc_info=e)
+                        self._set_exception(e)
+                finally:
+                    self._execution_finished.set()
 
-            thread = Thread(target=run_task, name=self.name)
-            thread.start()
+            self._execution_thread = Thread(target=run_task, name=self.name)
+            try:
+                self._execution_thread.start()
+            except BaseException as e:
+                self._set_exception(e)
+                self._execution_finished.set()
+
+        def is_current_thread(self) -> bool:
+            """Return whether the caller is executing this task."""
+            return self._execution_thread is threading.current_thread()
 
         def is_done(self) -> bool:
             """
-            :return: whether the task has completed (either successfully, with failure, or via cancellation)
+            :return: whether the result has settled; a cancelled operation may still be exiting
             """
             return self.future.done()
 
@@ -84,14 +121,17 @@ class TaskExecutor:
             If the timeout is reached, a TimeoutError is raised.
             If the task is cancelled, a CancelledError is raised.
 
-            :param timeout: the maximum time to wait in seconds; if None, wait indefinitely
+            :param timeout: the caller's maximum wait in seconds; the task's deadline also applies
             :param cancel_on_timeout: whether to cancel the task if the timeout is reached.
                 If the task has not yet started, cancellation prevents its execution entirely;
-                if it is already running, the underlying thread continues to run, but its result
-                is discarded and any waiter will receive a CancelledError.
+                if it is already running, cancellation is cooperative and its result is discarded.
+                The executor waits for the underlying operation to exit before starting subsequent work.
             :return: the result of the task
             """
             try:
+                remaining = self._cancellation.remaining()
+                if remaining is not None:
+                    timeout = remaining if timeout is None else min(timeout, remaining)
                 return self.future.result(timeout=timeout)
             except concurrent.futures.TimeoutError:
                 if cancel_on_timeout:
@@ -106,26 +146,25 @@ class TaskExecutor:
             """
             self.future.cancel()
 
-        def wait_until_done(self) -> bool:
+        def wait_until_done(self) -> None:
             """
-            Waits until the task is done or its timeout is reached.
-            The task is done if it either completed successfully, failed with an exception, or was cancelled.
-
-            :return: True if the task is done (successfully, with failure, or via cancellation), False if the timeout was reached
+            Wait for the underlying execution to exit, including after cancellation or timeout.
+            A timeout completes the result with an error and requests cooperative cancellation;
+            it does not release the executor's ownership of the operation.
             """
-            try:
-                self.future.result(timeout=self.timeout)
-            except concurrent.futures.TimeoutError:
-                return False
-            except:
-                pass
-            return True
+            if not self._execution_finished.wait(self._cancellation.remaining()):
+                self._set_exception(TimeoutError(f"Task {self.name} exceeded its deadline"))
+                self._cancellation.cancel()
+                log.warning("Task %s exceeded its deadline; waiting for execution to stop before starting more work", self.name)
+                self._execution_finished.wait()
 
     def _process_task_queue(self) -> None:
         while True:
             # obtain task from the queue
             with self._task_executor_lock:
-                self._task_executor_lock.wait_for(lambda: bool(self._task_executor_queue))
+                self._task_executor_lock.wait_for(lambda: bool(self._task_executor_queue) or self._closed)
+                if not self._task_executor_queue:
+                    return
                 task = self._task_executor_queue.popleft()
                 self._task_executor_current_task = task
 
@@ -135,9 +174,7 @@ class TaskExecutor:
             task.start()
 
             # wait for task completion
-            is_done = task.wait_until_done()
-            if not is_done:
-                log.warning("Task %s did not complete within the timeout of %s seconds; continuing ...", task.name, task.timeout)
+            task.wait_until_done()
             with self._task_executor_lock:
                 self._task_executor_current_task = None
                 if task.logged:
@@ -202,6 +239,8 @@ class TaskExecutor:
         :return: the task object, through which the task's future result can be accessed
         """
         with self._task_executor_lock:
+            if self._closed:
+                raise RuntimeError("Task executor has been shut down")
             if logged:
                 task_prefix_name = f"Task-{self._task_executor_task_index}"
                 self._task_executor_task_index += 1
@@ -237,3 +276,23 @@ class TaskExecutor:
         """
         with self._task_executor_lock:
             return self._task_executor_last_executed_task_info
+
+    def shutdown(self, timeout: float = 2.0) -> bool:
+        """Reject new work, cancel pending work, and wait for execution to stop.
+
+        :param timeout: the maximum time to wait for execution and callbacks to exit
+        :return: whether shutdown has completed; False leaves the executor closed and can be retried.
+            A task cannot wait for its own exit, so a call from that task returns False immediately.
+        """
+        with self._task_executor_lock:
+            self._closed = True
+            current = self._task_executor_current_task
+            for task in self._task_executor_queue:
+                task.cancel()
+            if current is not None:
+                current.cancel()
+            self._task_executor_lock.notify_all()
+        if self._task_executor_thread is threading.current_thread() or (current is not None and current.is_current_thread()):
+            return False
+        self._task_executor_thread.join(timeout=timeout)
+        return not self._task_executor_thread.is_alive()

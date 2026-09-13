@@ -21,6 +21,7 @@ from selene.config.selene_config import RegisteredProject
 from selene.constants import SelenePorts
 from selene.jetbrains.jetbrains_types import PluginStatusDTO
 from selene.project import Project
+from selene.util.cancellation import CancellationToken
 from selene.util.class_decorators import singleton
 from selene.util.http import DirectHttpSession
 from selene.util.text_utils import render_html
@@ -311,6 +312,7 @@ class JetBrainsPluginClient(ToStringMixin):
             This must not be enabled if *any* key contains variable data rather (and therefore isn't a well-defined DTO structure).
         :return: the response as a dictionary
         """
+        CancellationToken.check_current()
         url = f"{self._base_url}{endpoint}"
 
         response: Response | None = None

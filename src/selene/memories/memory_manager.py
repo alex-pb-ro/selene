@@ -10,6 +10,7 @@ from selene.config.selene_config import (
     SelenePaths,
 )
 from selene.constants import SELENE_FILE_ENCODING
+from selene.util.cancellation import CancellationToken
 from selene.util.file_system import write_file_atomic
 from selene.util.text_utils import ContentReplacer
 
@@ -316,6 +317,7 @@ class MemoryManager:
         memory_file_path = self.get_memory_file_path(name)
         if not memory_file_path.exists():
             return f"Memory {name} not found."
+        CancellationToken.check_current()
         memory_file_path.unlink()
         return f"Memory {name} deleted."
 
@@ -338,6 +340,7 @@ class MemoryManager:
         if new_path.exists():
             raise FileExistsError(f"Memory {new_name} already exists.")
 
+        CancellationToken.check_current()
         new_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.move(old_path, new_path)
 

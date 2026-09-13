@@ -2,6 +2,7 @@ import inspect
 import json
 from abc import ABC
 from collections.abc import Callable, Iterable
+from concurrent.futures import CancelledError
 from dataclasses import dataclass
 from functools import cached_property
 from types import TracebackType
@@ -17,6 +18,7 @@ from selene.config.selene_config import LanguageBackend
 from selene.memories.memory_manager import MemoryManager
 from selene.project import Project
 from selene.prompt_factory import PromptFactory
+from selene.util.cancellation import CancellationToken
 from selene.util.class_decorators import singleton
 from selene.util.inspection import iter_subclasses
 from selene.util.ls_diagnostics import DiagnosticsDiff, EditedFilePath, PublishedDiagnosticsSnapshot
@@ -378,15 +380,23 @@ class Tool(Component):
 
                 # apply the actual tool
                 try:
+                    CancellationToken.check_current()
                     result = apply_fn(**apply_kwargs)
                 except SolidLSPException as e:
                     if e.is_language_server_terminated():
+                        CancellationToken.check_current()
+                        if not isinstance(self, ToolMarkerSymbolicRead) or self.can_edit():
+                            raise ToolCallError(
+                                "Language server terminated. The operation was not retried because its effects may be partial. "
+                                "Inspect the affected state before deciding whether to retry."
+                            ) from e
                         affected_language = e.get_affected_language()
                         if affected_language is not None:
                             log.error(
                                 f"Language server terminated while executing tool ({e}). Restarting the language server and retrying ..."
                             )
                             self.agent.get_language_server_manager_or_raise().restart_language_server(affected_language)
+                            CancellationToken.check_current()
                             result = apply_fn(**apply_kwargs)
                         else:
                             log.error(
@@ -399,7 +409,7 @@ class Tool(Component):
                 # record tool usage
                 self.agent.record_tool_usage(apply_kwargs, result, self)
 
-            except ToolCallError:
+            except (ToolCallError, CancelledError, TimeoutError):
                 raise
             except Exception as e:
                 msg = f"{e.__class__.__name__}: {e}"
@@ -419,7 +429,7 @@ class Tool(Component):
             return result
 
         # execute the tool in the agent's task executor, with timeout
-        # (task timeout bounds task execution in the dispatcher once it runs, result timeout limits the time we wait)
+        # (the deadline includes queue time; cancellation retains ownership until execution exits)
         tool_call_error: ToolCallError
         timeout = self.agent.selene_config.tool_timeout
         try:
@@ -428,9 +438,17 @@ class Tool(Component):
         except ToolCallError as e:
             tool_call_error = e
         except TimeoutError:
-            msg = f"Tool execution timed out after {timeout} seconds. "
+            msg = (
+                f"Tool execution timed out (configured limit: {timeout} seconds). Cancellation was requested; "
+                "later work waits until this operation stops. Effects may be partial; inspect the affected state before retrying."
+            )
             log.error(msg)
             tool_call_error = ToolCallError(msg)
+        except CancelledError:
+            tool_call_error = ToolCallError(
+                "Tool execution was cancelled. Later work waits until this operation stops. "
+                "Effects may be partial; inspect the affected state before retrying."
+            )
         except Exception as e:  # unexpected errors (exceptions in the task itself are caught and forwarded as ToolCallError)
             msg = f"{e.__class__.__name__}: {e}"
             log.error(msg)

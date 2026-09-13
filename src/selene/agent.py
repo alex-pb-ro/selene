@@ -1463,10 +1463,14 @@ class SeleneAgent:
         if self._dashboard_manager:
             self._dashboard_manager.shutdown()
             self._dashboard_manager = None
+        task_executor = getattr(self, "_task_executor", None)
+        drained = task_executor is None or task_executor.shutdown(timeout=timeout)
         if self._active_project is not None:
             log.info(f"Shutting down active project '{self._active_project.project_name}' ...")
             self._active_project.shutdown(timeout=timeout)
             self._active_project = None
+        if task_executor is not None and not drained and not task_executor.shutdown(timeout=timeout):
+            log.warning("An operation is still exiting after shutdown; the executor is closed to further work")
 
     def shutdown(self) -> None:
         """

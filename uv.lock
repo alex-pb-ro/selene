@@ -2780,6 +2780,7 @@ name = "selene-agent"
 version = "1.7.1.dev0"
 source = { editable = "." }
 dependencies = [
+    { name = "anyio" },
     { name = "beautifulsoup4" },
     { name = "cryptography" },
     { name = "docstring-parser" },
@@ -2851,6 +2852,7 @@ google = [
 requires-dist = [
     { name = "agno", marker = "extra == 'agno'", specifier = "==2.6.6" },
     { name = "anthropic", marker = "extra == 'agno'", specifier = "==0.117.0" },
+    { name = "anyio", specifier = "==4.13.0" },
     { name = "beautifulsoup4", specifier = "==4.14.2" },
     { name = "cryptography", specifier = "==50.0.0" },
     { name = "docstring-parser", specifier = "==0.17.0" },
