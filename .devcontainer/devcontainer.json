@@ -1,0 +1,16 @@
+{
+  "name": "selene Project",
+  "dockerFile": "../Dockerfile",
+  "workspaceFolder": "/workspaces/selene",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "python.pythonPath": "/usr/local/bin/python",
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "ms-python.vscode-pylance"
+  ],
+  "forwardPorts": [],
+  "remoteUser": "root",
+}
