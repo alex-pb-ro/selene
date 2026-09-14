@@ -1,0 +1,110 @@
+{
+  "sequential_noop_dispatch": {
+    "n": 30,
+    "median_ms": 104.237,
+    "p95_ms": 105.39,
+    "min_ms": 0.178,
+    "max_ms": 105.465
+  },
+  "executor_safety": {
+    "next_task_runs_while_timed_out_operation_is_active": true,
+    "cancelled_future": true,
+    "operation_side_effect_occurs_after_cancel": true,
+    "scope": "Real executor; side effect is only setting an in-memory Event. No project edits."
+  },
+  "freshness_correctness": {
+    "content_changed": true,
+    "events_after_preserving_mtime": 0,
+    "events_after_decreasing_mtime": 0,
+    "scope": "Real file-discovery/notifier code; no live language server. Its own watcher may independently detect changes."
+  },
+  "unchanged_project_poll": [
+    {
+      "files": 100,
+      "n": 10,
+      "median_ms": 1.555,
+      "p95_ms": 1.846,
+      "min_ms": 1.458,
+      "max_ms": 1.846
+    },
+    {
+      "files": 1000,
+      "n": 10,
+      "median_ms": 18.882,
+      "p95_ms": 19.539,
+      "min_ms": 17.937,
+      "max_ms": 19.539
+    },
+    {
+      "files": 10000,
+      "n": 10,
+      "median_ms": 175.366,
+      "p95_ms": 177.465,
+      "min_ms": 174.359,
+      "max_ms": 177.465
+    }
+  ],
+  "mcp_contexts": [
+    {
+      "context": "desktop-app",
+      "tool_count": 29,
+      "serialized_tool_catalog_bytes": 37204,
+      "initial_instructions_chars": 130,
+      "initialization_ms": 623.208,
+      "protocol": "2025-11-25",
+      "list_memories_round_trip": {
+        "n": 12,
+        "median_ms": 106.797,
+        "p95_ms": 107.953,
+        "min_ms": 70.52,
+        "max_ms": 107.953
+      }
+    },
+    {
+      "context": "ide",
+      "tool_count": 22,
+      "serialized_tool_catalog_bytes": 30469,
+      "initial_instructions_chars": 130,
+      "initialization_ms": 523.883,
+      "protocol": "2025-11-25",
+      "list_memories_round_trip": {
+        "n": 12,
+        "median_ms": 105.662,
+        "p95_ms": 109.525,
+        "min_ms": 71.323,
+        "max_ms": 109.525
+      }
+    },
+    {
+      "context": "codex",
+      "tool_count": 23,
+      "serialized_tool_catalog_bytes": 29651,
+      "initial_instructions_chars": 130,
+      "initialization_ms": 518.974,
+      "protocol": "2025-11-25",
+      "list_memories_round_trip": {
+        "n": 12,
+        "median_ms": 106.609,
+        "p95_ms": 109.895,
+        "min_ms": 71.935,
+        "max_ms": 109.895
+      }
+    }
+  ],
+  "method": {
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "python": "3.11.15",
+    "temporary_directory": "/var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-optimization-_zr15i82",
+    "synthetic_only": true,
+    "runtime_modified": false,
+    "model_calls": 0,
+    "network_scope": "No model or Internet calls configured; MCP over stdio; not a packet capture.",
+    "caveats": "Single-machine microbenchmarks, sequential warm filesystem samples; startup measured once per context without language servers. Catalog bytes are not model tokens. No proposed optimization implemented.",
+    "source_sha256": {
+      "src/selene/task_executor.py": "3a8c543320f4b3708de2cf45745d166d58fe6812677ef7959ba00bf2bd928241",
+      "src/selene/ls_manager.py": "048ff06a13a72a5fa8f030cb221742505d5737f9c70ab9aeb2a0ed8bf017242e",
+      "src/selene/project.py": "13ed6cc188fe979d64a41d7b869c6c9a5ee9b1192dfd15b933e499a003aff1df",
+      "src/selene/mcp.py": "279057da02d66b4e7336f46f0f367d62426d0c89015fd5539504342ec78aced4"
+    }
+  }
+}

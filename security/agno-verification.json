@@ -1,0 +1,11 @@
+{
+  "agent_telemetry": false,
+  "agentos_telemetry": false,
+  "tracing": false,
+  "overrides_parent_opt_in": true,
+  "api_lifespan_started": true,
+  "config_endpoint_ok": true,
+  "external_docs_disabled": true,
+  "network_attempts": [],
+  "scope": "Agent/AgentOS initialization and ASGI lifespan, without model invocation."
+}
