@@ -1,0 +1,468 @@
+{
+  "synthetic_only": true,
+  "agents_started": 0,
+  "model_calls": 0,
+  "uploaded_data": false,
+  "meaning": "Trusted task-package self-test, not measured agent task success or an adversarial grader attestation.",
+  "observations": [
+    {
+      "task": "python_authorization_boundary",
+      "variant": "baseline",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": false,
+          "detail": "assert False is True\n +  where False = authorize(Account(active=True), 0, 0)\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": false,
+          "detail": "assert False is True\n +  where False = checkout(Account(active=True), 7)\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [],
+      "unintended_paths": [],
+      "elapsed_ms": 186.413,
+      "human_review_required": true
+    },
+    {
+      "task": "python_authorization_boundary",
+      "variant": "reference",
+      "automated_checks_passed": true,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "shop/policy.py",
+        "tests/test_boundary.py"
+      ],
+      "unintended_paths": [],
+      "elapsed_ms": 158.195,
+      "human_review_required": true
+    },
+    {
+      "task": "python_authorization_boundary",
+      "variant": "regression_mutant",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": false,
+          "detail": "assert True is False\n +  where True = authorize(Account(active=True), (0 + 1), 0)\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": false,
+          "detail": "assert True is False\n +  where True = checkout(Account(active=True), (7 + 1))\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "shop/policy.py",
+        "tests/test_boundary.py"
+      ],
+      "unintended_paths": [],
+      "elapsed_ms": 166.323,
+      "human_review_required": true
+    },
+    {
+      "task": "python_authorization_boundary",
+      "variant": "unrelated_edit",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "shipping/config.txt",
+        "shop/policy.py",
+        "tests/test_boundary.py"
+      ],
+      "unintended_paths": [
+        "shipping/config.txt"
+      ],
+      "elapsed_ms": 155.993,
+      "human_review_required": true
+    },
+    {
+      "task": "python_required_currency_migration",
+      "variant": "baseline",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": false,
+          "detail": "Failed: DID NOT RAISE <class 'TypeError'>"
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": false,
+          "detail": "TypeError: render_amount() got an unexpected keyword argument 'currency'"
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": false,
+          "detail": "TypeError: render_amount() got an unexpected keyword argument 'currency'"
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": false,
+          "detail": "AssertionError: assert ['USD 1.29', 'USD 2.05'] == ['EUR 1.29', 'USD 2.05']\n  \n  At index 0 diff: 'USD 1.29' != 'EUR 1.29'\n  Use -v to get more diff"
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [],
+      "unintended_paths": [],
+      "elapsed_ms": 173.29,
+      "human_review_required": true
+    },
+    {
+      "task": "python_required_currency_migration",
+      "variant": "reference",
+      "automated_checks_passed": true,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "billing/export.py",
+        "billing/invoices.py",
+        "billing/money.py",
+        "billing/refunds.py",
+        "docs/api.md",
+        "tests/test_currencies.py"
+      ],
+      "unintended_paths": [],
+      "elapsed_ms": 161.871,
+      "human_review_required": true
+    },
+    {
+      "task": "python_required_currency_migration",
+      "variant": "regression_mutant",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": false,
+          "detail": "AssertionError: assert ['USD 1.29', 'USD 2.05'] == ['EUR 1.29', 'USD 2.05']\n  \n  At index 0 diff: 'USD 1.29' != 'EUR 1.29'\n  Use -v to get more diff"
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "billing/export.py",
+        "billing/invoices.py",
+        "billing/money.py",
+        "billing/refunds.py",
+        "docs/api.md",
+        "tests/test_currencies.py"
+      ],
+      "unintended_paths": [],
+      "elapsed_ms": 166.668,
+      "human_review_required": true
+    },
+    {
+      "task": "python_required_currency_migration",
+      "variant": "unrelated_edit",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "billing/display.py",
+        "billing/export.py",
+        "billing/invoices.py",
+        "billing/money.py",
+        "billing/refunds.py",
+        "docs/api.md",
+        "tests/test_currencies.py"
+      ],
+      "unintended_paths": [
+        "billing/display.py"
+      ],
+      "elapsed_ms": 155.932,
+      "human_review_required": true
+    },
+    {
+      "task": "typescript_gateway_request_migration",
+      "variant": "baseline",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "public_types_and_compilation",
+          "passed": false,
+          "detail": "../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(1,26): error TS2305: Module '\"./workspace/src/gateway\"' has no exported member 'PaymentRequest'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(7,1): error TS2578: Unused '@ts-expect-error' directive.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(9,1): error TS2578: Unused '@ts-expect-error' directive.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(21,68): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(22,70): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(27,88): error TS2339: Property 'currency' does not exist on type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(28,29): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(30,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(34,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n"
+        },
+        {
+          "name": "currency_specific_boundaries",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        }
+      ],
+      "changed_paths": [],
+      "unintended_paths": [],
+      "elapsed_ms": 302.706,
+      "human_review_required": true
+    },
+    {
+      "task": "typescript_gateway_request_migration",
+      "variant": "reference",
+      "automated_checks_passed": true,
+      "checks": [
+        {
+          "name": "currency_specific_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "docs/api.md",
+        "src/client.ts",
+        "src/gateway.ts",
+        "src/real.ts",
+        "tests/smoke.ts"
+      ],
+      "unintended_paths": [],
+      "elapsed_ms": 324.13,
+      "human_review_required": true
+    },
+    {
+      "task": "typescript_gateway_request_migration",
+      "variant": "regression_mutant",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "currency_specific_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": false,
+          "detail": "Error: expectation failed"
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "docs/api.md",
+        "src/client.ts",
+        "src/gateway.ts",
+        "src/real.ts",
+        "tests/smoke.ts"
+      ],
+      "unintended_paths": [],
+      "elapsed_ms": 333.521,
+      "human_review_required": true
+    },
+    {
+      "task": "typescript_gateway_request_migration",
+      "variant": "unrelated_edit",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "currency_specific_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "changed_paths": [
+        "docs/api.md",
+        "src/client.ts",
+        "src/gateway.ts",
+        "src/other.ts",
+        "src/real.ts",
+        "tests/smoke.ts"
+      ],
+      "unintended_paths": [
+        "src/other.ts"
+      ],
+      "elapsed_ms": 340.85,
+      "human_review_required": true
+    }
+  ],
+  "source_sha256": {
+    "run.py": "028b152d943903ee8c13fa36e986118d2a6c0d6d3c319da505c6b82028113869",
+    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd",
+    "checks.py": "e911644e42e417bc7a6720b52cf992a5defe7e03bc29da51b25cf9e1da01f9af"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "copied_files_verified": 617,
+  "tooling_manifest_sha256": "5c06bd3cace554a01f4cd7d169caa0361fa0f050462562cf7005f03d90f6dde1",
+  "versions": {
+    "pytest": "8.4.1",
+    "pluggy": "1.6.0",
+    "iniconfig": "2.3.0",
+    "packaging": "26.0",
+    "pygments": "2.19.2",
+    "typescript": "5.9.3"
+  },
+  "python": "3.11.16",
+  "node": "v20.19.2",
+  "network_boundary_sha256": "eb838d44cee1b5aa69cbedab8fae6fff89fbd42e9539614aa27f11de67a45a0a",
+  "worker_sha256": "d913b4bda0d8c429115c9e593cac808f41f21791b9b2dce3167d4a127c3f080b",
+  "checks_sha256": "e911644e42e417bc7a6720b52cf992a5defe7e03bc29da51b25cf9e1da01f9af",
+  "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+  "base_image": "sha256:d44c3e3d25949d48ee8af0cc5cb68dff2d5e440b3af967618318b964c69991eb",
+  "base_layers_verified": true,
+  "build_network": "none",
+  "image_published": false,
+  "agent_data_used": false
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A recorded paired agent benchmark attempt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["trial_id", "task_id", "arm", "status", "client", "elapsed_seconds", "provider_usage", "verification", "human_review", "privacy_gate", "unintended_paths", "task_success"],
+  "properties": {
+    "trial_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "arm": {"enum": ["native", "prior_selene", "proposed_selene"]},
+    "status": {"enum": ["completed", "timeout", "failed", "cancelled"]},
+    "client": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "provider", "model_version", "reasoning_budget", "network_profile"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "model_version": {"type": "string", "minLength": 1},
+        "reasoning_budget": {"type": "string", "minLength": 1},
+        "network_profile": {"type": "string", "minLength": 1}
+      }
+    },
+    "elapsed_seconds": {"type": "number", "minimum": 0},
+    "provider_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "input_tokens", "output_tokens"],
+      "properties": {
+        "source": {"enum": ["provider_reported", "unavailable"]},
+        "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "output_tokens": {"type": ["integer", "null"], "minimum": 0}
+      },
+      "allOf": [
+        {"if": {"properties": {"source": {"const": "provider_reported"}}}, "then": {"properties": {"input_tokens": {"type": "integer"}, "output_tokens": {"type": "integer"}}}},
+        {"if": {"properties": {"source": {"const": "unavailable"}}}, "then": {"properties": {"input_tokens": {"type": "null"}, "output_tokens": {"type": "null"}}}}
+      ]
+    },
+    "verification": {"enum": ["passed", "failed", "not_run"]},
+    "human_review": {"enum": ["passed", "failed", "pending"]},
+    "privacy_gate": {"enum": ["passed", "failed", "unverified"]},
+    "unintended_paths": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "task_success": {"type": "boolean"},
+    "failure_detail": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"task_success": {"const": true}}},
+      "then": {"properties": {"status": {"const": "completed"}, "verification": {"const": "passed"}, "human_review": {"const": "passed"}, "privacy_gate": {"const": "passed"}, "unintended_paths": {"maxItems": 0}}}
+    }
+  ]
+}

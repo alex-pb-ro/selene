@@ -1,0 +1,2033 @@
+{
+  "method": {
+    "synthetic_only": true,
+    "model_calls": 0,
+    "budget_json_characters": 15000,
+    "rounds": 2,
+    "ordering": "seeded shuffle; separate fresh project/backend per method and round; same-process warm repeat",
+    "envelope": "same ContextPageRenderer for all methods; map supplies locations without bodies; all other methods may supply bodies",
+    "grep": "anchor then case-insensitive query-word rg matches with three context lines, merged overlapping ranges",
+    "existing_symbols": "find the explicit anchor and its direct referencing symbols using the existing retriever; no adaptive follow-up",
+    "repository_map": "anchor then all admitted document symbols and non-code file locations, deterministic path order; no bodies",
+    "anchored_lexical": "anchor then up to 64 ranked local-index matches; no twelve-match cutoff",
+    "limits": "Two authored fixtures, four labelled symbols and 32 distractors each; this is not an optimized human/agent workflow or a paired task-success test. JSON characters are not provider tokens. Page return is the measured first-result boundary; no streaming time is claimed. Filesystem/dependency caches are not flushed.",
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "typescript_server": "cli.mjs",
+    "source_sha256": {
+      "src/selene/context/__init__.py": "d42c5c1af9ecd71d4849cc1d16133cd5c102688eb105d52f9beaf70797691999",
+      "src/selene/context/bundles.py": "a9f2b79e5ee89b77295a6abe838b88c5e788d5543c13404ad67afb8391ccabd0",
+      "src/selene/context/model.py": "a204c69c40dfd3210b993d0e3f1e862790444cc5a7c370854ee94c549edf0e2d",
+      "src/selene/context/python_bindings.py": "cfab47356fa6443748a10f4bc1e3613f4fe58c21e58fc6b3daafe31d6b8561d0",
+      "src/selene/context/selection.py": "60dd2e2e31b76e2c26c12d106b53eb8550e19bc6dda342c407b5c3f18c7444de",
+      "src/selene/context/semantic.py": "4ecf72ee6482f04b0af896c4e6a10983b0fd2b14d5fb719fa261dca63879e9dd",
+      "src/selene/context/sources.py": "dab6a5e1cf740601719e0932b8a0c8d3991b7731c56470979e37034fea7ff625",
+      "src/selene/indexing/__init__.py": "731a65bfa55d9dc1fc2f37e4f3a1b7d5c3d7c0473c77fb203bc480c65c1c808c",
+      "src/selene/indexing/coverage.py": "122976ccbd9d11f7503c29f7bbed2d1724e72ca5de41a2cdc853e89df394ae79",
+      "src/selene/indexing/inotify.py": "4926be8ca3da1a75e787d76c9f29409e8a1bb73cac51f5b35b39764e00eefc39",
+      "src/selene/indexing/journal.py": "f13920c3f374efc4fe8208c6634864f7e80ad95912ac9fdc0c5e35672ec39b96",
+      "src/selene/indexing/kqueue.py": "f33d26f1f4a24f130a37ed4f3e2552beeb851852d6c6656d6122af88e1879ad7",
+      "src/selene/indexing/local_index.py": "3c9284610781380c1be70dd8b97d071a1eab249b96caf9c867b7ac490ec69f62",
+      "src/selene/indexing/project_policy.py": "beba2d0e0953c98ef37a5dbde4fdb068d607493e92ddd9a063da982a36e6fab7",
+      "src/selene/indexing/scope.py": "de7edd35a5e84800bab799d1199b3c579d0e2741a4745069dd05c4e8cf492923",
+      "src/selene/project.py": "3d4abf706985035ee82ae9ae9e06e9871c9f56aa92132effe1266791143d059e",
+      "src/selene/symbol.py": "2af572d0091ad0ef14e4a51cd2a4965aef7a9fb892f10e2f1e71acb4d27c45de",
+      "src/solidlsp/ls.py": "0dc031518159b6b0af0a4ad033ecd3e0f2ecd0fdd78298b6872d6239ea378c6e",
+      "research/probes/context_acceptance.py": "2ae9f78508804d3a639e73523eda91c363efbae2b953d85b2b936174c9d97b49"
+    }
+  },
+  "fixtures": [
+    {
+      "name": "python_import_alias",
+      "query": "checkout payment",
+      "anchor": {
+        "path": "checkout.py",
+        "symbol": "checkout"
+      },
+      "expected_symbols": [
+        {
+          "path": "checkout.py",
+          "name": "checkout",
+          "first": 4,
+          "last": 5
+        },
+        {
+          "path": "policy.py",
+          "name": "authorize",
+          "first": 3,
+          "last": 4
+        },
+        {
+          "path": "models.py",
+          "name": "Payment",
+          "first": 4,
+          "last": 5
+        },
+        {
+          "path": "tests/test_checkout.py",
+          "name": "test_checkout",
+          "first": 4,
+          "last": 5
+        }
+      ],
+      "relevant_paths": [
+        "checkout.py",
+        "policy.py",
+        "models.py",
+        "tests/test_checkout.py",
+        "docs/approval.md",
+        "settings.toml"
+      ],
+      "source_sha256": {
+        "checkout.py": "bf3514b769529d959626a695bf386e721f744857459c70ff101e9845b78f1691",
+        "policy.py": "cbbba31cd05e6fa1163a097b47c7960e8b1d9080c8cd683a215783e8da495ee6",
+        "models.py": "442b1ca89051e841bfe99e4ccdfc61f72caf74746b42bc6ce77da3241031c2df",
+        "tests/test_checkout.py": "39773c4bd8964908b92fe627d27c63968491966e70c050afceb10bef4ddb0264",
+        "docs/approval.md": "69bec8c0ce8b239438cd00eaf43dfd433a72c46f47f953e7b796eaf84509c037",
+        "settings.toml": "32bc36e1c13988ce73123a9b5b0c534fe7a19a08e9df36e077a17c086aed081a",
+        "unrelated.py": "b732c70d2d3d9bfb420d9458ff205b14b59b718ca9fdfc8c67057fda253f1a50"
+      }
+    },
+    {
+      "name": "typescript_injected_interface",
+      "query": "checkout payment",
+      "anchor": {
+        "path": "client.ts",
+        "symbol": "checkout"
+      },
+      "expected_symbols": [
+        {
+          "path": "client.ts",
+          "name": "checkout",
+          "first": 2,
+          "last": 4
+        },
+        {
+          "path": "gateway.ts",
+          "name": "PaymentGateway",
+          "first": 1,
+          "last": 3
+        },
+        {
+          "path": "real.ts",
+          "name": "RealGateway",
+          "first": 2,
+          "last": 4
+        },
+        {
+          "path": "tests/checkout.test.ts",
+          "name": "test_checkout",
+          "first": 3,
+          "last": 3
+        }
+      ],
+      "relevant_paths": [
+        "client.ts",
+        "gateway.ts",
+        "real.ts",
+        "tests/checkout.test.ts",
+        "docs/approval.md",
+        "settings.json"
+      ],
+      "source_sha256": {
+        "client.ts": "e32bba705181611100ddce3bf0365325fb45f684d15cf3ae49f85e3c21152655",
+        "gateway.ts": "84bdc756a525b1d5205e58264f4db98236c17e9d879be0a741aaa687225209cb",
+        "real.ts": "73b0fa8344248988884da56b29062672317ef3588e6e73abb6edfd1bab34b3e5",
+        "tests/checkout.test.ts": "a289eb925bbc5c2defe7403f055933c54e45e78811eddab73c292e50b29bae43",
+        "docs/approval.md": "8ccfbd97abd928745082135bc504b07e88bbe418f1b3c92ec0da00f660314223",
+        "settings.json": "46dd1e3230ac16db2253277c0454d7ea8066d78c6c7230376c2963dd05a33c7d",
+        "other.ts": "c088554f7395272d4d42d8cf05c5a49c22abba41e2ced62fef13096a9d979c76",
+        "tsconfig.json": "9babfeac808f88a737799a9bc7435fe6eeb110883035b49f8c317ac8a5676e98"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "grep",
+      "phase": "first_request",
+      "startup_ms": 14.671,
+      "request_ms": 36.85,
+      "first_result_from_project_start_ms": 51.521,
+      "json_characters": 14707,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "grep",
+      "phase": "warm_repeat",
+      "startup_ms": 14.671,
+      "request_ms": 35.753,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14707,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "existing_symbols",
+      "phase": "first_request",
+      "startup_ms": 374.5,
+      "request_ms": 2103.644,
+      "first_result_from_project_start_ms": 2478.144,
+      "json_characters": 1425,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "existing_symbols",
+      "phase": "warm_repeat",
+      "startup_ms": 374.5,
+      "request_ms": 4.957,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 1425,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "repository_map",
+      "phase": "first_request",
+      "startup_ms": 270.39,
+      "request_ms": 104.602,
+      "first_result_from_project_start_ms": 374.992,
+      "json_characters": 14615,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py",
+        "noise_29.py",
+        "noise_30.py",
+        "noise_31.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "repository_map",
+      "phase": "warm_repeat",
+      "startup_ms": 270.39,
+      "request_ms": 30.453,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14614,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py",
+        "noise_29.py",
+        "noise_30.py",
+        "noise_31.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "context_bundle",
+      "phase": "first_request",
+      "startup_ms": 260.541,
+      "request_ms": 2204.882,
+      "first_result_from_project_start_ms": 2465.423,
+      "json_characters": 10681,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 1.0,
+      "symbol_body_recall": 1.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees",
+        "out_of_scope_or_unsearchable_semantic_targets_omitted"
+      ],
+      "logical_operations": 30
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "context_bundle",
+      "phase": "warm_repeat",
+      "startup_ms": 260.541,
+      "request_ms": 44.798,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 10681,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 1.0,
+      "symbol_body_recall": 1.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees",
+        "out_of_scope_or_unsearchable_semantic_targets_omitted"
+      ],
+      "logical_operations": 30
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 0,
+      "method": "anchored_lexical",
+      "error": "ValueError: Use 1-64 search terms and a result limit between 1 and 50"
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "anchored_lexical",
+      "error": "ValueError: Use 1-64 search terms and a result limit between 1 and 50"
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "existing_symbols",
+      "phase": "first_request",
+      "startup_ms": 261.98,
+      "request_ms": 2093.192,
+      "first_result_from_project_start_ms": 2355.173,
+      "json_characters": 1426,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "existing_symbols",
+      "phase": "warm_repeat",
+      "startup_ms": 261.98,
+      "request_ms": 4.894,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 1426,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "checkout.py",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "repository_map",
+      "phase": "first_request",
+      "startup_ms": 267.036,
+      "request_ms": 105.709,
+      "first_result_from_project_start_ms": 372.745,
+      "json_characters": 14615,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py",
+        "noise_29.py",
+        "noise_30.py",
+        "noise_31.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "repository_map",
+      "phase": "warm_repeat",
+      "startup_ms": 267.036,
+      "request_ms": 30.777,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14616,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py",
+        "noise_29.py",
+        "noise_30.py",
+        "noise_31.py",
+        "policy.py",
+        "settings.toml"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "grep",
+      "phase": "first_request",
+      "startup_ms": 12.769,
+      "request_ms": 34.011,
+      "first_result_from_project_start_ms": 46.78,
+      "json_characters": 14704,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "grep",
+      "phase": "warm_repeat",
+      "startup_ms": 12.769,
+      "request_ms": 32.913,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14705,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "models.py:Payment"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "noise_09.py",
+        "noise_10.py",
+        "noise_11.py",
+        "noise_12.py",
+        "noise_13.py",
+        "noise_14.py",
+        "noise_15.py",
+        "noise_16.py",
+        "noise_17.py",
+        "noise_18.py",
+        "noise_19.py",
+        "noise_20.py",
+        "noise_21.py",
+        "noise_22.py",
+        "noise_23.py",
+        "noise_24.py",
+        "noise_25.py",
+        "noise_26.py",
+        "noise_27.py",
+        "noise_28.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "context_bundle",
+      "phase": "first_request",
+      "startup_ms": 261.833,
+      "request_ms": 2203.102,
+      "first_result_from_project_start_ms": 2464.936,
+      "json_characters": 10682,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 1.0,
+      "symbol_body_recall": 1.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees",
+        "out_of_scope_or_unsearchable_semantic_targets_omitted"
+      ],
+      "logical_operations": 30
+    },
+    {
+      "fixture": "python_import_alias",
+      "round": 1,
+      "method": "context_bundle",
+      "phase": "warm_repeat",
+      "startup_ms": 261.833,
+      "request_ms": 43.961,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 10681,
+      "located_symbols": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "checkout.py:checkout",
+        "policy.py:authorize",
+        "models.py:Payment",
+        "tests/test_checkout.py:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 1.0,
+      "symbol_body_recall": 1.0,
+      "relevant_files_returned": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "checkout.py",
+        "docs/approval.md",
+        "models.py",
+        "noise_00.py",
+        "noise_01.py",
+        "noise_02.py",
+        "noise_03.py",
+        "noise_04.py",
+        "noise_05.py",
+        "noise_06.py",
+        "noise_07.py",
+        "noise_08.py",
+        "policy.py",
+        "settings.toml",
+        "tests/test_checkout.py"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees",
+        "out_of_scope_or_unsearchable_semantic_targets_omitted"
+      ],
+      "logical_operations": 30
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "grep",
+      "phase": "first_request",
+      "startup_ms": 13.495,
+      "request_ms": 32.68,
+      "first_result_from_project_start_ms": 46.175,
+      "json_characters": 14821,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "grep",
+      "phase": "warm_repeat",
+      "startup_ms": 13.495,
+      "request_ms": 31.709,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14821,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "anchored_lexical",
+      "error": "ValueError: Use 1-64 search terms and a result limit between 1 and 50"
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "context_bundle",
+      "phase": "first_request",
+      "startup_ms": 108.022,
+      "request_ms": 382.557,
+      "first_result_from_project_start_ms": 490.579,
+      "json_characters": 10572,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees"
+      ],
+      "logical_operations": 25
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "context_bundle",
+      "phase": "warm_repeat",
+      "startup_ms": 108.022,
+      "request_ms": 22.696,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 10571,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees"
+      ],
+      "logical_operations": 25
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "existing_symbols",
+      "phase": "first_request",
+      "startup_ms": 97.78,
+      "request_ms": 316.039,
+      "first_result_from_project_start_ms": 413.818,
+      "json_characters": 1458,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "existing_symbols",
+      "phase": "warm_repeat",
+      "startup_ms": 97.78,
+      "request_ms": 3.976,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 1458,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "repository_map",
+      "phase": "first_request",
+      "startup_ms": 88.702,
+      "request_ms": 344.517,
+      "first_result_from_project_start_ms": 433.219,
+      "json_characters": 14965,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway",
+        "real.ts:RealGateway"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts",
+        "noise_28.ts",
+        "noise_29.ts",
+        "noise_30.ts",
+        "noise_31.ts",
+        "other.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 0,
+      "method": "repository_map",
+      "phase": "warm_repeat",
+      "startup_ms": 88.702,
+      "request_ms": 32.176,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14965,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway",
+        "real.ts:RealGateway"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts",
+        "noise_28.ts",
+        "noise_29.ts",
+        "noise_30.ts",
+        "noise_31.ts",
+        "other.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "existing_symbols",
+      "phase": "first_request",
+      "startup_ms": 90.923,
+      "request_ms": 306.435,
+      "first_result_from_project_start_ms": 397.357,
+      "json_characters": 1459,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "existing_symbols",
+      "phase": "warm_repeat",
+      "startup_ms": 90.923,
+      "request_ms": 4.066,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 1459,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 0.3333333333333333,
+      "returned_paths": [
+        "client.ts",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 2
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "context_bundle",
+      "phase": "first_request",
+      "startup_ms": 89.948,
+      "request_ms": 349.101,
+      "first_result_from_project_start_ms": 439.049,
+      "json_characters": 10572,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees"
+      ],
+      "logical_operations": 25
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "context_bundle",
+      "phase": "warm_repeat",
+      "startup_ms": 89.948,
+      "request_ms": 23.71,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 10571,
+      "located_symbols": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "tests/checkout.test.ts:test_checkout"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "relevant_file_recall": 1.0,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "real.ts",
+        "settings.json",
+        "tests/checkout.test.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": false,
+      "limitations": [
+        "bounded_selection_not_exhaustive",
+        "file_role_names_are_heuristics",
+        "language_server_relationships_are_static_not_runtime_guarantees"
+      ],
+      "logical_operations": 25
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "anchored_lexical",
+      "error": "ValueError: Use 1-64 search terms and a result limit between 1 and 50"
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "repository_map",
+      "phase": "first_request",
+      "startup_ms": 89.091,
+      "request_ms": 334.568,
+      "first_result_from_project_start_ms": 423.659,
+      "json_characters": 14965,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway",
+        "real.ts:RealGateway"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts",
+        "noise_28.ts",
+        "noise_29.ts",
+        "noise_30.ts",
+        "noise_31.ts",
+        "other.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "repository_map",
+      "phase": "warm_repeat",
+      "startup_ms": 89.091,
+      "request_ms": 32.368,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14964,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway",
+        "real.ts:RealGateway"
+      ],
+      "complete_symbol_bodies": [],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.75,
+      "symbol_body_recall": 0.0,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "relevant_file_recall": 0.8333333333333334,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts",
+        "noise_28.ts",
+        "noise_29.ts",
+        "noise_30.ts",
+        "noise_31.ts",
+        "other.ts",
+        "real.ts",
+        "settings.json"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 37
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "grep",
+      "phase": "first_request",
+      "startup_ms": 13.418,
+      "request_ms": 32.707,
+      "first_result_from_project_start_ms": 46.124,
+      "json_characters": 14820,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    },
+    {
+      "fixture": "typescript_injected_interface",
+      "round": 1,
+      "method": "grep",
+      "phase": "warm_repeat",
+      "startup_ms": 13.418,
+      "request_ms": 31.578,
+      "first_result_from_project_start_ms": null,
+      "json_characters": 14820,
+      "located_symbols": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "complete_symbol_bodies": [
+        "client.ts:checkout",
+        "gateway.ts:PaymentGateway"
+      ],
+      "expected_symbol_count": 4,
+      "symbol_location_recall": 0.5,
+      "symbol_body_recall": 0.5,
+      "relevant_files_returned": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts"
+      ],
+      "relevant_file_recall": 0.5,
+      "returned_paths": [
+        "client.ts",
+        "docs/approval.md",
+        "gateway.ts",
+        "noise_00.ts",
+        "noise_01.ts",
+        "noise_02.ts",
+        "noise_03.ts",
+        "noise_04.ts",
+        "noise_05.ts",
+        "noise_06.ts",
+        "noise_07.ts",
+        "noise_08.ts",
+        "noise_09.ts",
+        "noise_10.ts",
+        "noise_11.ts",
+        "noise_12.ts",
+        "noise_13.ts",
+        "noise_14.ts",
+        "noise_15.ts",
+        "noise_16.ts",
+        "noise_17.ts",
+        "noise_18.ts",
+        "noise_19.ts",
+        "noise_20.ts",
+        "noise_21.ts",
+        "noise_22.ts",
+        "noise_23.ts",
+        "noise_24.ts",
+        "noise_25.ts",
+        "noise_26.ts",
+        "noise_27.ts"
+      ],
+      "overlapping_range_pairs": 0,
+      "has_continuation": true,
+      "limitations": [
+        "predefined_nonadaptive_baseline"
+      ],
+      "logical_operations": 1
+    }
+  ]
+}

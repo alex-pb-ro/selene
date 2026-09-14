@@ -1,0 +1,943 @@
+{
+  "synthetic_only": true,
+  "agents_started": 0,
+  "model_calls": 0,
+  "uploads": false,
+  "observations": [
+    {
+      "variant": "baseline",
+      "task": "python_authorization_boundary",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "f8c1dd64741e8a7f531e7710479218f81f904b7909fbf169b7c5a3629a70e652",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": false,
+          "detail": "assert False is True\n +  where False = authorize(Account(active=True), 0, 0)\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": false,
+          "detail": "assert False is True\n +  where False = checkout(Account(active=True), 7)\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 338.213,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "reference",
+      "task": "python_authorization_boundary",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "5c44f71358d16947a4726f2b7b892cae5c6e361e1a512a7f3bb0c2745c6462b0",
+      "automated_checks_passed": true,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "shop/policy.py",
+        "tests/test_boundary.py"
+      ],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 318.015,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "regression_mutant",
+      "task": "python_authorization_boundary",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "8f1d71bf92ce60d830df500dc3abb011c9af547cc2c931f385a378af5a6e8eb3",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": false,
+          "detail": "assert True is False\n +  where True = authorize(Account(active=True), (0 + 1), 0)\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": false,
+          "detail": "assert True is False\n +  where True = checkout(Account(active=True), (7 + 1))\n +    where Account(active=True) = Account(True)"
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "shop/policy.py",
+        "tests/test_boundary.py"
+      ],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 322.248,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "unrelated_edit",
+      "task": "python_authorization_boundary",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "15a4ea2c81a57386540eb53e10399302248b2c01f40663f2ca1bdd7c8d9829b7",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_inclusive_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_negative_and_suspended",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_configuration_is_observed_per_checkout",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_lower_amounts_still_work",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "shipping/config.txt",
+        "shop/policy.py",
+        "tests/test_boundary.py"
+      ],
+      "unintended_paths": [
+        "shipping/config.txt"
+      ],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 331.529,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "baseline",
+      "task": "python_required_currency_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "686d9a304fe909b131367f90fc500032f8cec2fcfba5c4a7bdfe3b3e7e79c5dc",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": false,
+          "detail": "Failed: DID NOT RAISE <class 'TypeError'>"
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": false,
+          "detail": "TypeError: render_amount() got an unexpected keyword argument 'currency'"
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": false,
+          "detail": "TypeError: render_amount() got an unexpected keyword argument 'currency'"
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": false,
+          "detail": "AssertionError: assert ['USD 1.29', 'USD 2.05'] == ['EUR 1.29', 'USD 2.05']\n  \n  At index 0 diff: 'USD 1.29' != 'EUR 1.29'\n  Use -v to get more diff"
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 311.331,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "reference",
+      "task": "python_required_currency_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "8f86d05cdede94997121eba0cc1cd6a277d9fac0dfbdc7a1a028715f6f28e0b1",
+      "automated_checks_passed": true,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "billing/export.py",
+        "billing/invoices.py",
+        "billing/money.py",
+        "billing/refunds.py",
+        "docs/api.md",
+        "tests/test_currencies.py"
+      ],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 311.037,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "regression_mutant",
+      "task": "python_required_currency_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "c32e454aa00b81762b0c81ec95ad5a95b16e9b8fbc3466a0584448fd8e255aa1",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": false,
+          "detail": "AssertionError: assert ['USD 1.29', 'USD 2.05'] == ['EUR 1.29', 'USD 2.05']\n  \n  At index 0 diff: 'USD 1.29' != 'EUR 1.29'\n  Use -v to get more diff"
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "billing/export.py",
+        "billing/invoices.py",
+        "billing/money.py",
+        "billing/refunds.py",
+        "docs/api.md",
+        "tests/test_currencies.py"
+      ],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 338.7,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "unrelated_edit",
+      "task": "python_required_currency_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "68c5fdea6eeef972c8b8d08439c30834be121825acd649019e2481483655d773",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "test_required_keyword_currency_contract",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_exact_minor_unit_formatting",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_invalid_currency_and_negative_amount",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_alias_module_and_reflective_callers",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "test_unrelated_display_stays_compatible",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "billing/display.py",
+        "billing/export.py",
+        "billing/invoices.py",
+        "billing/money.py",
+        "billing/refunds.py",
+        "docs/api.md",
+        "tests/test_currencies.py"
+      ],
+      "unintended_paths": [
+        "billing/display.py"
+      ],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 301.585,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "baseline",
+      "task": "typescript_gateway_request_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "68c5fbeeb0d762458480e61ad9e2954fc708ca216d0c0bf9e8c5b9eefa845652",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "public_types_and_compilation",
+          "passed": false,
+          "detail": "checks.ts(1,26): error TS2305: Module '\"./workspace/src/gateway\"' has no exported member 'PaymentRequest'.\nchecks.ts(7,1): error TS2578: Unused '@ts-expect-error' directive.\nchecks.ts(9,1): error TS2578: Unused '@ts-expect-error' directive.\nchecks.ts(21,68): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\nchecks.ts(22,70): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\nchecks.ts(27,88): error TS2339: Property 'currency' does not exist on type 'number'.\nchecks.ts(28,29): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\nchecks.ts(30,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\nchecks.ts(34,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n"
+        },
+        {
+          "name": "currency_specific_boundaries",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": false,
+          "detail": "Expected independent check did not execute"
+        }
+      ],
+      "failure": null,
+      "changed_paths": [],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 513.753,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "reference",
+      "task": "typescript_gateway_request_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "ee1aabbf6d39c542d13a40387f0c8a6bae3f75d79331cd6d0b77aea634d9664f",
+      "automated_checks_passed": true,
+      "checks": [
+        {
+          "name": "currency_specific_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "docs/api.md",
+        "src/client.ts",
+        "src/gateway.ts",
+        "src/real.ts",
+        "tests/smoke.ts"
+      ],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 540.98,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "regression_mutant",
+      "task": "typescript_gateway_request_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "c3f24104c2caec62bfd50add41a1728d31e4919cf2d76ade8d4cd22fcb4df1a0",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "currency_specific_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": false,
+          "detail": "Error: expectation failed"
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "docs/api.md",
+        "src/client.ts",
+        "src/gateway.ts",
+        "src/real.ts",
+        "tests/smoke.ts"
+      ],
+      "unintended_paths": [],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 533.629,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    },
+    {
+      "variant": "unrelated_edit",
+      "task": "typescript_gateway_request_migration",
+      "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+      "submission_sha256": "9c5a6f7b4ebd7cfa7757bea78d004503a45b8999bbb771396fbe89ed55bd0f9d",
+      "automated_checks_passed": false,
+      "checks": [
+        {
+          "name": "currency_specific_boundaries",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "checkout_preserves_injected_request",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_injected_denial",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "unrelated_overload_unchanged",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "failure": null,
+      "changed_paths": [
+        "docs/api.md",
+        "src/client.ts",
+        "src/gateway.ts",
+        "src/other.ts",
+        "src/real.ts",
+        "tests/smoke.ts"
+      ],
+      "unintended_paths": [
+        "src/other.ts"
+      ],
+      "container_settings": {
+        "network": "none",
+        "logging": "none",
+        "read_only_root": true,
+        "user": "65534:65534",
+        "mounts": [
+          {
+            "destination": "/submission/input.json",
+            "writable": false
+          }
+        ],
+        "oom_killed": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "security_options": [
+          "no-new-privileges"
+        ]
+      },
+      "container_removed": true,
+      "elapsed_ms": 533.736,
+      "human_review_required": true,
+      "agent_scope_verified": false,
+      "failure_output_tail": null
+    }
+  ],
+  "boundary_canaries": {
+    "task": "python_authorization_boundary",
+    "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+    "submission_sha256": "1aba7b85ca7a70525adc655ec520e459ae8d9b70a7f7850ebb6513617592cbea",
+    "automated_checks_passed": true,
+    "checks": [
+      {
+        "name": "test_inclusive_boundaries",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_negative_and_suspended",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_configuration_is_observed_per_checkout",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_lower_amounts_still_work",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_verifier_boundary",
+        "passed": true,
+        "detail": ""
+      }
+    ],
+    "failure": null,
+    "changed_paths": [
+      "shop/isolation_probe.py",
+      "shop/policy.py",
+      "tests/test_boundary.py"
+    ],
+    "unintended_paths": [],
+    "container_settings": {
+      "network": "none",
+      "logging": "none",
+      "read_only_root": true,
+      "user": "65534:65534",
+      "mounts": [
+        {
+          "destination": "/submission/input.json",
+          "writable": false
+        }
+      ],
+      "oom_killed": false,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_options": [
+        "no-new-privileges"
+      ]
+    },
+    "container_removed": true,
+    "elapsed_ms": 319.732,
+    "human_review_required": true,
+    "agent_scope_verified": false,
+    "failure_output_tail": null
+  },
+  "sealed_snapshot": {
+    "task": "python_authorization_boundary",
+    "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+    "submission_sha256": "829dd3cdda1db3e870f34a567b94fcbc604dff2f007be43c5556e9a2ca31d41a",
+    "automated_checks_passed": true,
+    "checks": [
+      {
+        "name": "test_inclusive_boundaries",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_negative_and_suspended",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_configuration_is_observed_per_checkout",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "test_lower_amounts_still_work",
+        "passed": true,
+        "detail": ""
+      }
+    ],
+    "failure": null,
+    "changed_paths": [
+      "shop/isolation_probe.py",
+      "shop/policy.py",
+      "tests/test_boundary.py"
+    ],
+    "unintended_paths": [],
+    "container_settings": {
+      "network": "none",
+      "logging": "none",
+      "read_only_root": true,
+      "user": "65534:65534",
+      "mounts": [
+        {
+          "destination": "/submission/input.json",
+          "writable": false
+        }
+      ],
+      "oom_killed": false,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_options": [
+        "no-new-privileges"
+      ]
+    },
+    "container_removed": true,
+    "elapsed_ms": 303.253,
+    "human_review_required": true,
+    "agent_scope_verified": false,
+    "failure_output_tail": null
+  },
+  "timeout_cleanup": {
+    "task": "python_authorization_boundary",
+    "image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+    "submission_sha256": "36fbe0db5f2b588ee068fae1b7887f98201d851a129e1272b1341e533643b088",
+    "automated_checks_passed": false,
+    "checks": [],
+    "failure": "timeout",
+    "changed_paths": [
+      "shop/isolation_probe.py",
+      "shop/policy.py",
+      "tests/test_boundary.py"
+    ],
+    "unintended_paths": [],
+    "container_settings": {
+      "network": "none",
+      "logging": "none",
+      "read_only_root": true,
+      "user": "65534:65534",
+      "mounts": [
+        {
+          "destination": "/submission/input.json",
+          "writable": false
+        }
+      ],
+      "oom_killed": false,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_options": [
+        "no-new-privileges"
+      ]
+    },
+    "container_removed": true,
+    "elapsed_ms": 3058.641,
+    "human_review_required": true,
+    "agent_scope_verified": false,
+    "failure_output_tail": ""
+  },
+  "snapshot_rejections": {
+    "symlink": true,
+    "directory_symlink": true,
+    "fifo": true,
+    "hardlink": true,
+    "oversized": true
+  },
+  "unicode_crlf_bytes_preserved": true,
+  "agent_scope_verified": false,
+  "adversarial_grader_attestation": false,
+  "source_sha256": {
+    "isolated.py": "3d4f906784956c4aa558dc2d3b518d734073de0d06e749c7e01ede90a50cda3a",
+    "container_worker.py": "d913b4bda0d8c429115c9e593cac808f41f21791b9b2dce3167d4a127c3f080b",
+    "checks.py": "e911644e42e417bc7a6720b52cf992a5defe7e03bc29da51b25cf9e1da01f9af",
+    "isolated_probe.py": "313efc9b9e7703b2d76be1aa9a030d96f230eb76360091663a25d68e76d148bf",
+    "run.py": "028b152d943903ee8c13fa36e986118d2a6c0d6d3c319da505c6b82028113869",
+    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd",
+    "Verifier.Dockerfile": "58d61244650c70274b3b0d55d0f7ac88ad329625bed113259685fd405232eac2",
+    "build_context.py": "a15a096ae1f23f6954575529de8e19d27bc15a924fdb0af23e8622fe43ab3d8c"
+  }
+}

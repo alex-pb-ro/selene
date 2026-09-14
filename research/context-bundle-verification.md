@@ -1,5 +1,7 @@
 # Context bundle verification
 
+This report records the original context-feature checkpoint. A later [comparative acceptance check](context-acceptance-verification.md) adds TypeScript evidence and grep/symbol/map baselines; its limitations and results supersede the unverified-comparison scope below without rewriting the historical measurements.
+
 The optional `find_context`, `continue_context` and `read_context_items` tools combine local lexical retrieval with bounded language-server definitions and references. They return source versions, role and relationship evidence, explicit coverage limits, exact JSON character usage and expiring project-bound handles. The implementation reuses the local index and existing symbol operations; it does not create another semantic index or call an AI provider.
 
 ## Checks
