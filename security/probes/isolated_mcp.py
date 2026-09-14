@@ -28,6 +28,10 @@ class IsolatedMCPProbe:
         "src/selene/context/__init__.py", "src/selene/context/model.py", "src/selene/context/sources.py",
         "src/selene/context/semantic.py", "src/selene/context/selection.py", "src/selene/context/bundles.py",
         "src/selene/tools/context_tools.py",
+        "src/selene/context/python_bindings.py", "src/selene/util/json_budget.py",
+        "src/selene/changes/__init__.py", "src/selene/changes/model.py", "src/selene/changes/resolver.py", "src/selene/changes/unified_diff.py",
+        "src/selene/impact/__init__.py", "src/selene/impact/model.py", "src/selene/impact/graph.py", "src/selene/impact/adapters.py", "src/selene/impact/service.py",
+        "src/selene/tools/impact_tools.py",
     )
 
     def __init__(self, fixture_root: Path, docker_socket: Path, image: str):
@@ -127,6 +131,19 @@ class IsolatedMCPProbe:
                         next_page = json.loads(self._text(continued))
                         assert {item["id"] for item in page["items"]}.isdisjoint(item["id"] for item in next_page["items"])
                         observations["context_nested_anchors_budgets_bodies_and_continuations"] = True
+
+                        # analyze a proposed API change while preserving its on-disk source
+                        original = (project / "module.py").read_bytes()
+                        proposal = {"path": "module.py", "expected_sha256": hashlib.sha256(original).hexdigest(), "new_content": original.decode().replace("visible_symbol()", "visible_symbol(required)")}
+                        impact = await session.call_tool("analyze_change", {"changes": [proposal], "max_chars": 20000})
+                        assert not impact.isError, self._text(impact)
+                        impact_report = json.loads(self._text(impact))
+                        assert impact_report["budget"]["used"] == len(self._text(impact)) <= 20000
+                        assert any(finding["target"]["path"].startswith("support_") for finding in impact_report["language_server_relationships"]), impact_report
+                        assert (project / "module.py").read_bytes() == original
+                        rejected = await session.call_tool("analyze_change", {"changes": [{**proposal, "expected_sha256": "0" * 64}]})
+                        assert rejected.isError and "ChangeConflict" in self._text(rejected), self._text(rejected)
+                        observations["impact_analyzes_unapplied_change_and_rejects_wrong_source_hash"] = True
                         (project / "host_created.py").write_text("hostindexcanary = 1\n")
                         stale = await session.call_tool("read_context_items", {"bundle_id": page["bundle_id"], "item_ids": [page["items"][0]["id"]]})
                         assert stale.isError and "StaleContextError" in self._text(stale), self._text(stale)
@@ -189,7 +206,7 @@ class IsolatedMCPProbe:
                     "synthetic_only": True,
                     "model_calls": 0,
                     "source_sha256": {p: hashlib.sha256((self.root / p).read_bytes()).hexdigest() for p in (
-                        *self._IMAGE_SOURCES, "scripts/run_isolated.py", "scripts/build_isolated.py", "containers/isolated/Dockerfile",
+                        *self._IMAGE_SOURCES, "scripts/run_isolated.py", "scripts/build_isolated.py", "containers/isolated/Dockerfile", "security/probes/isolated_mcp.py",
                     )},
                     "scope": "Real stdio MCP, cached local Pyright and managed shell in the isolated Linux image. "
                     "Host fixtures are synthetic; this is not a provider-contract audit or a full packet capture.",

@@ -1,13 +1,12 @@
 """Project-bound, expiring context plans and exact-budget JSON pages."""
 
-import json
 import math
 import secrets
 import threading
 import time
 import weakref
 from collections import OrderedDict
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from selene.context.model import ContextAnchor, ContextCandidate, ContextEvidence, ContextRole, ContextSourceVersion, SourceReference
@@ -15,6 +14,7 @@ from selene.context.selection import ContextSelector
 from selene.context.semantic import LanguageServerContextProvider
 from selene.context.sources import ContextSources
 from selene.util.cancellation import CancellationToken
+from selene.util.json_budget import JsonBudget
 
 if TYPE_CHECKING:
     from selene.project import Project
@@ -50,14 +50,7 @@ class ContextPageRenderer:
 
     @staticmethod
     def _serialize(payload: dict, max_chars: int) -> str:
-        payload["budget"] = {"unit": "json_characters", "limit": max_chars, "used": 0}
-        for _ in range(8):
-            result = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), default=asdict)
-            size = len(result)
-            if payload["budget"]["used"] == size:
-                return result
-            payload["budget"]["used"] = size
-        raise RuntimeError("Could not determine the serialized context budget")
+        return JsonBudget.serialize(payload, max_chars)
 
     @classmethod
     def render(

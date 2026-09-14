@@ -10,10 +10,10 @@ from collections.abc import Callable
 from concurrent.futures import CancelledError
 from dataclasses import dataclass
 from functools import partial
-from pathlib import Path
 from typing import TYPE_CHECKING, Protocol, TypeVar
 
 from selene.context.model import ContextLimitReached, SemanticEdge, SemanticNode, SourceReference, StaleContextError
+from selene.context.python_bindings import PythonImportBindings
 from selene.context.sources import ContextDocument, ContextSources
 from selene.indexing.scope import SourceScopeError
 from selene.symbol import LanguageServerSymbol, LanguageServerSymbolRetriever
@@ -134,12 +134,6 @@ class LanguageServerContextProvider:
         self._calls = 0
         self._limitations: set[str] = {"language_server_relationships_are_static_not_runtime_guarantees"}
         self._retriever = None
-        self._canonical_paths: dict[str, str] = {}
-        for entry in sources.observation.files.values():
-            if entry.text_status == "indexed":
-                self._canonical_paths.setdefault(entry.canonical_path, entry.path)
-                if entry.path == entry.canonical_path:
-                    self._canonical_paths[entry.canonical_path] = entry.path
         if project.language_backend.is_lsp() and project.language_server_manager is not None:
             self._retriever = LanguageServerSymbolRetriever(project)
         else:
@@ -182,7 +176,14 @@ class LanguageServerContextProvider:
         if last > len(document.lines):
             self._limitations.add("invalid_semantic_ranges_omitted")
             return None
-        return SemanticNode(document.reference(first, last, symbol.get_name_path()), symbol.symbol_kind_name, symbol.line, symbol.column)
+        parent = symbol.get_parent()
+        return SemanticNode(
+            document.reference(first, last, symbol.get_name_path()),
+            symbol.symbol_kind_name,
+            symbol.line,
+            symbol.column,
+            None if parent is None else parent.symbol_kind_name,
+        )
 
     def _can_analyze(self, path: str) -> bool:
         if self._retriever is None or not self._retriever.can_analyze_file(path):
@@ -193,14 +194,7 @@ class LanguageServerContextProvider:
 
     def _location_path(self, location: Location) -> str | None:
         """Map a backend location through canonical indexed paths, including aliased project roots."""
-        try:
-            absolute = Path(location["absolutePath"])
-            if not absolute.is_absolute():
-                raise ValueError("Language-server locations must have absolute paths")
-            canonical = absolute.resolve(strict=True).relative_to(self._sources.index.scope.root).as_posix()
-            path = self._canonical_paths.get(canonical)
-        except (OSError, ValueError):
-            path = None
+        path = self._sources.resolve_indexed_path(location["absolutePath"])
         if path is None:
             self._limitations.add("out_of_scope_or_unsearchable_semantic_targets_omitted")
         return path
@@ -209,7 +203,16 @@ class LanguageServerContextProvider:
         if not self._can_analyze(path):
             return ()
         assert self._retriever is not None
-        symbols = self._call(partial(self._retriever.find, pattern, substring_matching=not pattern, within_relative_path=path))
+        if pattern:
+            symbols = self._call(partial(self._retriever.find, pattern, within_relative_path=path))
+        else:
+            server = self._retriever.get_language_server(path)
+            document_symbols = self._call(partial(server.request_document_symbols, path))
+            symbols = (
+                None
+                if document_symbols is None
+                else [LanguageServerSymbol(symbol) for symbol in document_symbols.get_all_symbols_and_roots()[0]]
+            )
         if symbols is None:
             return ()
         nodes = []
@@ -261,16 +264,30 @@ class LanguageServerContextProvider:
                     continue
                 seen.add(target.reference)
                 site = document.reference(position.line + 1, position.line + 1)
-                edges.append(SemanticEdge(target, node.reference, "definition_of_reference", site))
+                edges.append(SemanticEdge(target, node.reference, "definition_of_reference", site, position.column))
         return tuple(edges)
 
     def references(self, node: SemanticNode) -> tuple[SemanticEdge, ...]:
+        return self._related_locations(node, preserve_sites=False)
+
+    def reference_sites(self, node: SemanticNode) -> tuple[SemanticEdge, ...]:
+        """Preserve separate reference sites within the same enclosing symbol."""
+        return self._related_locations(node, preserve_sites=True)
+
+    def implementations(self, node: SemanticNode) -> tuple[SemanticEdge, ...]:
+        """Resolve bounded implementations, recording failed or unsupported requests."""
+        return self._related_locations(node, preserve_sites=True, implementations=True)
+
+    def _related_locations(self, node: SemanticNode, *, preserve_sites: bool, implementations: bool = False) -> tuple[SemanticEdge, ...]:
         path = node.reference.path
         if not self._can_analyze(path):
             return ()
         assert self._retriever is not None
         server = self._retriever.get_language_server(path)
-        locations = self._call(lambda: server.request_references(path, node.declaration_line, node.declaration_column))
+        operation = server.request_implementation if implementations else server.request_references
+        locations = self._call(partial(operation, path, node.declaration_line, node.declaration_column))
+        if locations is None and implementations:
+            self._limitations.add("implementation_query_unavailable_or_failed")
         edges = []
         seen = set()
         for index, location in enumerate(locations or ()):
@@ -283,11 +300,30 @@ class LanguageServerContextProvider:
                 continue
             line = location["range"]["start"]["line"] + 1
             target = self.at_line(target_path, line, location["range"]["start"]["character"])
-            if target is None or target.reference == node.reference or target.reference in seen:
+            if target is None and preserve_sites and not implementations:
+                target = PythonImportBindings.at_reference(
+                    self._sources.read(target_path), line - 1, location["range"]["start"]["character"]
+                )
+            if target is None or target.reference == node.reference:
                 continue
-            seen.add(target.reference)
             site = self._sources.read(target_path).reference(line, line)
-            edges.append(SemanticEdge(target, node.reference, "reference_to_symbol", site))
+            key = (target.reference, site, location["range"]["start"]["character"]) if preserve_sites else target.reference
+            if key in seen:
+                continue
+            seen.add(key)
+            edges.append(
+                SemanticEdge(
+                    target,
+                    node.reference,
+                    "implementation_of_symbol"
+                    if implementations
+                    else "import_alias_binding"
+                    if target.kind == "ImportAlias"
+                    else "reference_to_symbol",
+                    site,
+                    location["range"]["start"]["character"],
+                )
+            )
         return tuple(edges)
 
     def limitations(self) -> tuple[str, ...]:
