@@ -1315,9 +1315,9 @@ class SolidLanguageServer(ABC):
             assert fb.uri == uri
             assert fb.ref_count >= 1
 
-            fb.ref_count += 1
             if open_in_ls:
                 fb.ensure_open_in_ls()
+            fb.ref_count += 1
         else:
             version = 0
             language_id = self._get_language_id_for_file(relative_file_path)
