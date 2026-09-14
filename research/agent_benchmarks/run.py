@@ -10,32 +10,13 @@ import json
 import os
 import random
 import shutil
-import subprocess
-import sys
 import tempfile
 import time
-import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from pathlib import Path
 
 from cases import SourceFile, TaskCatalog, TaskSpec
-
-
-@dataclass(frozen=True)
-class CheckResult:
-    name: str
-    passed: bool
-    detail: str = ""
-
-
-@dataclass(frozen=True)
-class Verification:
-    automated_checks_passed: bool
-    checks: tuple[CheckResult, ...]
-    changed_paths: tuple[str, ...]
-    unintended_paths: tuple[str, ...]
-    elapsed_ms: float
-    human_review_required: bool = True
+from checks import CheckSpec, FunctionalChecker, Verification
 
 
 class Workspace:
@@ -62,10 +43,14 @@ class Workspace:
             path.write_text(source.content, encoding="utf-8", newline="")
 
     @classmethod
+    def application_directories(cls, names: list[str]) -> list[str]:
+        return sorted(name for name in names if name not in cls._EXCLUDED)
+
+    @classmethod
     def snapshot(cls, root: Path) -> dict[str, str]:
         result = {}
         for directory, folders, files in os.walk(root, followlinks=False):
-            folders[:] = sorted(name for name in folders if name not in cls._EXCLUDED)
+            folders[:] = cls.application_directories(folders)
             for name in folders + sorted(files):
                 path = Path(directory) / name
                 if path.is_symlink():
@@ -79,7 +64,10 @@ class Workspace:
 
     @classmethod
     def changes(cls, root: Path, before: dict[str, str], task: TaskSpec) -> tuple[tuple[str, ...], tuple[str, ...]]:
-        after = cls.snapshot(root)
+        return cls.changed_paths(before, cls.snapshot(root), task)
+
+    @staticmethod
+    def changed_paths(before: dict[str, str], after: dict[str, str], task: TaskSpec) -> tuple[tuple[str, ...], tuple[str, ...]]:
         changed = tuple(sorted(path for path in set(before) | set(after) if before.get(path) != after.get(path)))
         unintended = tuple(
             path
@@ -96,120 +84,18 @@ class Workspace:
 
 
 class TrustedFixtureVerifier:
-    """Run independent checks after copying a trusted authored fixture into a controller directory.
-
-    Real agent submissions require an equivalent isolated verifier with network/filesystem
-    boundaries. Keeping graders in a sibling directory is not access control by itself.
-    """
+    """Verify authored fixtures natively; arbitrary submissions require OS isolation."""
 
     def __init__(self, compiler: Path):
-        self._compiler = compiler.resolve(strict=True)
-        self._node = shutil.which("node")
-        if self._node is None:
-            raise ValueError("A pre-provisioned Node executable is required")
-
-    @staticmethod
-    def _environment(home: Path, workspace: Path) -> dict[str, str]:
-        home.mkdir(exist_ok=True)
-        return {
-            "PATH": os.environ["PATH"],
-            "SELENE_HOME": str(home),
-            "TMPDIR": str(home),
-            "PYTHONPATH": str(workspace),
-            "PYTHONDONTWRITEBYTECODE": "1",
-            "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
-            "UV_OFFLINE": "1",
-            "PYTHONIOENCODING": "utf-8",
-        }
-
-    def _python(self, controller: Path, task: TaskSpec, environment: dict[str, str]) -> tuple[CheckResult, ...]:
-        checks = controller / "test_independent_checks.py"
-        checks.write_text(task.check_source)
-        xml = controller / "checks.xml"
-        result = subprocess.run(
-            [sys.executable, "-m", "pytest", str(checks), "-q", "-p", "no:cacheprovider", "--junitxml", str(xml)],
-            check=False,
-            cwd=controller,
-            env=environment,
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        if result.returncode not in {0, 1} or not xml.is_file():
-            return (CheckResult("verifier_execution", False, (result.stdout + result.stderr)[-3000:]),)
-        observed = []
-        for case in ET.parse(xml).findall(".//testcase"):
-            failure = next((child for child in case if child.tag in {"failure", "error", "skipped"}), None)
-            observed.append(
-                CheckResult(case.attrib["name"], failure is None, "" if failure is None else failure.attrib.get("message", "")[:1000])
-            )
-        return tuple(observed)
-
-    def _typescript(self, controller: Path, task: TaskSpec, environment: dict[str, str]) -> tuple[CheckResult, ...]:
-        checks = controller / "checks.ts"
-        checks.write_text(task.check_source)
-        workspace = controller / "workspace"
-        files = [str(path) for path in sorted(workspace.rglob("*.ts"))]
-        compile_result = subprocess.run(
-            [
-                str(self._compiler),
-                "--strict",
-                "--target",
-                "ES2020",
-                "--module",
-                "commonjs",
-                "--skipLibCheck",
-                "--outDir",
-                str(controller / "compiled"),
-                "--rootDir",
-                str(controller),
-                str(checks),
-                *files,
-            ],
-            check=False,
-            cwd=controller,
-            env=environment,
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        if compile_result.returncode != 0:
-            return (CheckResult("public_types_and_compilation", False, (compile_result.stdout + compile_result.stderr)[-3000:]),)
-        result = subprocess.run(
-            [self._node, str(controller / "compiled" / "checks.js")],
-            check=False,
-            cwd=controller,
-            env=environment,
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        rows = [line.removeprefix("SELENE_TASK_CHECKS:") for line in result.stdout.splitlines() if line.startswith("SELENE_TASK_CHECKS:")]
-        if result.returncode != 0 or len(rows) != 1:
-            return (CheckResult("verifier_execution", False, (result.stdout + result.stderr)[-3000:]),)
-        return tuple(CheckResult(**value) for value in json.loads(rows[0]))
+        self._checker = FunctionalChecker(compiler)
 
     def verify(self, workspace: Path, before: dict[str, str], task: TaskSpec) -> Verification:
         started = time.perf_counter()
         changed, unintended = Workspace.changes(workspace, before, task)
-        with tempfile.TemporaryDirectory(prefix="selene-task-controller-") as temporary:
-            controller = Path(temporary)
-            candidate = controller / "workspace"
+        with tempfile.TemporaryDirectory(prefix="selene-fixture-copy-") as temporary:
+            candidate = Path(temporary) / "workspace"
             Workspace.copy_for_verification(workspace, candidate)
-            environment = self._environment(controller / "home", candidate)
-            try:
-                checks = (
-                    self._python(controller, task, environment)
-                    if task.language == "python"
-                    else self._typescript(controller, task, environment)
-                )
-            except subprocess.TimeoutExpired:
-                checks = (CheckResult("verifier_timeout", False, "30-second verifier limit exceeded"),)
-        names = {check.name for check in checks}
-        missing = tuple(
-            CheckResult(name, False, "Expected independent check did not execute") for name in task.expected_checks if name not in names
-        )
-        checks += missing
+            checks = self._checker.run(candidate, CheckSpec(task.language, task.check_source, task.expected_checks))
         passed = all(check.passed for check in checks) and not unintended
         return Verification(passed, checks, changed, unintended, round((time.perf_counter() - started) * 1000, 3))
 
@@ -249,7 +135,7 @@ class BenchmarkPreparation:
                         assert any(not check.passed for check in result.checks)
                     observations.append({"task": task.identifier, "variant": variant, **asdict(result)})
                     print(task.identifier, variant, "PASS" if result.automated_checks_passed else "REJECTED", flush=True)
-        sources = (Path(__file__), Path(__file__).with_name("cases.py"))
+        sources = tuple(Path(__file__).with_name(name) for name in ("run.py", "cases.py", "checks.py"))
         return {
             "synthetic_only": True,
             "agents_started": 0,

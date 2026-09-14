@@ -18,8 +18,9 @@
   "model_calls": 0,
   "schema_sha256": "16881e18b1ccb6f0722dccc44b09c77793497dc95c720b1b8d5933775948c9eb",
   "task_package_sha256": {
-    "run.py": "2727184cfa2416ab629a3f83f3f62252e0af3e4a35a43985d541ffcecd3e3e3f",
-    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd"
+    "run.py": "028b152d943903ee8c13fa36e986118d2a6c0d6d3c319da505c6b82028113869",
+    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd",
+    "checks.py": "e911644e42e417bc7a6720b52cf992a5defe7e03bc29da51b25cf9e1da01f9af"
   },
   "agent_trials_executed": false
 }

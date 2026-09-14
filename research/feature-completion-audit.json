@@ -33,7 +33,8 @@
     "pyright_cached_package": "1.1.403",
     "mcp": "1.28.1",
     "typescript": "5.9.3",
-    "typescript-language-server": "5.1.3"
+    "typescript-language-server": "5.1.3",
+    "isolated_verifier_python": "3.11.16"
   },
   "artifacts_sha256": {
     "research/task-dispatch-results.json": "4f471b7a788569a2415b3fcc5ab43ddcd4d672be99fd309b9ed64dc400743958",
@@ -47,9 +48,12 @@
     "research/isolated-memory-mcp-results.json": "df622e7a0f24a1ce11ee2ad3f1e5c0e849687d3306d63ed02dcd3079ab78a7c6",
     "research/context-acceptance-results.json": "29b924d28f94702ed8e05433f8068a712a8f24600ff3b46f7f7d3683ce447711",
     "research/memory-dashboard-results.json": "7dafce8fefc42f7c643cac71ad94e70a40e2c6e9f86e43cef1612ac0b3d1daf0",
-    "research/agent-benchmark-package-results.json": "87e7e2712e0a1857362217888995261e43a89ca76395d01e067ac76ee9e7bef1",
-    "research/agent-benchmark-preparation-results.json": "d4fa5bbdb2030a7b5d208fe9f0211c847791b4e795eae94aadca7015226ef956",
-    "research/agent-benchmark-preparation-verification.md": "abb8f980553276665490f4e97ef7f37e6191a31fda28d8302ad18bccb2b4bc9a"
+    "research/agent-benchmark-package-results.json": "21a81028bbb634c85189dc88b742bdd5cbd64943b814a48ab7f3167171b1e213",
+    "research/agent-benchmark-preparation-results.json": "f8506ab25e595394591ce8843f019b5149146412974513de7e4a5e38231b595d",
+    "research/agent-benchmark-preparation-verification.md": "f6ffc3f764be01969d8e7cc238ddcd350f1bf04c071b8f7145d35f1c871d022c",
+    "research/isolated-verifier-results.json": "0e8c26b95cc51e1f58d7dda5ee7ff04802141e01353166d14ba4948a2f6e41fe",
+    "research/isolated-verifier-image-results.json": "c5dfe8bc6090ae54aa8eff85adda1403c3df60487aa93aa866e2bb2749054144",
+    "research/isolated-verifier-verification.md": "4622d38e5c31d5c521e00283bace8a0c1cca6a6e61eed611ea781642076cd169"
   },
   "completion": "not_achieved",
   "outstanding": [
@@ -57,7 +61,7 @@
     "paired agent task-success, unintended-edit and provider-token measurements",
     "broader real-project/backend evaluation"
   ],
-  "scope": "Local branch/artifact inspection and read-only GitHub state; push rejected before execution; no workaround or publication.",
+  "scope": "Local branch/artifact inspection, synthetic native and network-denied container verification, and read-only GitHub state; publication push remains rejected before execution, with no workaround or upload.",
   "publication": {
     "status": "approval_required",
     "push_executed": false,
@@ -76,14 +80,23 @@
     "agents_started": 0,
     "model_calls": 0,
     "client_launcher": "not_implemented",
-    "isolated_submission_verifier": "not_implemented",
+    "isolated_submission_verifier": "implemented_and_verified_with_synthetic_candidates",
     "pending_question": "Which approved client and model should run the 18 paired benchmark trials, and do you authorize fresh, sequential agent sessions for them?",
     "remaining": [
       "approved client/provider/model and fresh-session authorization",
       "verified scope restrictions for all client-native and MCP tools",
-      "isolated submission verifier",
       "actual paired outcomes, provider usage and human review",
       "representative real-project and broader workflow coverage"
-    ]
+    ],
+    "isolated_verifier_artifacts": [
+      "research/isolated-verifier-results.json",
+      "research/isolated-verifier-image-results.json",
+      "research/isolated-verifier-verification.md"
+    ],
+    "isolated_verifier_image": "sha256:8a16567ea070819f82daeedf9eedfa06bb893cd5deba52bf0c1b8db2cdf32fb3",
+    "isolated_verifier_container_scenarios": 15,
+    "isolated_verifier_boundary_assertions": 14,
+    "agent_scope_verified": false,
+    "grader_tamper_resistance_attested": false
   }
 }

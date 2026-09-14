@@ -33,7 +33,7 @@
       ],
       "changed_paths": [],
       "unintended_paths": [],
-      "elapsed_ms": 152.782,
+      "elapsed_ms": 186.413,
       "human_review_required": true
     },
     {
@@ -67,7 +67,7 @@
         "tests/test_boundary.py"
       ],
       "unintended_paths": [],
-      "elapsed_ms": 131.973,
+      "elapsed_ms": 158.195,
       "human_review_required": true
     },
     {
@@ -101,7 +101,7 @@
         "tests/test_boundary.py"
       ],
       "unintended_paths": [],
-      "elapsed_ms": 139.037,
+      "elapsed_ms": 166.323,
       "human_review_required": true
     },
     {
@@ -138,7 +138,7 @@
       "unintended_paths": [
         "shipping/config.txt"
       ],
-      "elapsed_ms": 125.642,
+      "elapsed_ms": 155.993,
       "human_review_required": true
     },
     {
@@ -174,7 +174,7 @@
       ],
       "changed_paths": [],
       "unintended_paths": [],
-      "elapsed_ms": 141.439,
+      "elapsed_ms": 173.29,
       "human_review_required": true
     },
     {
@@ -217,7 +217,7 @@
         "tests/test_currencies.py"
       ],
       "unintended_paths": [],
-      "elapsed_ms": 125.439,
+      "elapsed_ms": 161.871,
       "human_review_required": true
     },
     {
@@ -260,7 +260,7 @@
         "tests/test_currencies.py"
       ],
       "unintended_paths": [],
-      "elapsed_ms": 136.283,
+      "elapsed_ms": 166.668,
       "human_review_required": true
     },
     {
@@ -306,7 +306,7 @@
       "unintended_paths": [
         "billing/display.py"
       ],
-      "elapsed_ms": 153.062,
+      "elapsed_ms": 155.932,
       "human_review_required": true
     },
     {
@@ -317,7 +317,7 @@
         {
           "name": "public_types_and_compilation",
           "passed": false,
-          "detail": "../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(1,26): error TS2305: Module '\"./workspace/src/gateway\"' has no exported member 'PaymentRequest'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(7,1): error TS2578: Unused '@ts-expect-error' directive.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(9,1): error TS2578: Unused '@ts-expect-error' directive.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(21,68): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(22,70): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(27,88): error TS2339: Property 'currency' does not exist on type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(28,29): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(30,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-4c8vzys8/checks.ts(34,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n"
+          "detail": "../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(1,26): error TS2305: Module '\"./workspace/src/gateway\"' has no exported member 'PaymentRequest'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(7,1): error TS2578: Unused '@ts-expect-error' directive.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(9,1): error TS2578: Unused '@ts-expect-error' directive.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(21,68): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(22,70): error TS2345: Argument of type '{ amount: number; currency: \"USD\" | \"EUR\"; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(27,88): error TS2339: Property 'currency' does not exist on type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(28,29): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(30,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n../../../../../../../var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-task-controller-oly7kvij/checks.ts(34,30): error TS2345: Argument of type '{ amount: number; currency: string; }' is not assignable to parameter of type 'number'.\n"
         },
         {
           "name": "currency_specific_boundaries",
@@ -342,7 +342,7 @@
       ],
       "changed_paths": [],
       "unintended_paths": [],
-      "elapsed_ms": 269.972,
+      "elapsed_ms": 302.706,
       "human_review_required": true
     },
     {
@@ -379,7 +379,7 @@
         "tests/smoke.ts"
       ],
       "unintended_paths": [],
-      "elapsed_ms": 290.429,
+      "elapsed_ms": 324.13,
       "human_review_required": true
     },
     {
@@ -416,7 +416,7 @@
         "tests/smoke.ts"
       ],
       "unintended_paths": [],
-      "elapsed_ms": 297.559,
+      "elapsed_ms": 333.521,
       "human_review_required": true
     },
     {
@@ -456,12 +456,13 @@
       "unintended_paths": [
         "src/other.ts"
       ],
-      "elapsed_ms": 297.15,
+      "elapsed_ms": 340.85,
       "human_review_required": true
     }
   ],
   "source_sha256": {
-    "run.py": "2727184cfa2416ab629a3f83f3f62252e0af3e4a35a43985d541ffcecd3e3e3f",
-    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd"
+    "run.py": "028b152d943903ee8c13fa36e986118d2a6c0d6d3c319da505c6b82028113869",
+    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd",
+    "checks.py": "e911644e42e417bc7a6720b52cf992a5defe7e03bc29da51b25cf9e1da01f9af"
   }
 }

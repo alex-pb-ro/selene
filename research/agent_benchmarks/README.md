@@ -48,7 +48,27 @@ Fresh agent sessions require explicit authorization. Choose one approved client/
 
 Restrict **all** agent tools to that trial's workspace, including the client's native shell and file tools. The agent must not see this controller directory, reference repairs, graders, other trials or previous results. A directory layout or an instruction saying not to read them does not enforce isolation. The isolated MCP profile alone cannot confine a client's separate native tools. Verify the client-side boundary before recording a valid trial.
 
-Stop the agent before taking the final candidate snapshot. Inject the independent checks only into a separate verifier environment after the agent has lost access. Run agent-authored code under an isolated filesystem/network profile with no credentials; the native `self-test` command is intentionally not a generic submission runner. The actual approved-client launcher and isolated submission-verifier adapter remain to be integrated and verified. No trial should be run with those requirements waived merely to obtain a score.
+Stop the agent before taking the final candidate snapshot. Inject the independent checks only into a separate verifier environment after the agent has lost access. Run agent-authored code under an isolated filesystem/network profile with no credentials; the native `self-test` command is intentionally not a generic submission runner. The [isolated submission verifier](../isolated-verifier-verification.md) now has executable container evidence. The approved-client launcher and its filesystem/network restrictions remain to be integrated and verified. No trial should be run with those requirements waived merely to obtain a score.
+
+## Isolated post-run verification
+
+`build_context.py` copies the worker, shared checks and explicit dependencies from installed local tools. It includes no reference repairs or task catalog. Build `Verifier.Dockerfile` with `--network=none --pull=false` after ensuring the intended `selene-isolated:local` base already exists. The [verification report](../isolated-verifier-verification.md) records the exercised immutable image, base and dependency versions. Use an isolated local daemon that cannot read unrelated host projects.
+
+After the client has stopped and lost workspace access, verify a candidate with:
+
+```sh
+.venv/bin/python research/agent_benchmarks/isolated.py \
+  --candidate /path/to/stopped-trial/workspace \
+  --task python_authorization_boundary \
+  --docker-socket /path/to/local/docker.sock \
+  --image sha256:IMMUTABLE_LOCAL_IMAGE_ID \
+  --staging /path/to/daemon-shared-staging \
+  --output /path/to/local/verification.json
+```
+
+The host seals at most 512 regular files, 2 MiB per file and 8 MiB total, preserving exact bytes. Symlinks, hardlink aliases and special files are rejected. One read-only input file is mounted; its host parent remains private. The container has an immutable root, ephemeral `/tmp`, no credentials or network, a non-root user, resource limits and an inherited syscall filter before dependency imports. The outer deadline force-removes the container and its children. No candidate code executes on the host.
+
+The input includes only that task's independent checks. They become visible to executing code after the agent stops. This protects the host and the held-out editing environment; it does not attest resistance to code that deliberately detects or manipulates a grader in its own runtime. Content-based change accounting excludes Git, Selene metadata, build output and language caches; it does not measure file-mode or extended-attribute changes. Human review remains required. The verifier deliberately reports `agent_scope_verified: false`, because it cannot prove the preceding client's isolation or termination.
 
 ## Recording and interpreting outcomes
 
