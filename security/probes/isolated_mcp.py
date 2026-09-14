@@ -25,6 +25,9 @@ class IsolatedMCPProbe:
         "src/selene/indexing/project_policy.py", "src/selene/indexing/__init__.py",
         "src/selene/util/file_snapshot.py", "src/selene/util/file_system.py", "src/selene/code_editor.py",
         "src/selene/tools/index_tools.py", "src/selene/tools/file_tools.py", "src/selene/tools/__init__.py",
+        "src/selene/context/__init__.py", "src/selene/context/model.py", "src/selene/context/sources.py",
+        "src/selene/context/semantic.py", "src/selene/context/selection.py", "src/selene/context/bundles.py",
+        "src/selene/tools/context_tools.py",
     )
 
     def __init__(self, fixture_root: Path, docker_socket: Path, image: str):
@@ -105,7 +108,29 @@ class IsolatedMCPProbe:
                         indexed = await session.call_tool("search_index", {"query": "APPROVED_CLIENT_CANARY"})
                         assert not indexed.isError and approved in self._text(indexed), self._text(indexed)
                         observations["index_search_returns_versioned_source"] = bool(json.loads(self._text(indexed))["matches"][0]["sha256"])
+
+                        # exercise nested anchors, exact budgets, body handles and stable continuation pages over actual MCP
+                        for number in range(6):
+                            (project / f"support_{number}.py").write_text(f"from module import visible_symbol\n\ndef support_{number}():\n    return visible_symbol()\n")
+                        bundled = await session.call_tool("find_context", {
+                            "query": "visible_symbol", "anchors": [{"path": "module.py", "symbol": "visible_symbol"}],
+                            "max_chars": 5000, "include_bodies": False,
+                        })
+                        assert not bundled.isError, self._text(bundled)
+                        page = json.loads(self._text(bundled))
+                        assert page["budget"]["used"] == len(self._text(bundled)) <= 5000
+                        assert page["continuation"] and page["items"][0]["source"]["path"] == "module.py", page
+                        selected = await session.call_tool("read_context_items", {"bundle_id": page["bundle_id"], "item_ids": [page["items"][0]["id"]]})
+                        assert not selected.isError and approved in self._text(selected), self._text(selected)
+                        continued = await session.call_tool("continue_context", {"continuation": page["continuation"], "max_chars": 5000})
+                        assert not continued.isError, self._text(continued)
+                        next_page = json.loads(self._text(continued))
+                        assert {item["id"] for item in page["items"]}.isdisjoint(item["id"] for item in next_page["items"])
+                        observations["context_nested_anchors_budgets_bodies_and_continuations"] = True
                         (project / "host_created.py").write_text("hostindexcanary = 1\n")
+                        stale = await session.call_tool("read_context_items", {"bundle_id": page["bundle_id"], "item_ids": [page["items"][0]["id"]]})
+                        assert stale.isError and "StaleContextError" in self._text(stale), self._text(stale)
+                        observations["context_rejects_changed_index_generation"] = True
                         host_indexed = await session.call_tool("search_index", {"query": "hostindexcanary"})
                         assert not host_indexed.isError, self._text(host_indexed)
                         assert [match["path"] for match in json.loads(self._text(host_indexed))["matches"]] == ["host_created.py"], self._text(host_indexed)

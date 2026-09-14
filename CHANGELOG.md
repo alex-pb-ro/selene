@@ -7,6 +7,8 @@ Entries below are inherited project history with names normalized for this check
 Status of the `main` branch. Changes prior to the next official version change will appear here.
 
 * General:
+  - Add context bundles combining versioned code, dependencies, tests and documentation, with explicit evidence,
+    bounded output and expiring continuations that reject changed sources.
   - Add a local incremental code and documentation index with versioned lexical search, native event invalidation,
     and content reconciliation when watcher coverage is unavailable.
   - Fix: Keep timed-out and cancelled operations serialized until execution stops; propagate MCP cancellation
