@@ -1,0 +1,745 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Memories &amp; Onboarding &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02-usage/045_memories';</script>
+    <script src="../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration" href="050_configuration.html" />
+    <link rel="prev" title="The Project Workflow" href="040_workflow.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="000_intro.html">Usage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-evaluation/000_evaluation-intro.html">Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-evaluation/010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/030_results/000_evaluation-results.html">Results</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02-usage/045_memories.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Memories & Onboarding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memories">Memories</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-rationale">Design Rationale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#organizing-memories">Organizing Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#referencing-memories-from-other-memories">Referencing Memories from Other Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-memories">Global Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ignoring-memories">Ignoring Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manually-editing-memories">Manually Editing Memories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onboarding">Onboarding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-onboarding-works">How Onboarding Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-memory-maintenance-memory">The <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> Memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-onboarding">Tips for Onboarding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-subcommands">CLI Subcommands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-memories-and-onboarding">Disabling Memories and Onboarding</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="memories-onboarding">
+<h1>Memories &amp; Onboarding<a class="headerlink" href="#memories-onboarding" title="Link to this heading">#</a></h1>
+<p>Selene provides the functionality of a fully featured agent, and a useful aspect of this is Selene’s memory system.
+Despite its simplicity, we received positive feedback from many users who tend to combine it with their
+agent’s internal memory management (e.g., <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> files).</p>
+<section id="memories">
+<span id="id1"></span><h2>Memories<a class="headerlink" href="#memories" title="Link to this heading">#</a></h2>
+<p>Memories are simple, human-readable Markdown files that both you and
+your agent can create, read, reference, and edit.</p>
+<p>Selene differentiates between</p>
+<ul class="simple">
+<li><p><strong>project-specific memories</strong>, which are stored in the <code class="docutils literal notranslate"><span class="pre">.selene/memories/</span></code> directory within your project folder, and</p></li>
+<li><p><strong>global memories</strong>, which are shared across all projects and, by default, are stored in <code class="docutils literal notranslate"><span class="pre">~/.selene/memories/global/</span></code></p></li>
+</ul>
+<p>The LLM is informed about the existence of memories and instructed to read them when appropriate,
+inferring appropriateness from the file name.
+When the agent starts working on a project, it receives the list of available memories.
+The agent should be instructed to update memories by the user when appropriate.</p>
+<section id="design-rationale">
+<h3>Design Rationale<a class="headerlink" href="#design-rationale" title="Link to this heading">#</a></h3>
+<p>Selene’s memory system is intentionally minimal. It was designed to satisfy the following
+criteria:</p>
+<ol class="arabic simple">
+<li><p><strong>Human-readable and editable.</strong> Memories must remain directly readable and editable
+in any text editor. The agent is typically the day-to-day consumer, but a human author
+or reviewer must always be able to step in without going through the agent.</p></li>
+<li><p><strong>Versionable with the project.</strong> Project memories live alongside the code and can
+be committed, reviewed in PRs, and reverted like any other repository artifact.</p></li>
+<li><p><strong>Progressive disclosure.</strong> Agents receive the full memory <em>name list</em> up
+front as part of their initial instructions; any further references are described inside
+the memory content itself - typically a <code class="docutils literal notranslate"><span class="pre">mem:core</span></code> entry point pointing at focused
+memories. The agent decides what to read based on names plus the references it has
+already seen.</p></li>
+<li><p><strong>Prefer references to search.</strong> Given an intelligent agent and well-structured references, search is
+unnecessary - and it adds noise: any retrieval method (lexical or semantic)
+produces both false positives and false negatives. Explicit, name-based references
+decided by the agent are deterministic and avoid both error modes. Basic search via regex/grep
+is sufficient to complement the references when needed and is available to any agent.</p></li>
+<li><p><strong>Prefer deliberate reads to triggers.</strong> The agent decides what to read and when. The harness does
+not inject memory content on the agent’s behalf.</p></li>
+<li><p><strong>Framework-agnostic.</strong> The storage format is plain Markdown files in
+a simple directory layout. The only Selene-specific convention is the <code class="docutils literal notranslate"><span class="pre">mem:</span></code>
+prefix for references to memories, which does not prevent using the memory files outside
+of Selene.</p></li>
+<li><p><strong>Configurable and composable.</strong> Two orthogonal memory scopes -
+<a class="reference internal" href="#memories"><span class="std std-ref">per-project</span></a> (committed alongside the code) and <a class="reference internal" href="#global-memories"><span class="std std-ref">global</span></a>
+(shared across all your projects) - can be combined freely. Within either scope,
+regex patterns in the global or project configuration can mark subsets as read-only
+or <a class="reference internal" href="#ignoring-memories"><span class="std std-ref">hide them entirely</span></a> from the agent. This lets a project mix
+personal cross-project knowledge with checked-in project conventions, and selectively
+freeze either set, without custom plumbing.</p></li>
+</ol>
+<p>Taken together, these criteria rule out several common alternatives:</p>
+<ul class="simple">
+<li><p><strong>Database-backed memory</strong> (SQLite, graph databases, vector stores) is excluded by
+criteria 1, 4, and 6.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> and similar single-file conventions</strong> are excluded by criteria 3 and 5.</p></li>
+<li><p><strong>Hooks and harness-internal memory systems</strong> are excluded by criteria 5 and 6.</p></li>
+</ul>
+<p>To our knowledge, no existing system satisfies our design goal, which is
+why Selene ships its own memory layer rather than reusing one.
+The closest existing approaches are in the family of Markdown-based personal knowledge
+management tools - <strong>Obsidian</strong>, <strong>Logseq</strong>, <strong>Foam</strong>.</p>
+</section>
+<section id="organizing-memories">
+<h3>Organizing Memories<a class="headerlink" href="#organizing-memories" title="Link to this heading">#</a></h3>
+<p>Memories can be organized into <strong>topics</strong> by using <code class="docutils literal notranslate"><span class="pre">/</span></code> in the memory name (e.g. <code class="docutils literal notranslate"><span class="pre">modules/frontend</span></code>).
+The structure is mapped to the file system, where topics correspond to subdirectories.
+The <code class="docutils literal notranslate"><span class="pre">list_memories</span></code> tool can filter by topic, allowing the agent to explore even large numbers of memories in a structured way.</p>
+</section>
+<section id="referencing-memories-from-other-memories">
+<span id="memory-references"></span><h3>Referencing Memories from Other Memories<a class="headerlink" href="#referencing-memories-from-other-memories" title="Link to this heading">#</a></h3>
+<p>Memories may reference each other. Selene recognizes a reference as a memory name prefixed with
+<code class="docutils literal notranslate"><span class="pre">mem:</span></code> and wrapped in backticks, for example <code class="docutils literal notranslate"><span class="pre">`mem:auth/login`</span></code> or <code class="docutils literal notranslate"><span class="pre">`mem:suggested_commands`</span></code>.
+This convention has two practical consequences:</p>
+<ul class="simple">
+<li><p><strong>Renames keep references intact.</strong> When you rename or move a memory with the <code class="docutils literal notranslate"><span class="pre">rename_memory</span></code>
+tool, Selene rewrites every <code class="docutils literal notranslate"><span class="pre">`mem:OLD_NAME`</span></code> occurrence across all memories to point to
+the new name. References that do not use the <code class="docutils literal notranslate"><span class="pre">mem:</span></code> prefix will not be updated automatically.</p></li>
+<li><p><strong>Integrity checks</strong> (see <a class="reference internal" href="#memory-cli"><span class="std std-ref">below</span></a>) report any <code class="docutils literal notranslate"><span class="pre">`mem:NAME`</span></code> whose target does
+not resolve to an existing memory, and propose similarly-named candidates as likely intended
+targets.</p></li>
+</ul>
+<p>The full convention - including style, add/update thresholds, and how to structure references across
+<code class="docutils literal notranslate"><span class="pre">core</span></code> memories - is shipped to every onboarded project as the <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> memory; see the
+<a class="reference internal" href="#onboarding"><span class="std std-ref">Onboarding section</span></a> below.</p>
+</section>
+<section id="global-memories">
+<span id="id2"></span><h3>Global Memories<a class="headerlink" href="#global-memories" title="Link to this heading">#</a></h3>
+<p>Global memories use the top-level topic <code class="docutils literal notranslate"><span class="pre">global</span></code>, i.e. whenever a memory name starts with <code class="docutils literal notranslate"><span class="pre">global/</span></code>,
+it is stored in the global memories directory and is shared across all projects.</p>
+<p>By default, deletion and editing of global memories is allowed.
+If you want to protect them from accidental modification by the agent,
+you can add regex patterns to <code class="docutils literal notranslate"><span class="pre">read_only_memory_patterns</span></code> in your global or
+project-level <a class="reference internal" href="050_configuration.html"><span class="doc std std-doc">configuration</span></a>. For example, setting “global/.*” will mark all global memories as read-only. The agent will be informed which memories are read-only.</p>
+<p>Since global memories are not versioned alongside your project files,
+it can be helpful to track global memories with git (i.e. to make <code class="docutils literal notranslate"><span class="pre">~/.selene/memories/</span></code> a git repository)
+in order to have a history of changes and the possibility to revert them if needed.</p>
+</section>
+<section id="ignoring-memories">
+<span id="id3"></span><h3>Ignoring Memories<a class="headerlink" href="#ignoring-memories" title="Link to this heading">#</a></h3>
+<p>Projects that accumulate large numbers of archived memory files can use <code class="docutils literal notranslate"><span class="pre">ignored_memory_patterns</span></code>
+to exclude them from <code class="docutils literal notranslate"><span class="pre">list_memories</span></code> and <code class="docutils literal notranslate"><span class="pre">activate_project</span></code> output. Add regex patterns to the
+global or project-level <a class="reference internal" href="050_configuration.html"><span class="doc std std-doc">configuration</span></a>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ignored_memory_patterns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;_archive/.*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;_episodes/.*&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Ignored memories are completely excluded - they cannot be accessed via <code class="docutils literal notranslate"><span class="pre">read_memory</span></code>, <code class="docutils literal notranslate"><span class="pre">write_memory</span></code>,
+or any other memory tool. To read an ignored memory file, use the <code class="docutils literal notranslate"><span class="pre">read_file</span></code> tool on the raw file path
+(e.g., <code class="docutils literal notranslate"><span class="pre">.selene/memories/_archive/2026-03/some-topic.md</span></code>).</p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">read_only_memory_patterns</span></code>, patterns from the global and project-level configurations are merged additively.</p>
+</section>
+<section id="manually-editing-memories">
+<h3>Manually Editing Memories<a class="headerlink" href="#manually-editing-memories" title="Link to this heading">#</a></h3>
+<p>You may edit memories directly in the file system, using your preferred text editor or IDE.
+Alternatively, access them via the <a class="reference internal" href="060_dashboard.html"><span class="doc std std-doc">Selene Dashboard</span></a>, which provides a graphical interface for
+viewing, creating, editing, and deleting memories while Selene is running.</p>
+</section>
+</section>
+<section id="onboarding">
+<span id="id4"></span><h2>Onboarding<a class="headerlink" href="#onboarding" title="Link to this heading">#</a></h2>
+<p>By default, Selene performs an <strong>onboarding process</strong> when it encounters a project
+for the first time (i.e., when no project memories exist yet).
+The goal of the onboarding is for Selene to get familiar with the project -
+its structure, build system, testing setup, and other essential aspects -
+and to store this knowledge as memories for future interactions.</p>
+<p>In further project activations, Selene will check whether onboarding was already
+performed by looking for existing project memories and will skip the onboarding
+process if memories are found.</p>
+<section id="how-onboarding-works">
+<h3>How Onboarding Works<a class="headerlink" href="#how-onboarding-works" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>When a project is activated, Selene checks whether onboarding was already
+performed (by checking if any memories exist).</p></li>
+<li><p>If no memories are found, Selene triggers the onboarding process, which
+reads key files and directories to understand the project.</p></li>
+<li><p>Before any project memory is written, Selene materializes a project-local
+<code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> memory (see below). The agent is then instructed to read it
+first and follow the conventions it describes.</p></li>
+<li><p>The gathered information is written into project-specific memory files following
+the onboarding prompt instructions and the conventions outlined in <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code>.</p></li>
+</ol>
+</section>
+<section id="the-memory-maintenance-memory">
+<span id="memory-maintenance-memory"></span><h3>The <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> Memory<a class="headerlink" href="#the-memory-maintenance-memory" title="Link to this heading">#</a></h3>
+<p>To make memory conventions discoverable to both the LLM and the user, Selene seeds
+a <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> memory on first onboarding. The seed is copied from a template
+shipped with the Selene package and contains the dense agent-notes style, the
+<code class="docutils literal notranslate"><span class="pre">mem:</span></code> reference convention, the reference model around <code class="docutils literal notranslate"><span class="pre">core</span></code> memories, the
+add/update threshold, and the maintenance actions (rename / delete / split).</p>
+<p>The seeding follows a strict precedence:</p>
+<ol class="arabic simple">
+<li><p>If you already maintain a <code class="docutils literal notranslate"><span class="pre">global/memory_maintenance</span></code> memory, Selene uses that
+and <strong>does not</strong> create a project-local copy. This is the recommended approach
+for teams that want one shared convention document across all projects.</p></li>
+<li><p>Otherwise, if the project already has a <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> memory, it is left
+untouched.</p></li>
+<li><p>Otherwise, the shipped template is written to <code class="docutils literal notranslate"><span class="pre">.selene/memories/memory_maintenance.md</span></code>.</p></li>
+</ol>
+<p>Existing files are never overwritten - you can freely customize the project copy.
+To refresh from the shipped template, delete the existing memory first.</p>
+</section>
+<section id="tips-for-onboarding">
+<h3>Tips for Onboarding<a class="headerlink" href="#tips-for-onboarding" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Context usage</strong>: The onboarding process will read a lot of content from the project,
+filling up the context window. It is therefore advisable to <strong>switch to a new conversation</strong>
+once the onboarding is complete.</p></li>
+<li><p><strong>LLM failures</strong>: If an LLM fails to complete the onboarding and does not actually
+write the respective memories to disk, you may need to ask it to do so explicitly.</p></li>
+<li><p><strong>Review the results</strong>: After onboarding, we recommend having a quick look at the
+generated memories and editing them or adding new ones as needed.</p></li>
+</ul>
+</section>
+<section id="cli-subcommands">
+<span id="memory-cli"></span><h3>CLI Subcommands<a class="headerlink" href="#cli-subcommands" title="Link to this heading">#</a></h3>
+<p>While the recommended way to manage memories is through the <strong>MCP integration</strong>,
+Selene also offers memory-related CLI commands.</p>
+<p>The following commands have <strong>no MCP tool counterpart</strong> and are intended for human execution:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">memories</span> <span class="pre">check</span></code> — referential-integrity report. By default reports stale
+<code class="docutils literal notranslate"><span class="pre">`mem:NAME`</span></code> references; additional scans (bare occurrences and fuzzy near-misses)
+are opt-in via flags. Run <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">memories</span> <span class="pre">check</span> <span class="pre">--help</span></code> for the full flag list.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">memories</span> <span class="pre">auto-prefix-references</span></code> — heuristic rewrite of bare occurrences to add
+the <code class="docutils literal notranslate"><span class="pre">mem:</span></code> prefix; supports <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">memories</span> <span class="pre">initialize</span></code> will seed the <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> memory for the project.</p></li>
+</ul>
+<p>The remaining commands mirror the MCP tools, you can thus instruct your agent to manage memories with
+selene without having a running MCP server. Discover the full surface and per-command flags via:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>selene<span class="w"> </span>memories<span class="w"> </span>--help
+selene<span class="w"> </span>memories<span class="w"> </span>&lt;subcommand&gt;<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+</section>
+<section id="disabling-memories-and-onboarding">
+<h2>Disabling Memories and Onboarding<a class="headerlink" href="#disabling-memories-and-onboarding" title="Link to this heading">#</a></h2>
+<p>If you do not require the functionality described in this section, you can selectively disable it.</p>
+<ul class="simple">
+<li><p>To disable all memory related tools (including onboarding), adding <code class="docutils literal notranslate"><span class="pre">no-memories</span></code> to the <code class="docutils literal notranslate"><span class="pre">base_modes</span></code>
+in Selene’s <a class="reference internal" href="050_configuration.html"><span class="doc std std-doc">global configuration</span></a>.</p></li>
+<li><p>Similarly, to disable only onboarding, add <code class="docutils literal notranslate"><span class="pre">no-onboarding</span></code> to the <code class="docutils literal notranslate"><span class="pre">base_modes</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02-usage"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="040_workflow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Project Workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="050_configuration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Configuration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memories">Memories</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design-rationale">Design Rationale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#organizing-memories">Organizing Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#referencing-memories-from-other-memories">Referencing Memories from Other Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-memories">Global Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ignoring-memories">Ignoring Memories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manually-editing-memories">Manually Editing Memories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onboarding">Onboarding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-onboarding-works">How Onboarding Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-memory-maintenance-memory">The <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> Memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-onboarding">Tips for Onboarding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-subcommands">CLI Subcommands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-memories-and-onboarding">Disabling Memories and Onboarding</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
