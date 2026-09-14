@@ -11,3 +11,4 @@ from .query_project_tools import *
 from .index_tools import *
 from .context_tools import *
 from .impact_tools import *
+from .change_plan_tools import *

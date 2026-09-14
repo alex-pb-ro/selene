@@ -32,6 +32,9 @@ class IsolatedMCPProbe:
         "src/selene/changes/__init__.py", "src/selene/changes/model.py", "src/selene/changes/resolver.py", "src/selene/changes/unified_diff.py",
         "src/selene/impact/__init__.py", "src/selene/impact/model.py", "src/selene/impact/graph.py", "src/selene/impact/adapters.py", "src/selene/impact/service.py",
         "src/selene/tools/impact_tools.py",
+        "src/selene/edit_plans/__init__.py", "src/selene/edit_plans/model.py", "src/selene/edit_plans/filesystem.py",
+        "src/selene/edit_plans/journal.py", "src/selene/edit_plans/execution.py", "src/selene/edit_plans/service.py",
+        "src/selene/tools/change_plan_tools.py",
     )
 
     def __init__(self, fixture_root: Path, docker_socket: Path, image: str):
@@ -178,6 +181,27 @@ class IsolatedMCPProbe:
                         created = await session.call_tool("create_text_file", {"relative_path": "created.py", "content": "value = 42\n"})
                         assert not created.isError and (project / "created.py").read_text() == "value = 42\n", self._text(created)
                         observations["authorized_project_edit_visible_on_host"] = True
+                        # exercise durable nested proposals and idempotent apply through the actual MCP schema
+                        planned_contents = original.decode().replace("visible_symbol()", "visible_symbol(required)")
+                        plan_args = {"request_id": "isolated-recovery", "changes": [
+                            {"path": "module.py", "expected_sha256": hashlib.sha256(original).hexdigest(), "new_content": planned_contents},
+                            {"path": "planned.py", "expected_sha256": None, "new_content": "planned = True\n"},
+                        ]}
+                        prepared = await session.call_tool("prepare_change", plan_args)
+                        assert not prepared.isError, self._text(prepared)
+                        plan_report = json.loads(self._text(prepared))
+                        assert plan_report["status"] == "prepared", plan_report
+                        assert (project / "module.py").read_bytes() == original
+                        plan_id = plan_report["plan_id"]
+                        applied = await session.call_tool("apply_change", {"plan_id": plan_id})
+                        assert not applied.isError and json.loads(self._text(applied))["status"] == "applied", self._text(applied)
+                        assert (project / "module.py").read_text() == planned_contents
+                        assert (project / "planned.py").read_text() == "planned = True\n"
+                        repeated = await session.call_tool("prepare_change", plan_args)
+                        assert not repeated.isError and json.loads(self._text(repeated))["plan_id"] == plan_id, self._text(repeated)
+                        applied_again = await session.call_tool("apply_change", {"plan_id": plan_id})
+                        assert not applied_again.isError and json.loads(self._text(applied_again))["status"] == "applied", self._text(applied_again)
+                        observations["prepared_changes_preserve_source_and_apply_idempotently"] = True
                         observations.update(self._daemon_logs(project, approved))
 
                         image_paths = {
@@ -193,12 +217,29 @@ class IsolatedMCPProbe:
                         assert actual_hashes == expected_hashes
                         observations["tested_image_sources_match_checkout"] = True
 
+            # start a new container to verify that project identity and retained file operations survive restart
+            with stderr_path.open("a") as stderr:
+                async with stdio_client(parameters, errlog=stderr) as (read, write):
+                    async with ClientSession(read, write) as session:
+                        await session.initialize()
+                        recovered = await session.call_tool("recover_change", {"plan_id": plan_id, "action": "rollback"})
+                        assert not recovered.isError, self._text(recovered)
+                        recovery = json.loads(self._text(recovered))
+                        assert recovery["status"] == "rolled_back", recovery
+                        assert (project / "module.py").read_bytes() == original
+                        assert not (project / "planned.py").exists()
+                        observations["prepared_changes_roll_back_across_container_restart"] = True
+
             captured = stderr_path.read_text()
             assert approved not in captured and outside not in captured, captured
             observations["source_canaries_absent_from_client_stderr"] = True
             metadata = [path for path in (project / ".selene").rglob("*") if path.is_file()]
-            assert not any(approved.encode() in p.read_bytes() for p in metadata)
-            observations["source_canary_not_retained_in_project_metadata"] = True
+            retained = [p for p in metadata if approved.encode() in p.read_bytes()]
+            journals = project / ".selene" / "change-plans"
+            assert retained and all(p.is_relative_to(journals) for p in retained)
+            assert journals.stat().st_mode & 0o777 == 0o700
+            assert (journals / ".gitignore").read_text() == "*\n"
+            observations["source_canary_retained_only_in_explicit_private_change_journal"] = True
             return {
                 "observations": observations,
                 "method": {

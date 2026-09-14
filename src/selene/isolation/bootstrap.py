@@ -35,7 +35,16 @@ class IsolatedServerBootstrap:
             "trusted_project_path_patterns": [],
             "token_count_estimator": "CHAR_COUNT",
             "record_tool_usage": False,
-            "included_optional_tools": ["search_index", "find_context", "continue_context", "read_context_items", "analyze_change"],
+            "included_optional_tools": [
+                "search_index",
+                "find_context",
+                "continue_context",
+                "read_context_items",
+                "analyze_change",
+                "prepare_change",
+                "apply_change",
+                "recover_change",
+            ],
             "ls_specific_settings": {"python": {"ls_path": "/opt/selene/.venv/bin/pyright-langserver"}},
         }
         (state / "selene_config.yml").write_text(json.dumps(config), encoding="utf-8")

@@ -7,6 +7,8 @@ Entries below are inherited project history with names normalized for this check
 Status of the `main` branch. Changes prior to the next official version change will appear here.
 
 * General:
+  - Add prepared multi-file text changes with source preconditions, local recovery journals,
+    idempotent apply, syntax diagnostics and rollback that preserves later observed edits.
   - Add proposed-change impact analysis with versioned static relationships, declared schema/generation evidence,
     test recommendations and explicit unresolved behavior.
   - Add context bundles combining versioned code, dependencies, tests and documentation, with explicit evidence,
