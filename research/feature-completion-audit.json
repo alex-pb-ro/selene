@@ -50,9 +50,15 @@
   },
   "completion": "not_achieved",
   "outstanding": [
-    "Draft PR publication in progress; source removals block integration into main",
+    "Explicit approval for draft-PR source/artifact publication; separate source removals block integration into main",
     "paired agent task-success, unintended-edit and provider-token measurements",
     "broader real-project/backend evaluation"
   ],
-  "scope": "Local branch and artifact inspection plus read-only git ls-remote and gh pr list before publication; existing source removals will be disclosed in draft PRs rather than overwritten."
+  "scope": "Local branch/artifact inspection and read-only GitHub state; push rejected before execution; no workaround or publication.",
+  "publication": {
+    "status": "approval_required",
+    "push_executed": false,
+    "rejection": "Automatic approval review requires explicit authorization to export implementation and audit source to the public alex-pb-ro/selene repository.",
+    "pending_question": "May I publish the ten prepared branches and draft PRs, including implementation source, tests and audit artifacts, to public alex-pb-ro/selene?"
+  }
 }
