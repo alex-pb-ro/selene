@@ -133,6 +133,56 @@ def test_changed_sources_reject_continuations_and_selected_reads(project, tmp_pa
         service.read_items(page["bundle_id"], (page["items"][0]["id"],))
 
 
+@pytest.mark.typescript
+def test_real_typescript_context_connects_injected_interface_and_tests_with_fresh_versions(tmp_path):
+    executable = os.environ.get("SELENE_TEST_TYPESCRIPT_LS")
+    if executable is None or not Path(executable).is_file():
+        pytest.skip("Provide a pre-provisioned TypeScript language server through SELENE_TEST_TYPESCRIPT_LS")
+    sources = {
+        "client.ts": "import { PaymentGateway } from './gateway';\nexport function checkout(gateway: PaymentGateway): boolean {\n    const marker = '💳'; return gateway.authorize(50);\n}\n",
+        "gateway.ts": "export interface PaymentGateway {\n    authorize(amount: number): boolean;\n}\n",
+        "real.ts": "import { PaymentGateway } from './gateway';\nexport class RealGateway implements PaymentGateway {\n    authorize(amount: number): boolean { return amount < 100; }\n}\n",
+        "tests/checkout.test.ts": "import { checkout } from '../client';\nimport { RealGateway } from '../real';\nexport function test_checkout(): boolean { return checkout(new RealGateway()); }\n",
+        "other.ts": "export function authorize(): boolean { return false; }\n",
+        "docs/approval.md": "# Approval\nCheckout payment authorization uses an injected gateway.\n",
+        "settings.json": '{"payment_limit": 100}\n',
+        "tsconfig.json": json.dumps({"compilerOptions": {"strict": True, "target": "ES2020", "module": "commonjs"}}),
+    }
+    for path, content in sources.items():
+        target = tmp_path / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content)
+    configuration = SeleneConfig(ls_specific_settings={"typescript": {"ls_path": executable}}).with_headless_mode_overrides()
+    project = Project(
+        project_root=str(tmp_path),
+        project_config=ProjectConfig(project_name="interface-context", language_servers=[LanguageServerId.TYPESCRIPT]),
+        selene_config=configuration,
+    )
+    try:
+        project.create_language_server_manager()
+        service = project.get_context_service()
+        page = assert_page(service.find("checkout payment", (ContextAnchor("client.ts", "checkout"),), max_chars=20000), tmp_path, 20000)
+        semantic = [item for item in page["items"] if any(edge["strength"] == "language_server" for edge in item["evidence"])]
+        assert {item["source"]["path"] for item in semantic} >= {"gateway.ts", "tests/checkout.test.ts"}
+        assert all(item["source"]["path"] != "other.ts" for item in semantic)
+        assert {item["source"]["path"] for item in page["items"]} >= {"docs/approval.md", "settings.json"}
+        explicit = assert_page(
+            service.find("payment interface", (ContextAnchor("gateway.ts", "PaymentGateway"),), max_chars=20000), tmp_path, 20000
+        )
+        assert any(
+            item["source"]["path"] == "gateway.ts" and "export interface PaymentGateway" in (item["content"] or "")
+            for item in explicit["items"]
+        )
+        gateway = tmp_path / "gateway.ts"
+        stamp = gateway.stat()
+        gateway.write_text(sources["gateway.ts"].replace("number", "string"))
+        os.utime(gateway, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
+        with pytest.raises(StaleContextError):
+            service.read_items(page["bundle_id"], (page["items"][0]["id"],))
+    finally:
+        project.shutdown()
+
+
 def test_scope_excludes_private_and_external_aliases(project, tmp_path):
     external = tmp_path.parent / (tmp_path.name + "-secret.py")
     external.write_text("checkout_private_canary = True\n")

@@ -1,0 +1,58 @@
+{
+  "source_base": "5dc6cbd3ce9d59799774f2a22fe97c846d555196",
+  "remote_main": "40e84b84fc22815f6977f0a0110faf688975791f",
+  "remote_heads_before_publication": [
+    "main"
+  ],
+  "pull_requests": [],
+  "branches": {
+    "fix/task-dispatch": "6a2d5a2d0b09064b321697a26888d321974e3942",
+    "fix/cancellation-ownership": "54c5a39ece3dc0d527da22cf6d5c39a4f4327fcd",
+    "fix/source-freshness": "748c9e306a796b58fbeb061505302a8d27cbb2ae",
+    "fix/privacy-boundaries": "6bfe9b8e69809dd96d6e692c4a14a426507f951e",
+    "feat/incremental-index": "59d7c3b4e3ac4c6cd1385c01cfad732781bf537c",
+    "feat/context-bundles": "03235a25ae86066a62e4fd1d41cc544c0b676685",
+    "feat/change-impact": "bd1dae3d74f280466a55c5f8b000fe8c950d9155",
+    "feat/recoverable-edits": "d2780f0668b997b37f530b0671dbf2fa5c6c63b2",
+    "feat/evidence-memory": "23f84eac01b99ac8ee87b9d91f6f873c11e4a260"
+  },
+  "ancestors_of_current_head": {
+    "fix/task-dispatch": true,
+    "fix/cancellation-ownership": true,
+    "fix/source-freshness": true,
+    "fix/privacy-boundaries": true,
+    "feat/incremental-index": true,
+    "feat/context-bundles": true,
+    "feat/change-impact": true,
+    "feat/recoverable-edits": true,
+    "feat/evidence-memory": true
+  },
+  "common_ancestor_with_main": "5dc6cbd3ce9d59799774f2a22fe97c846d555196",
+  "versions": {
+    "python": "3.11.15",
+    "pyright_cached_package": "1.1.403",
+    "mcp": "1.28.1",
+    "typescript": "5.9.3",
+    "typescript-language-server": "5.1.3"
+  },
+  "artifacts_sha256": {
+    "research/task-dispatch-results.json": "4f471b7a788569a2415b3fcc5ab43ddcd4d672be99fd309b9ed64dc400743958",
+    "research/cancellation-results.json": "1408b663384af5c954dba30f8eb7117f3bc57588b0822a86a0df98647c89614a",
+    "research/freshness-results.json": "de14e293cb386477bdf06f3f863df99f914b091139c4593a9b8ab3fbe3c5be23",
+    "research/incremental-index-results.json": "76b23613de874041f5d3bf9a77e07f2e8a160ed5d555317dc33c02c8d0943303",
+    "research/linux-index-results.json": "09b5aeb8bf95708f9b571ac17d6e269d5269d2bb55151b35c564239a06f0322f",
+    "research/change-impact-results.json": "e9217ebf4f70480c8e9eee240c06e5bf211ea173d9ae1ac0d7af2d7665f34a7e",
+    "research/native-recoverable-changes-results.json": "4e5fe95775f57f9a098ebceeedd368bd8179c0965c26aa37c39acfbd9d11fad4",
+    "research/linux-recoverable-changes-results.json": "7dd92e9ad4cb74e89d364b3e399d06507d46edfeebef44f0233d595681089bcc",
+    "research/isolated-memory-mcp-results.json": "df622e7a0f24a1ce11ee2ad3f1e5c0e849687d3306d63ed02dcd3079ab78a7c6",
+    "research/context-acceptance-results.json": "29b924d28f94702ed8e05433f8068a712a8f24600ff3b46f7f7d3683ce447711",
+    "research/memory-dashboard-results.json": "7dafce8fefc42f7c643cac71ad94e70a40e2c6e9f86e43cef1612ac0b3d1daf0"
+  },
+  "completion": "not_achieved",
+  "outstanding": [
+    "Draft PR publication in progress; source removals block integration into main",
+    "paired agent task-success, unintended-edit and provider-token measurements",
+    "broader real-project/backend evaluation"
+  ],
+  "scope": "Local branch and artifact inspection plus read-only git ls-remote and gh pr list before publication; existing source removals will be disclosed in draft PRs rather than overwritten."
+}
