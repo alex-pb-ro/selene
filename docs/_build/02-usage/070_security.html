@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Security Considerations &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02-usage/070_security';</script>
+    <script src="../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Additional Usage Pointers" href="999_additional-usage.html" />
+    <link rel="prev" title="Logs" href="065_logs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="000_intro.html">Usage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="065_logs.html">Logs</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-evaluation/000_evaluation-intro.html">Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-evaluation/010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/030_results/000_evaluation-results.html">Results</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02-usage/070_security.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Security Considerations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selene-s-assumptions">Selene’s Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-recommendations-for-risk-reduction">General Recommendations for Risk Reduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sandboxing">Sandboxing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trusted-projects">Trusted Projects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-functionality-boundary-not-a-containment-boundary">A Functionality Boundary, Not a Containment Boundary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trust-gated-features">Trust-Gated Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-security">Network Security</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supply-chain-security">Supply Chain Security</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-downloaded-language-server-dependencies">Auto-Downloaded Language Server Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#npm-based-language-servers">npm-Based Language Servers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uvx-and-python-dependency-pinning"><code class="docutils literal notranslate"><span class="pre">uvx</span></code> and Python Dependency Pinning</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="security-considerations">
+<h1>Security Considerations<a class="headerlink" href="#security-considerations" title="Link to this heading">#</a></h1>
+<p>Security is important to us, and we take this topic seriously.</p>
+<section id="selene-s-assumptions">
+<h2>Selene’s Assumptions<a class="headerlink" href="#selene-s-assumptions" title="Link to this heading">#</a></h2>
+<p>The current security model for Selene assumes:</p>
+<ul class="simple">
+<li><p>the local machine is trusted,<br></p></li>
+<li><p>the MCP client (i.e. the LLM) is trusted,</p></li>
+<li><p>the code repository being worked on is trusted,</p></li>
+<li><p>user configuration is trusted,</p></li>
+<li><p>package manager configuration (e.g. npm) for downloading additional dependencies (i.e. language servers when using Selene with the LSP backend) is trusted.</p></li>
+</ul>
+<p>Selene contains tools for executing shell commands and modifying files.
+As such tools are, however, an essential part of coding agent workflows, they typically need to be made available – and need to be made available in a flexible, general form.
+Therefore, the only way to <em>fully</em> protect against unintended consequences is to use a <a class="reference internal" href="#sandboxing"><span class="std std-ref">sandboxed environment</span></a> for running Selene.</p>
+<div class="note admonition">
+<p class="admonition-title">Security Advisories</p>
+<p>Security advisories are welcome for issues that violate the security model described on this page.
+However, reports which amount to noting that Selene’s tools can execute commands or modify files
+describe intended functionality rather than vulnerabilities, and we will reject advisories that fail to recognise this
+or otherwise ignore the above assumptions.<br>
+Sandboxing is the <em>only</em> way to fully protect against unintended consequences when using coding agents;
+constraints on the tools themselves cannot achieve this and are therefore not an approach we pursue.</p>
+</div>
+</section>
+<section id="general-recommendations-for-risk-reduction">
+<h2>General Recommendations for Risk Reduction<a class="headerlink" href="#general-recommendations-for-risk-reduction" title="Link to this heading">#</a></h2>
+<p>To reduce the risk of unintended consequences, we recommend that you:</p>
+<ul class="simple">
+<li><p>back up your work regularly (keep the project being worked on under version control),</p></li>
+<li><p>restrict the set of allowed tools via the <a class="reference internal" href="050_configuration.html"><span class="doc std std-doc">configuration</span></a>,</p></li>
+<li><p>do not expose <a class="reference internal" href="#network-security"><span class="std std-ref">Selene’s network services</span></a> to untrusted networks.</p></li>
+</ul>
+<p>If you do not fully trust the client/the LLM, we additionally recommend to monitor tool executions carefully
+(provided that your MCP client supports this).</p>
+</section>
+<section id="sandboxing">
+<span id="id1"></span><h2>Sandboxing<a class="headerlink" href="#sandboxing" title="Link to this heading">#</a></h2>
+<p>Sandboxing is the most effective way to mitigate risks when using coding agents.
+<a class="reference internal" href="020_running.html#docker"><span class="std std-ref">Running Selene inside a docker container</span></a> which only exposes the necessary files and tools to the agent is a good way to achieve this.</p>
+<p>While setting up a sandboxed environment may require some initial effort, we highly recommend it for all security-conscious users.</p>
+</section>
+<section id="trusted-projects">
+<span id="id2"></span><h2>Trusted Projects<a class="headerlink" href="#trusted-projects" title="Link to this heading">#</a></h2>
+<p>Sandboxing limits what Selene can affect while doing what it was asked to do.
+The notion of <em>trusted projects</em> (introduced in Selene v1.6.0) addresses a different question:
+to what extent may the repository being worked on influence Selene’s behaviour in the first place?</p>
+<p>A project is an input authored by whoever produced the repository, and it comprises more than source code:
+it also carries configuration (<code class="docutils literal notranslate"><span class="pre">.selene/project.yml</span></code>) as well as file system structure.
+Trust determines whether such repository-supplied input may influence Selene beyond having the code read and
+analysed as code — for example, by executing commands, by changing how dependencies are acquired, or by causing
+Selene to access locations outside the project root.
+Trust is decided by the project’s root path, which is matched against <code class="docutils literal notranslate"><span class="pre">trusted_project_path_patterns</span></code> in Selene’s
+<a class="reference internal" href="050_configuration.html#global-config"><span class="std std-ref">global configuration</span></a>.</p>
+<p>We gate a feature on project trust whenever honouring repository-supplied input could have an effect beyond the
+scope of what the user visibly requested: activating a project is not a request to run a command, and searching a
+project’s files is not a request to read files outside of it.</p>
+<section id="a-functionality-boundary-not-a-containment-boundary">
+<h3>A Functionality Boundary, Not a Containment Boundary<a class="headerlink" href="#a-functionality-boundary-not-a-containment-boundary" title="Link to this heading">#</a></h3>
+<p>Untrusted projects are not sandboxed, restricted or otherwise contained.
+They are read, analysed and edited just like any other project; the only difference is that a small set of
+capabilities is unavailable to them.
+As soon as the agent is asked to do anything at all, the full tool surface applies to an untrusted project as well:
+commands can be executed, files can be modified, and the repository’s contents can influence the LLM.</p>
+<p>Consequently, our assumption that the repository being worked on is trusted (see above) remains fully in force.
+Trust patterns eliminate a class of particularly straightforward attacks, namely those requiring no user
+interaction beyond opening a project, but exploits can generally not be prevented by such means.
+The question to ask is therefore not “is this project safe to work on because it is untrusted?” but rather
+“do I trust this repository enough to grant it the additional capabilities?”.
+If a repository is not trustworthy, <a class="reference internal" href="#sandboxing"><span class="std std-ref">sandboxing</span></a> is the answer, not the trust configuration.</p>
+</section>
+<section id="trust-gated-features">
+<h3>Trust-Gated Features<a class="headerlink" href="#trust-gated-features" title="Link to this heading">#</a></h3>
+<p>The set of trust-gated features is subject to change and can be expected to grow.
+The settings that require trust are annotated accordingly in the project configuration (see
+<a class="reference internal" href="050_configuration.html"><span class="doc std std-doc">configuration</span></a>); the two following current examples illustrate the principle:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">activation_command</span></code> is a shell command that a project can request to be run whenever it is activated.
+Without trust gating, merely opening a repository in Selene would execute code chosen by its author,
+before the user has issued a single request.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ls_specific_settings</span></code> can, among other things, override the package version and the package registry from
+which a language server is acquired.
+Without trust gating, a repository could thereby silently circumvent the supply chain protections described
+below (version pinning, host restrictions) and cause attacker-controlled code to be downloaded and executed.</p></li>
+</ul>
+<p>Note that the effective set of trusted paths depends on the age of your configuration: installations predating
+the introduction of this setting retain a pattern that trusts all projects, ensuring that existing workflows are
+not broken, whereas newly created configurations trust no project by default.
+The applicable value can be inspected in the dashboard.</p>
+</section>
+</section>
+<section id="network-security">
+<span id="id3"></span><h2>Network Security<a class="headerlink" href="#network-security" title="Link to this heading">#</a></h2>
+<p>Selene includes several network services:</p>
+<ul class="simple">
+<li><p>the Selene MCP server itself (when run in <a class="reference internal" href="020_running.html#streamable-http"><span class="std std-ref">HTTP or SSE mode</span></a> instead of stdio mode)</p></li>
+<li><p>the Selene Dashboard web server</p></li>
+<li><p>the Selene JetBrains Plugin server, which runs within the JetBrains IDE (when using the JetBrains language backend)</p></li>
+<li><p>the Selene Project Server (only started explicitly for <a class="reference internal" href="040_workflow.html#query-projects"><span class="std std-ref">project querying</span></a>)</p></li>
+</ul>
+<p>By default, these services accept connections from localhost only, which is a secure default for most users
+(given our assumption that the local machine is trusted; see above).</p>
+<p>These services can be reconfigured to listen on other addresses, but doing so may have security implications.
+If you need to allow connections from other machines, we recommend that you set up a secure networking environment
+and ensure that only trusted machines can connect to these services.
+It is the responsibility of the user to restrict access appropriately, e.g. by placing the service behind a reverse
+proxy (adding authentication) or firewall.</p>
+</section>
+<section id="supply-chain-security">
+<h2>Supply Chain Security<a class="headerlink" href="#supply-chain-security" title="Link to this heading">#</a></h2>
+<p>Selene has two language backends with different security characteristics:</p>
+<ul class="simple">
+<li><p>the JetBrains-based variant, which integrates with a running JetBrains IDE, and</p></li>
+<li><p>the language-server-based variant (the free variant), which can automatically acquire language server dependencies on demand.</p></li>
+</ul>
+<p>While we can assume that JetBrains IDEs installed by the user do not pose a security risk,
+language server dependencies (if not handled with care) could.
+For convenience, Selene downloads or installs certain language server dependencies on demand.
+We treat this path as security-sensitive and have hardened it accordingly.</p>
+<p>The most important supply chain protections are:</p>
+<ul class="simple">
+<li><p>exact version pinning,</p></li>
+<li><p>hash verification,</p></li>
+<li><p>host restriction,</p></li>
+<li><p>and isolated Selene-managed installation directories.</p></li>
+</ul>
+<section id="auto-downloaded-language-server-dependencies">
+<h3>Auto-Downloaded Language Server Dependencies<a class="headerlink" href="#auto-downloaded-language-server-dependencies" title="Link to this heading">#</a></h3>
+<p>For language servers that are auto-installed by downloading archives, binaries, VSIX packages, NuGet packages, or other release artifacts, Selene uses a hardened shared download path with the following protections:</p>
+<ul class="simple">
+<li><p><strong>Pinned versions by default</strong>: default downloads use exact versions instead of floating <code class="docutils literal notranslate"><span class="pre">latest</span></code> or nightly channels.</p></li>
+<li><p><strong>Integrity verification</strong>: downloaded artifacts are checked against pinned SHA256 hashes stored in Selene’s source code.</p></li>
+<li><p><strong>Host allowlists</strong>: download URLs are restricted to the expected hosts for a given dependency.</p></li>
+<li><p><strong>Safe extraction</strong>: archive extraction validates paths to prevent path traversal and zip-slip style attacks.</p></li>
+<li><p><strong>Managed install locations</strong>: dependencies are installed into Selene-managed directories instead of into the project repository.</p></li>
+</ul>
+<p>In practice, this means that a downloaded artifact must match all of the following:</p>
+<ul class="simple">
+<li><p>the expected version,</p></li>
+<li><p>the expected host,</p></li>
+<li><p>the expected SHA256 checksum,</p></li>
+<li><p>and the expected extraction layout.</p></li>
+</ul>
+<p>If any of these checks fail, Selene aborts the installation instead of continuing.</p>
+</section>
+<section id="npm-based-language-servers">
+<h3>npm-Based Language Servers<a class="headerlink" href="#npm-based-language-servers" title="Link to this heading">#</a></h3>
+<p>Some language servers are distributed primarily through npm. For those, Selene currently uses pinned package versions and installs them into Selene-managed directories.</p>
+<p>By default, Selene uses the <strong>user’s normal npm configuration</strong>. We do <strong>not</strong> force a registry override unless one is explicitly configured. If needed, both the package version and the registry can be overridden through <code class="docutils literal notranslate"><span class="pre">ls_specific_settings</span></code>.</p>
+<p>For npm-based installs, Selene’s current security posture is based on these rules:</p>
+<ul class="simple">
+<li><p><strong>Exact package versions are pinned by default</strong>.</p></li>
+<li><p><strong>The install location is isolated from the project</strong> and lives in Selene-managed language-server directories.</p></li>
+<li><p><strong>The user’s npm configuration is trusted by default</strong>.</p></li>
+<li><p><strong>Repository and user configuration are assumed to be trusted</strong>.</p></li>
+</ul>
+<p>This means Selene protects well against accidental version drift, but npm installs still rely on the npm ecosystem and package-manager execution model. In particular, Selene does <strong>not</strong> currently use lockfile-based <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> installs for bundled language-server dependencies.</p>
+</section>
+<section id="uvx-and-python-dependency-pinning">
+<h3><code class="docutils literal notranslate"><span class="pre">uvx</span></code> and Python Dependency Pinning<a class="headerlink" href="#uvx-and-python-dependency-pinning" title="Link to this heading">#</a></h3>
+<p>Some parts of Selene rely on <code class="docutils literal notranslate"><span class="pre">uv</span></code> / <code class="docutils literal notranslate"><span class="pre">uvx</span></code>.</p>
+<p>One important detail is that <code class="docutils literal notranslate"><span class="pre">uvx</span></code> ignores the lockfile when installing directly from a Git repository. Because of that, we pin Selene’s Python dependencies exactly in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> so that installations from Git still resolve to exact dependency versions rather than floating ranges.</p>
+<p>Some language servers also use exact pinned versions when invoking them through <code class="docutils literal notranslate"><span class="pre">uvx</span></code> / <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">tool</span> <span class="pre">run</span></code>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02-usage"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="065_logs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Logs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="999_additional-usage.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Additional Usage Pointers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selene-s-assumptions">Selene’s Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-recommendations-for-risk-reduction">General Recommendations for Risk Reduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sandboxing">Sandboxing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trusted-projects">Trusted Projects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-functionality-boundary-not-a-containment-boundary">A Functionality Boundary, Not a Containment Boundary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trust-gated-features">Trust-Gated Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-security">Network Security</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supply-chain-security">Supply Chain Security</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-downloaded-language-server-dependencies">Auto-Downloaded Language Server Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#npm-based-language-servers">npm-Based Language Servers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uvx-and-python-dependency-pinning"><code class="docutils literal notranslate"><span class="pre">uvx</span></code> and Python Dependency Pinning</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1413 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Claude Code (GLM 5.1) &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04-evaluation/030_results/040_glm_on_tianshou';</script>
+    <script src="../../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="JetBrains Junie Plugin (Opus 4.6)" href="050_junie_plugin_on_tianshou.html" />
+    <link rel="prev" title="Copilot CLI (GPT-5.4, medium)" href="030_copilot_cli_on_ente.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../02-usage/000_intro.html">Usage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../000_evaluation-intro.html">Evaluation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="000_evaluation-results.html">Results</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/04-evaluation/030_results/040_glm_on_tianshou.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Claude Code (GLM 5.1)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headline-what-selene-changes">1. Headline: What Selene Changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#added-value-and-differences-by-area">2. Added Value and Differences by Area</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-file-renaming-1-call-replaces-58">2.1 Cross-file renaming: 1 call replaces 5–8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symbol-moving-1-call-replaces-5">2.2 Symbol moving: 1 call replaces 5+</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-finding-symbol-accurate-vs-text-matched">2.3 Reference finding: Symbol-accurate vs text-matched</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hierarchy-1-call-vs-2-grep-and-parse-cycles">2.4 Type hierarchy: 1 call vs 2+ grep-and-parse cycles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-overview-hierarchical-vs-flat">2.5 Structural overview: Hierarchical vs flat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-body-retrieval-targeted-read-vs-range-read">2.6 Method body retrieval: Targeted read vs range read</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-file-rename-no-meaningful-difference">2.7 Single-file rename: No meaningful difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#small-edits-13-lines-edit-is-more-token-efficient">2.8 Small edits (1–3 lines): Edit is more token-efficient</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insertion-stable-address-vs-text-anchor">2.9 Insertion: Stable address vs text anchor</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-evidence-grouped-by-capability">3. Detailed Evidence, Grouped by Capability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#codebase-understanding">3.1 Codebase Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-repo-overview">Task 1: Repo overview</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-structural-overview-of-a-large-file-collector-py-1551-lines">Task 2: Structural overview of a large file (<code class="docutils literal notranslate"><span class="pre">collector.py</span></code>, 1551 lines)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-retrieve-a-specific-method-body">Task 3: Retrieve a specific method body</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-find-all-references-to-collectstats">Task 4: Find all references to <code class="docutils literal notranslate"><span class="pre">CollectStats</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-type-hierarchy-of-basecollector">Task 5: Type hierarchy of <code class="docutils literal notranslate"><span class="pre">BaseCollector</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-6-external-dependency-symbol-lookup">Task 6: External dependency symbol lookup</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-file-edits">3.2 Single-File Edits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-7a-small-tweak-1-line-change-in-22-line-method">Task 7a: Small tweak (1-line change in 22-line method)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-7b-medium-rewrite-6-line-changes-in-20-line-method">Task 7b: Medium rewrite (~6 line changes in 20-line method)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-7c-large-rewrite-full-body-of-55-line-method">Task 7c: Large rewrite (full body of 55+ line method)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-8-insert-a-new-function-after-an-existing-one">Task 8: Insert a new function after an existing one</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-9-rename-a-private-helper-single-file-4-occurrences">Task 9: Rename a private helper (single-file, 4 occurrences)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-file-changes">3.3 Multi-File Changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-10-cross-file-rename-collectstatsbase-basecollectstats-4-files-10-occurrences">Task 10: Cross-file rename (<code class="docutils literal notranslate"><span class="pre">CollectStatsBase</span></code> → <code class="docutils literal notranslate"><span class="pre">BaseCollectStats</span></code>, 4 files, 10 occurrences)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-11-move-symbol-to-another-module">Task 11: Move symbol to another module</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-12-move-file-segtree-py-to-parent-directory">Task 12: Move file (<code class="docutils literal notranslate"><span class="pre">segtree.py</span></code> to parent directory)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-12-safe-delete">Task 12 (safe delete)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-13-inline">Task 13: Inline</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-and-correctness">3.4 Reliability and Correctness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-14-scope-precision">Task 14: Scope precision</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-15-atomicity">Task 15: Atomicity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-16-success-signals">Task 16: Success signals</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects">3.5 Workflow Effects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-17-chain-three-edits-in-one-file">Task 17: Chain three edits in one file</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-18-multi-step-exploration-across-edits">Task 18: Multi-step exploration across edits</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interesting-tasks">3.6 Non-Interesting Tasks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-19-read-non-code-file">Task 19: Read non-code file</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-20-free-text-pattern-search">Task 20: Free-text pattern search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token-efficiency-analysis">4. Token-Efficiency Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#payload-differences-across-edit-sizes">Payload differences across edit sizes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forced-reads">Forced reads</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-vs-ephemeral-addressing">Stable vs ephemeral addressing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-and-correctness-under-correct-use">5. Reliability and Correctness (Under Correct Use)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-of-matching">Precision of matching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-disambiguation">Scope disambiguation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomicity">Atomicity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-dependency-lookup">External dependency lookup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects-across-a-session">6. Workflow Effects Across a Session</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-advantages-compound">Where advantages compound</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-advantages-diminish">Where advantages diminish</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-capabilities">7. Unique Capabilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-outside-selene-s-scope-built-in-only">8. Tasks Outside Selene’s Scope (Built-In Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-usage-rule">9. Practical Usage Rule</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-call-count-summary">Appendix: Call Count Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <blockquote>
+<div><p>Historical evaluation inherited from the baseline, with project names normalized. These results have not been rerun or verified for this fork.</p>
+</div></blockquote>
+<div class="note admonition">
+<p class="admonition-title">Evaluation Result</p>
+<p><strong>Generated by</strong>: GLM 5.1 (coding AI agent in Claude Code CLI)<br>
+<strong>Codebase:</strong> <a class="reference external" href="https://github.com/thu-ml/tianshou">Tianshou</a> — a Python reinforcement learning library (~26K lines, 43 source files)<br>
+<strong>Date</strong>: 2026-04-14</p>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="claude-code-glm-5-1">
+<h1>Claude Code (GLM 5.1)<a class="headerlink" href="#claude-code-glm-5-1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Selene’s cross-file refactoring turned an 8-step, error-prone rename chain into a single atomic call — and after
+measuring the delta across 20 tasks, I would ask any developer I work with to install it, not because it replaces my
+built-in tools, but because it makes the hardest part of my job (changing code safely across files) suddenly feel
+reliable.</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="headline-what-selene-changes">
+<h2>1. Headline: What Selene Changes<a class="headerlink" href="#headline-what-selene-changes" title="Link to this heading">#</a></h2>
+<p><strong>(a) Tasks where Selene adds capability.</strong> Cross-file refactorings (rename, move) collapse from N separate read-find-edit-verify cycles into a single atomic call. Semantic queries (type hierarchy, find implementations, find references) return structured, symbol-accurate results that text search cannot produce without manual filtering. Symbol-level addressing (name paths) is stable across edits, eliminating stale-line-number rework in multi-step sessions.</p>
+<p><strong>(b) Tasks where Selene applies but offers no improvement.</strong> Single-file, small-bore edits (changing an error message, renaming a local variable with <code class="docutils literal notranslate"><span class="pre">replace_all</span></code>, inserting a function when you already know the insertion context) are equally fast with both toolsets. For a 1-line tweak in a 22-line method, Edit sends ~200 chars; Selene’s <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code> sends ~800 chars (the entire method body). The overhead reverses for full-body rewrites of large methods, where Selene sends only the new body while Edit sends old+new.</p>
+<p><strong>(c) Tasks outside Selene’s scope.</strong> Reading non-code files (config, TOML, docs), free-text pattern search (<code class="docutils literal notranslate"><span class="pre">FIXME</span></code>, magic constants, log strings), shell operations, and git workflows are all built-in territory. These are not Selene shortcomings — they are outside its design scope.</p>
+<p><strong>Verdict:</strong> Selene adds substantial, measurable capability in two areas — cross-file refactoring (1 call vs 5–8) and semantic code queries (structured, symbol-accurate results vs flat text matches) — while providing no meaningful delta for small single-file edits or non-code tasks.</p>
+</section>
+<hr class="docutils" />
+<section id="added-value-and-differences-by-area">
+<h2>2. Added Value and Differences by Area<a class="headerlink" href="#added-value-and-differences-by-area" title="Link to this heading">#</a></h2>
+<section id="cross-file-renaming-1-call-replaces-58">
+<h3>2.1 Cross-file renaming: 1 call replaces 5–8<a class="headerlink" href="#cross-file-renaming-1-call-replaces-58" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Renaming <code class="docutils literal notranslate"><span class="pre">CollectStatsBase</span></code> to <code class="docutils literal notranslate"><span class="pre">BaseCollectStats</span></code> across 4 files (10 occurrences) required 1 Selene call vs 1 Grep + 3 Reads + 4 Edits = 8 built-in calls.</p></li>
+<li><p><strong>Frequency:</strong> Medium. Any non-trivial rename touches 3–10 files.</p></li>
+<li><p><strong>Value per hit:</strong> Saves 4–7 calls and eliminates the partial-update risk of a mid-chain failure.</p></li>
+<li><p><strong>Atomicity:</strong> Selene’s rename is all-or-nothing. Built-in chain is not — if Edit 3 of 4 fails, 2 files are updated and 2 are not.</p></li>
+</ul>
+</section>
+<section id="symbol-moving-1-call-replaces-5">
+<h3>2.2 Symbol moving: 1 call replaces 5+<a class="headerlink" href="#symbol-moving-1-call-replaces-5" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Moving <code class="docutils literal notranslate"><span class="pre">_nullable_slice</span></code> to another module required 1 Selene call (moved definition + updated imports in both source and target). Built-in equivalent: read function → write to target → edit source (remove + add import) → edit target (add dependency import) = 5+ calls.</p></li>
+<li><p><strong>Frequency:</strong> Low. Module reorganization happens infrequently.</p></li>
+<li><p><strong>Value per hit:</strong> Saves 4+ calls and automates the most error-prone step (getting imports right).</p></li>
+<li><p><strong>Caveat:</strong> The move tool created a circular import (source imports from target, target imports from source). The tool does not detect or prevent this.</p></li>
+</ul>
+</section>
+<section id="reference-finding-symbol-accurate-vs-text-matched">
+<h3>2.3 Reference finding: Symbol-accurate vs text-matched<a class="headerlink" href="#reference-finding-symbol-accurate-vs-text-matched" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Finding references to <code class="docutils literal notranslate"><span class="pre">CollectStats</span></code> with Selene returned 10 semantically categorized results (IMPORT_ELEMENT, REFERENCE_EXPRESSION, NAMED_PARAMETER, etc.) with no false positives from <code class="docutils literal notranslate"><span class="pre">LoggedCollectStats</span></code>. Grep returned 70+ lines including false positives from <code class="docutils literal notranslate"><span class="pre">LoggedCollectStats</span></code> and noise from docstrings/comments.</p></li>
+<li><p><strong>Frequency:</strong> High. “Who uses this?” is one of the most common codebase questions.</p></li>
+<li><p><strong>Value per hit:</strong> Eliminates manual false-positive filtering. However, Selene’s output was 64KB (with context snippets) vs Grep’s ~5KB — a tradeoff of precision vs verbosity.</p></li>
+</ul>
+</section>
+<section id="type-hierarchy-1-call-vs-2-grep-and-parse-cycles">
+<h3>2.4 Type hierarchy: 1 call vs 2+ grep-and-parse cycles<a class="headerlink" href="#type-hierarchy-1-call-vs-2-grep-and-parse-cycles" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Getting the full type hierarchy of <code class="docutils literal notranslate"><span class="pre">BaseCollector</span></code> (supertypes: ABC → object; subtypes: Collector → AsyncCollector) required 1 Selene call. Built-in: parse the class definition line for bases + grep for inheritors + recurse = 2–3 calls, and still no access to external library types.</p></li>
+<li><p><strong>Frequency:</strong> Medium. Common when navigating unfamiliar code.</p></li>
+<li><p><strong>Value per hit:</strong> Saves 1–2 calls and returns transitive chains that built-ins can’t produce without iteration.</p></li>
+</ul>
+</section>
+<section id="structural-overview-hierarchical-vs-flat">
+<h3>2.5 Structural overview: Hierarchical vs flat<a class="headerlink" href="#structural-overview-hierarchical-vs-flat" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> <code class="docutils literal notranslate"><span class="pre">get_symbols_overview(depth=1)</span></code> on a 1551-line file returned a structured hierarchy (classes → methods + attributes) in one call. Grep for <code class="docutils literal notranslate"><span class="pre">^(class</span> <span class="pre">|def</span> <span class="pre">|</span>&#160;&#160;&#160; <span class="pre">def</span> <span class="pre">)</span></code> returned a flat 60-line list of definitions with line numbers but no attribute information or nesting.</p></li>
+<li><p><strong>Frequency:</strong> High. Opening any unfamiliar file.</p></li>
+<li><p><strong>Value per hit:</strong> Selene shows Protocol fields, class attributes, and method grouping. Grep shows line numbers for navigation but requires more work to understand structure.</p></li>
+</ul>
+</section>
+<section id="method-body-retrieval-targeted-read-vs-range-read">
+<h3>2.6 Method body retrieval: Targeted read vs range read<a class="headerlink" href="#method-body-retrieval-targeted-read-vs-range-read" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Reading <code class="docutils literal notranslate"><span class="pre">Collector._collect</span></code> (330+ lines) required 1 Selene <code class="docutils literal notranslate"><span class="pre">find_symbol</span></code> call using the name path. Built-in: need to know the line range (773–1103) from a prior Grep, then <code class="docutils literal notranslate"><span class="pre">Read(offset=773,</span> <span class="pre">limit=330)</span></code>.</p></li>
+<li><p><strong>Frequency:</strong> High. “Show me this method” is routine.</p></li>
+<li><p><strong>Value per hit:</strong> Selene uses stable addressing (name path). Built-in uses ephemeral line numbers that go stale after edits. The practical difference is small when you just read once, but compounds in edit-then-read-again workflows.</p></li>
+</ul>
+</section>
+<section id="single-file-rename-no-meaningful-difference">
+<h3>2.7 Single-file rename: No meaningful difference<a class="headerlink" href="#single-file-rename-no-meaningful-difference" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Renaming <code class="docutils literal notranslate"><span class="pre">_nullable_slice</span></code> (4 occurrences in one file): Selene rename = 1 call. Edit <code class="docutils literal notranslate"><span class="pre">replace_all</span></code> = 1 call. Identical results.</p></li>
+<li><p><strong>Frequency:</strong> High.</p></li>
+<li><p><strong>Value per hit:</strong> Zero. Both tools handle this equally well.</p></li>
+</ul>
+</section>
+<section id="small-edits-13-lines-edit-is-more-token-efficient">
+<h3>2.8 Small edits (1–3 lines): Edit is more token-efficient<a class="headerlink" href="#small-edits-13-lines-edit-is-more-token-efficient" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Changing one error message in a 22-line method: Edit sends ~200 chars (old + new string). Selene <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code> sends ~800 chars (entire method body).</p></li>
+<li><p><strong>Frequency:</strong> Very high.</p></li>
+<li><p><strong>Value per hit:</strong> Edit saves ~600 chars of payload per small edit. This reverses for full-body rewrites of 50+ line methods.</p></li>
+</ul>
+</section>
+<section id="insertion-stable-address-vs-text-anchor">
+<h3>2.9 Insertion: Stable address vs text anchor<a class="headerlink" href="#insertion-stable-address-vs-text-anchor" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>What changes:</strong> Inserting a new method after <code class="docutils literal notranslate"><span class="pre">refresh_all_sequence_stats</span></code>: Selene used 1 <code class="docutils literal notranslate"><span class="pre">insert_after_symbol</span></code> call with a name path (no line number needed). Edit used 1 Read + 1 Edit with a text anchor (surrounding context for uniqueness).</p></li>
+<li><p><strong>Frequency:</strong> Medium.</p></li>
+<li><p><strong>Value per hit:</strong> Saves 1 Read call. Both produce identical results.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene’s value concentrates in cross-file operations and semantic queries. For single-file text edits, the built-ins are equally capable and often more token-efficient.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="detailed-evidence-grouped-by-capability">
+<h2>3. Detailed Evidence, Grouped by Capability<a class="headerlink" href="#detailed-evidence-grouped-by-capability" title="Link to this heading">#</a></h2>
+<section id="codebase-understanding">
+<h3>3.1 Codebase Understanding<a class="headerlink" href="#codebase-understanding" title="Link to this heading">#</a></h3>
+<section id="task-1-repo-overview">
+<h4>Task 1: Repo overview<a class="headerlink" href="#task-1-repo-overview" title="Link to this heading">#</a></h4>
+<p>Both toolsets use the same approach (<code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">find</span></code>, directory listing). No Selene advantage here.</p>
+</section>
+<section id="task-2-structural-overview-of-a-large-file-collector-py-1551-lines">
+<h4>Task 2: Structural overview of a large file (<code class="docutils literal notranslate"><span class="pre">collector.py</span></code>, 1551 lines)<a class="headerlink" href="#task-2-structural-overview-of-a-large-file-collector-py-1551-lines" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Selene</p></th>
+<th class="head"><p>Built-in</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Call</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">get_symbols_overview(depth=1)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Grep</span> <span class="pre">&quot;^(class</span> <span class="pre">|def</span> <span class="pre">|</span>&#160;&#160;&#160; <span class="pre">def</span> <span class="pre">)&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Result</p></td>
+<td><p>Hierarchical: 14 classes, their methods, attributes, and module-level functions</p></td>
+<td><p>Flat list of 60 class/function definitions with line numbers</p></td>
+</tr>
+<tr class="row-even"><td><p>Output size</p></td>
+<td><p>~1.5KB structured JSON</p></td>
+<td><p>~3KB text</p></td>
+</tr>
+<tr class="row-odd"><td><p>Next step</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">find_symbol(&quot;Collector/_collect&quot;,</span> <span class="pre">include_body=True)</span></code> — direct</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Read(offset=773,</span> <span class="pre">limit=330)</span></code> — needs prior knowledge of line range</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Selene advantage:</strong> Shows attributes (e.g., <code class="docutils literal notranslate"><span class="pre">CollectStats.collect_time</span></code>, <code class="docutils literal notranslate"><span class="pre">CollectStats.returns</span></code>) that Grep cannot see. Hierarchical nesting makes the file’s architecture immediately clear.</p>
+<p><strong>Built-in advantage:</strong> Line numbers enable direct <code class="docutils literal notranslate"><span class="pre">Read</span></code> calls. Flat output is compact.</p>
+<p><strong>Verdict:</strong> Selene provides strictly more structural information in one call. The gap widens for files with deeply nested classes or dataclass fields.</p>
+</section>
+<section id="task-3-retrieve-a-specific-method-body">
+<h4>Task 3: Retrieve a specific method body<a class="headerlink" href="#task-3-retrieve-a-specific-method-body" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Selene</p></th>
+<th class="head"><p>Built-in</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Prerequisite</p></td>
+<td><p>Name path known (<code class="docutils literal notranslate"><span class="pre">Collector/_collect</span></code>)</p></td>
+<td><p>Line number known from prior Grep (773)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Call</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">find_symbol(name_path=&quot;Collector/_collect&quot;,</span> <span class="pre">include_body=True)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Read(offset=773,</span> <span class="pre">limit=330)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Payload sent</p></td>
+<td><p>~50 chars (name + path)</p></td>
+<td><p>~30 chars (offset + limit)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Payload received</p></td>
+<td><p>Exact method body (~330 lines)</p></td>
+<td><p>Lines 773–1102 (~330 lines)</p></td>
+</tr>
+<tr class="row-even"><td><p>Correctness</p></td>
+<td><p>Always exact</p></td>
+<td><p>Must know/guess the correct limit</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Functionally equivalent when line numbers are known. Selene’s name-path addressing degrades gracefully across edits; line numbers do not.</p>
+</section>
+<section id="task-4-find-all-references-to-collectstats">
+<h4>Task 4: Find all references to <code class="docutils literal notranslate"><span class="pre">CollectStats</span></code><a class="headerlink" href="#task-4-find-all-references-to-collectstats" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Selene <code class="docutils literal notranslate"><span class="pre">find_referencing_symbols</span></code></p></th>
+<th class="head"><p>Built-in <code class="docutils literal notranslate"><span class="pre">Grep</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Calls</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Output size</p></td>
+<td><p>64KB (with context snippets)</p></td>
+<td><p>~5KB (70 lines)</p></td>
+</tr>
+<tr class="row-even"><td><p>False positives</p></td>
+<td><p>0 (excludes <code class="docutils literal notranslate"><span class="pre">LoggedCollectStats</span></code>)</p></td>
+<td><p>5+ lines from <code class="docutils literal notranslate"><span class="pre">LoggedCollectStats</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Noise (comments/docs)</p></td>
+<td><p>Some (docstrings categorized)</p></td>
+<td><p>Significant (docstrings, comments matched)</p></td>
+</tr>
+<tr class="row-even"><td><p>Semantic categories</p></td>
+<td><p>Yes (IMPORT, PARAMETER, DECLARATION, REFERENCE)</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Selene advantage:</strong> Zero false positives. Semantic categorization. Shows import paths and parameter usage separately from code references.</p>
+<p><strong>Built-in advantage:</strong> 10x smaller output. Faster to scan visually.</p>
+<p><strong>Verdict:</strong> Selene is more precise but more verbose. For “who uses this in code?” both work; for “rename this safely” Selene’s precision is necessary.</p>
+</section>
+<section id="task-5-type-hierarchy-of-basecollector">
+<h4>Task 5: Type hierarchy of <code class="docutils literal notranslate"><span class="pre">BaseCollector</span></code><a class="headerlink" href="#task-5-type-hierarchy-of-basecollector" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Selene <code class="docutils literal notranslate"><span class="pre">type_hierarchy</span></code></p></th>
+<th class="head"><p>Built-in (Grep chain)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Calls</p></td>
+<td><p>1</p></td>
+<td><p>2–3 (grep subclasses, parse superclass, recurse)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Result</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ABC</span> <span class="pre">→</span> <span class="pre">object</span></code> (super), <code class="docutils literal notranslate"><span class="pre">Collector</span> <span class="pre">→</span> <span class="pre">AsyncCollector</span></code> (sub)</p></td>
+<td><p>Partial — direct sub/supertypes only, no transitive chain</p></td>
+</tr>
+<tr class="row-even"><td><p>External deps</p></td>
+<td><p>Shows <code class="docutils literal notranslate"><span class="pre">ABC</span></code> from <code class="docutils literal notranslate"><span class="pre">abc.pyi</span></code></p></td>
+<td><p>Cannot access</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Selene returns complete, transitive hierarchy including external library types in one call. Built-in approach requires iteration and cannot inspect external deps.</p>
+</section>
+<section id="task-6-external-dependency-symbol-lookup">
+<h4>Task 6: External dependency symbol lookup<a class="headerlink" href="#task-6-external-dependency-symbol-lookup" title="Link to this heading">#</a></h4>
+<p>Selene can read external dependency symbols IF you have the path from a prior tool result (e.g., <code class="docutils literal notranslate"><span class="pre">&lt;ext:abc.pyi|16198efc&gt;</span></code> from <code class="docutils literal notranslate"><span class="pre">type_hierarchy</span></code>). Direct search with <code class="docutils literal notranslate"><span class="pre">search_deps=True</span></code> returned empty results for <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>. The JetBrains IDE indexing is limited to what the language server has resolved.</p>
+<p>Built-in: Can <code class="docutils literal notranslate"><span class="pre">Read</span></code> site-packages files if you know the path, but discovery is manual.</p>
+<p><strong>Verdict:</strong> Minor Selene advantage — external symbols are accessible through tool chains but not through direct search. Neither toolset makes this easy.</p>
+</section>
+</section>
+<section id="single-file-edits">
+<h3>3.2 Single-File Edits<a class="headerlink" href="#single-file-edits" title="Link to this heading">#</a></h3>
+<section id="task-7a-small-tweak-1-line-change-in-22-line-method">
+<h4>Task 7a: Small tweak (1-line change in 22-line method)<a class="headerlink" href="#task-7a-small-tweak-1-line-change-in-22-line-method" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Edit</p></th>
+<th class="head"><p>Selene <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Prerequisite</p></td>
+<td><p>1 Read (6 lines of context)</p></td>
+<td><p>1 <code class="docutils literal notranslate"><span class="pre">find_symbol</span></code> (gets full body)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Payload sent</p></td>
+<td><p>~200 chars (old + new string)</p></td>
+<td><p>~800 chars (full method body)</p></td>
+</tr>
+<tr class="row-even"><td><p>Payload received</p></td>
+<td><p>Success message</p></td>
+<td><p>“OK”</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total payload</p></td>
+<td><p>~200 chars edit + ~300 chars read = ~500</p></td>
+<td><p>~800 chars edit + ~800 chars read = ~1600</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Edit is 3x more token-efficient for small tweaks inside methods.</p>
+</section>
+<section id="task-7b-medium-rewrite-6-line-changes-in-20-line-method">
+<h4>Task 7b: Medium rewrite (~6 line changes in 20-line method)<a class="headerlink" href="#task-7b-medium-rewrite-6-line-changes-in-20-line-method" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Edit</p></th>
+<th class="head"><p>Selene <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Payload sent</p></td>
+<td><p>~700 chars (old + new, full method)</p></td>
+<td><p>~500 chars (new body only)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prerequisite read</p></td>
+<td><p>~500 chars</p></td>
+<td><p>~500 chars (from prior <code class="docutils literal notranslate"><span class="pre">find_symbol</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Roughly equal. For medium rewrites, payloads converge.</p>
+</section>
+<section id="task-7c-large-rewrite-full-body-of-55-line-method">
+<h4>Task 7c: Large rewrite (full body of 55+ line method)<a class="headerlink" href="#task-7c-large-rewrite-full-body-of-55-line-method" title="Link to this heading">#</a></h4>
+<p>For a full-body rewrite of a 55-line method:</p>
+<ul class="simple">
+<li><p>Edit: old (~55 lines) + new (~55 lines) = ~110 lines sent</p></li>
+<li><p>Selene: new body only (~55 lines) sent</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene is ~2x more token-efficient for full-body rewrites. The advantage grows linearly with method size.</p>
+</section>
+<section id="task-8-insert-a-new-function-after-an-existing-one">
+<h4>Task 8: Insert a new function after an existing one<a class="headerlink" href="#task-8-insert-a-new-function-after-an-existing-one" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Selene</p></th>
+<th class="head"><p>Built-in</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">find_symbol(&quot;refresh_all_sequence_stats&quot;)</span></code> to confirm target</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Read(offset=250,</span> <span class="pre">limit=10)</span></code> to find insertion point</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">insert_after_symbol(name_path,</span> <span class="pre">body)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Edit(old_string=anchor,</span> <span class="pre">new_string=anchor+new_fn)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Total calls</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Payload sent</p></td>
+<td><p>New function body only (~300 chars)</p></td>
+<td><p>Anchor context + new function (~400 chars)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> No meaningful difference. Both require 2 calls and produce identical results.</p>
+</section>
+<section id="task-9-rename-a-private-helper-single-file-4-occurrences">
+<h4>Task 9: Rename a private helper (single-file, 4 occurrences)<a class="headerlink" href="#task-9-rename-a-private-helper-single-file-4-occurrences" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Selene <code class="docutils literal notranslate"><span class="pre">rename</span></code></p></th>
+<th class="head"><p>Edit <code class="docutils literal notranslate"><span class="pre">replace_all</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Calls</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prerequisites</p></td>
+<td><p>None</p></td>
+<td><p>Must have Read the file first</p></td>
+</tr>
+<tr class="row-even"><td><p>Result</p></td>
+<td><p>All 4 occurrences renamed</p></td>
+<td><p>All 4 occurrences renamed</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Functionally identical. Both are 1 call. Edit’s Read-first requirement is usually satisfied from prior exploration.</p>
+</section>
+</section>
+<section id="multi-file-changes">
+<h3>3.3 Multi-File Changes<a class="headerlink" href="#multi-file-changes" title="Link to this heading">#</a></h3>
+<section id="task-10-cross-file-rename-collectstatsbase-basecollectstats-4-files-10-occurrences">
+<h4>Task 10: Cross-file rename (<code class="docutils literal notranslate"><span class="pre">CollectStatsBase</span></code> → <code class="docutils literal notranslate"><span class="pre">BaseCollectStats</span></code>, 4 files, 10 occurrences)<a class="headerlink" href="#task-10-cross-file-rename-collectstatsbase-basecollectstats-4-files-10-occurrences" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Selene</p></th>
+<th class="head"><p>Built-in</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Find references</p></td>
+<td><p>Automatic</p></td>
+<td><p>1 Grep call</p></td>
+</tr>
+<tr class="row-odd"><td><p>Read files</p></td>
+<td><p>Not needed</p></td>
+<td><p>3 Read calls (Edit’s prerequisite)</p></td>
+</tr>
+<tr class="row-even"><td><p>Apply edits</p></td>
+<td><p>1 rename call (atomic)</p></td>
+<td><p>4 Edit calls (one per file)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Verify</p></td>
+<td><p>Return: “Success”</p></td>
+<td><p>Manual (4 success messages)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Total calls</strong></p></td>
+<td><p><strong>1</strong></p></td>
+<td><p><strong>8</strong> (1 grep + 3 reads + 4 edits)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Selene converts an 8-call manual pipeline into 1 atomic operation. This is the single largest efficiency gain observed.</p>
+</section>
+<section id="task-11-move-symbol-to-another-module">
+<h4>Task 11: Move symbol to another module<a class="headerlink" href="#task-11-move-symbol-to-another-module" title="Link to this heading">#</a></h4>
+<p>Selene’s <code class="docutils literal notranslate"><span class="pre">move</span></code> tool:</p>
+<ol class="arabic simple">
+<li><p>Moved <code class="docutils literal notranslate"><span class="pre">_nullable_slice</span></code> from <code class="docutils literal notranslate"><span class="pre">collector.py</span></code> to <code class="docutils literal notranslate"><span class="pre">converter.py</span></code></p></li>
+<li><p>Added import in source file: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">tianshou.data.utils.converter</span> <span class="pre">import</span> <span class="pre">_nullable_slice</span></code></p></li>
+<li><p>Added dependency import in target: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">tianshou.data.collector</span> <span class="pre">import</span> <span class="pre">_TArrLike</span></code></p></li>
+<li><p>Removed definition from source</p></li>
+</ol>
+<p>Built-in equivalent: Read function body → Write to target → Edit source (remove definition + add import) → Edit target (add dependency import) = 5+ calls.</p>
+<p><strong>Issue:</strong> The move created a circular import (source ↔ target). Selene does not detect or prevent this.</p>
+<p><strong>Verdict:</strong> Selene automates the most tedious part (import management) but doesn’t guard against circular dependencies. Saves 4+ calls at the cost of needing manual circular-import review.</p>
+</section>
+<section id="task-12-move-file-segtree-py-to-parent-directory">
+<h4>Task 12: Move file (<code class="docutils literal notranslate"><span class="pre">segtree.py</span></code> to parent directory)<a class="headerlink" href="#task-12-move-file-segtree-py-to-parent-directory" title="Link to this heading">#</a></h4>
+<p>Selene’s <code class="docutils literal notranslate"><span class="pre">move</span></code> tool:</p>
+<ol class="arabic simple">
+<li><p>Moved the file</p></li>
+<li><p>Updated the one direct import in <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> (<code class="docutils literal notranslate"><span class="pre">tianshou.data.utils.segtree</span></code> → <code class="docutils literal notranslate"><span class="pre">tianshou.data.segtree</span></code>)</p></li>
+<li><p>Other files (<code class="docutils literal notranslate"><span class="pre">prio.py</span></code>, tests) imported via re-export and needed no changes</p></li>
+</ol>
+<p>Built-in equivalent: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">mv</span></code> + grep for old import path + edit each file = 3+ calls.</p>
+<p><strong>Verdict:</strong> Selene saves 1–2 calls and automatically discovers which imports need updating.</p>
+</section>
+<section id="task-12-safe-delete">
+<h4>Task 12 (safe delete)<a class="headerlink" href="#task-12-safe-delete" title="Link to this heading">#</a></h4>
+<p>Selene’s <code class="docutils literal notranslate"><span class="pre">safe_delete</span></code> correctly refused to delete <code class="docutils literal notranslate"><span class="pre">_HACKY_create_info_batch</span></code> because it has a usage at line 730. The <code class="docutils literal notranslate"><span class="pre">propagate=true</span></code> mode (delete symbol + all call sites) failed for all tested symbols in this codebase.</p>
+<p><strong>Verdict:</strong> The usage-check is valuable (saves you from deleting a used symbol). The propagation feature was non-functional for the tested Python symbols.</p>
+</section>
+<section id="task-13-inline">
+<h4>Task 13: Inline<a class="headerlink" href="#task-13-inline" title="Link to this heading">#</a></h4>
+<p>Selene’s <code class="docutils literal notranslate"><span class="pre">inline_symbol</span></code> failed for all tested symbols (<code class="docutils literal notranslate"><span class="pre">_nullable_slice</span></code>, <code class="docutils literal notranslate"><span class="pre">BaseCollector/env_num</span></code>). The tool appears to have limited Python support for inlining.</p>
+<p><strong>Verdict:</strong> No successful inline demonstrated. Built-in manual inlining remains the only option.</p>
+</section>
+</section>
+<section id="reliability-and-correctness">
+<h3>3.4 Reliability and Correctness<a class="headerlink" href="#reliability-and-correctness" title="Link to this heading">#</a></h3>
+<section id="task-14-scope-precision">
+<h4>Task 14: Scope precision<a class="headerlink" href="#task-14-scope-precision" title="Link to this heading">#</a></h4>
+<p>Selene distinguishes <code class="docutils literal notranslate"><span class="pre">BaseCollector/_collect</span></code>, <code class="docutils literal notranslate"><span class="pre">Collector/_collect</span></code>, and <code class="docutils literal notranslate"><span class="pre">AsyncCollector/_collect</span></code> by name path. Grep for <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">_collect</span></code> matches all three — manual filtering by class is required.</p>
+<p><strong>Verdict:</strong> Selene’s name-path addressing eliminates ambiguity that text search cannot resolve.</p>
+</section>
+<section id="task-15-atomicity">
+<h4>Task 15: Atomicity<a class="headerlink" href="#task-15-atomicity" title="Link to this heading">#</a></h4>
+<p>Selene’s cross-file rename is atomic: 4 files updated in 1 call, all-or-nothing. Built-in: 4 separate Edit calls — if call 3 fails, 2 files are updated and 2 are not.</p>
+<p><strong>Verdict:</strong> Selene provides atomicity for cross-file operations. Built-in chains are inherently non-atomic.</p>
+</section>
+<section id="task-16-success-signals">
+<h4>Task 16: Success signals<a class="headerlink" href="#task-16-success-signals" title="Link to this heading">#</a></h4>
+<p>Both return clear success/failure indicators. No meaningful difference.</p>
+<p><strong>Verdict:</strong> Equal.</p>
+</section>
+</section>
+<section id="workflow-effects">
+<h3>3.5 Workflow Effects<a class="headerlink" href="#workflow-effects" title="Link to this heading">#</a></h3>
+<section id="task-17-chain-three-edits-in-one-file">
+<h4>Task 17: Chain three edits in one file<a class="headerlink" href="#task-17-chain-three-edits-in-one-file" title="Link to this heading">#</a></h4>
+<p>Edit with text matching: 3 sequential calls, no re-reads needed between them. Text anchors are immune to line-number shifts from prior edits.</p>
+<p>Selene <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code>: 3 sequential calls, no re-reads needed. Name-path addressing is also immune to line-number shifts.</p>
+<p><strong>Verdict:</strong> No meaningful difference for chained single-file edits.</p>
+</section>
+<section id="task-18-multi-step-exploration-across-edits">
+<h4>Task 18: Multi-step exploration across edits<a class="headerlink" href="#task-18-multi-step-exploration-across-edits" title="Link to this heading">#</a></h4>
+<p>Selene’s name-path results from exploration remain valid after edits. Built-in line numbers go stale, but Edit uses text matching (not line numbers), so the practical impact is limited to <code class="docutils literal notranslate"><span class="pre">Read</span></code> calls that need updated offsets.</p>
+<p><strong>Verdict:</strong> Minor Selene advantage. Name-path stability eliminates the need to re-scan after edits.</p>
+</section>
+</section>
+<section id="non-interesting-tasks">
+<h3>3.6 Non-Interesting Tasks<a class="headerlink" href="#non-interesting-tasks" title="Link to this heading">#</a></h3>
+<section id="task-19-read-non-code-file">
+<h4>Task 19: Read non-code file<a class="headerlink" href="#task-19-read-non-code-file" title="Link to this heading">#</a></h4>
+<p>Selene tools don’t apply. <code class="docutils literal notranslate"><span class="pre">Read</span></code> is the correct tool.</p>
+</section>
+<section id="task-20-free-text-pattern-search">
+<h4>Task 20: Free-text pattern search<a class="headerlink" href="#task-20-free-text-pattern-search" title="Link to this heading">#</a></h4>
+<p>Searching for <code class="docutils literal notranslate"><span class="pre">FIXME|HACK|TODO</span></code> across the codebase is a text search. Selene’s semantic tools don’t target this. <code class="docutils literal notranslate"><span class="pre">Grep</span></code> is the correct tool.</p>
+<p><strong>Verdict:</strong> These tasks are firmly built-in territory. They represent an estimated 20–30% of daily coding work (reading configs, searching for strings, shell operations, git workflows).</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="token-efficiency-analysis">
+<h2>4. Token-Efficiency Analysis<a class="headerlink" href="#token-efficiency-analysis" title="Link to this heading">#</a></h2>
+<section id="payload-differences-across-edit-sizes">
+<h3>Payload differences across edit sizes<a class="headerlink" href="#payload-differences-across-edit-sizes" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Edit type</p></th>
+<th class="head"><p>Edit payload</p></th>
+<th class="head"><p>Selene payload</p></th>
+<th class="head"><p>Winner</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1-line tweak in 22-line method</p></td>
+<td><p>~200 chars</p></td>
+<td><p>~800 chars</p></td>
+<td><p>Edit (4x)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6-line change in 20-line method</p></td>
+<td><p>~700 chars</p></td>
+<td><p>~500 chars</p></td>
+<td><p>Roughly equal</p></td>
+</tr>
+<tr class="row-even"><td><p>Full rewrite of 55-line method</p></td>
+<td><p>~2200 chars</p></td>
+<td><p>~1100 chars</p></td>
+<td><p>Selene (2x)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Full rewrite of 330-line method</p></td>
+<td><p>~13,000 chars</p></td>
+<td><p>~6,500 chars</p></td>
+<td><p>Selene (2x)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="forced-reads">
+<h3>Forced reads<a class="headerlink" href="#forced-reads" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Edit requires reading a file before editing it. This adds ~300–2000 chars per file.</p></li>
+<li><p>Selene does not require reading before editing (name-path addressing).</p></li>
+<li><p>For single-file edits where you already read the file, this is neutral.</p></li>
+<li><p>For cross-file operations on files you haven’t read, Selene saves 3–4 forced reads.</p></li>
+</ul>
+</section>
+<section id="stable-vs-ephemeral-addressing">
+<h3>Stable vs ephemeral addressing<a class="headerlink" href="#stable-vs-ephemeral-addressing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Selene: name paths (<code class="docutils literal notranslate"><span class="pre">Collector/_collect</span></code>) are stable across edits. Results from exploration remain valid.</p></li>
+<li><p>Built-in: line numbers are ephemeral. <code class="docutils literal notranslate"><span class="pre">Read</span></code> results go stale after edits. <code class="docutils literal notranslate"><span class="pre">Edit</span></code> uses text matching, which is stable.</p></li>
+<li><p>Practical impact: Low for one-shot edits, medium for edit-then-read-again workflows.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Edit wins for small tweaks (4x more token-efficient). Selene wins for full-body rewrites (2x more efficient) and cross-file operations (eliminates forced reads). The crossover point is approximately 50% of the method body changing — below that, Edit is more efficient; above that, Selene is.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="reliability-and-correctness-under-correct-use">
+<h2>5. Reliability and Correctness (Under Correct Use)<a class="headerlink" href="#reliability-and-correctness-under-correct-use" title="Link to this heading">#</a></h2>
+<section id="precision-of-matching">
+<h3>Precision of matching<a class="headerlink" href="#precision-of-matching" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Selene: Symbol-accurate. <code class="docutils literal notranslate"><span class="pre">find_referencing_symbols(CollectStats)</span></code> excludes <code class="docutils literal notranslate"><span class="pre">LoggedCollectStats</span></code>. No false positives observed.</p></li>
+<li><p>Grep: Text-matched. <code class="docutils literal notranslate"><span class="pre">CollectStats</span></code> matches <code class="docutils literal notranslate"><span class="pre">LoggedCollectStats</span></code>, <code class="docutils literal notranslate"><span class="pre">CollectStatsBase</span></code>, and docstring references. Requires manual filtering.</p></li>
+<li><p>Edit: Text-matched. <code class="docutils literal notranslate"><span class="pre">replace_all</span></code> replaces exact string matches. For unique symbol names, this is reliable. For common strings, it can over-match.</p></li>
+</ul>
+</section>
+<section id="scope-disambiguation">
+<h3>Scope disambiguation<a class="headerlink" href="#scope-disambiguation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Selene: <code class="docutils literal notranslate"><span class="pre">Collector/_collect</span></code> vs <code class="docutils literal notranslate"><span class="pre">AsyncCollector/_collect</span></code> — correctly distinguished by class-scoped name path.</p></li>
+<li><p>Built-in: <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">_collect</span></code> matches all implementations. Must manually verify class context.</p></li>
+</ul>
+</section>
+<section id="atomicity">
+<h3>Atomicity<a class="headerlink" href="#atomicity" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Selene cross-file operations: Atomic. Single call, all-or-nothing.</p></li>
+<li><p>Built-in multi-file chains: Non-atomic. Partial state possible if one call fails.</p></li>
+</ul>
+</section>
+<section id="external-dependency-lookup">
+<h3>External dependency lookup<a class="headerlink" href="#external-dependency-lookup" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Selene: Can read external stubs (e.g., <code class="docutils literal notranslate"><span class="pre">abc.pyi</span></code>) through paths returned by other tools. Direct search (<code class="docutils literal notranslate"><span class="pre">search_deps=True</span></code>) returned empty for <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code>. Limited to what JetBrains has indexed.</p></li>
+<li><p>Built-in: Can <code class="docutils literal notranslate"><span class="pre">Read</span></code> site-packages files if path is known. No semantic indexing.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene provides strictly more precise semantic matching and atomic cross-file operations. External dependency lookup is limited in both toolsets.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="workflow-effects-across-a-session">
+<h2>6. Workflow Effects Across a Session<a class="headerlink" href="#workflow-effects-across-a-session" title="Link to this heading">#</a></h2>
+<section id="where-advantages-compound">
+<h3>Where advantages compound<a class="headerlink" href="#where-advantages-compound" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Explore → edit → re-explore cycle:</strong> Selene’s name-path results survive edits. In a long session making multiple changes, this saves re-scanning after each edit. The built-in’s text matching also survives edits (Edit uses text, not line numbers), so the practical gap is smaller than it appears.</p></li>
+<li><p><strong>Cross-file refactoring chains:</strong> Rename a class, then move it, then update all references — each Selene call is atomic and builds on the previous result. With built-ins, each step requires finding all sites, reading files, and editing — the manual equivalent of what Selene automates.</p></li>
+</ol>
+</section>
+<section id="where-advantages-diminish">
+<h3>Where advantages diminish<a class="headerlink" href="#where-advantages-diminish" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Repeated small edits in one file:</strong> Edit’s text matching is equally stable and more token-efficient for small changes. No Selene advantage.</p></li>
+<li><p><strong>Exploration without editing:</strong> Both toolsets provide usable results. Selene’s are more structured but more verbose.</p></li>
+<li><p><strong>Non-Python files:</strong> Selene’s JetBrains backend provides no value for config files, shell scripts, markdown, or notebooks.</p></li>
+</ol>
+<p><strong>Verdict:</strong> Selene’s advantages compound in multi-step cross-file refactoring sessions. They do not compound for single-file iterative editing or non-code work.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="unique-capabilities">
+<h2>7. Unique Capabilities<a class="headerlink" href="#unique-capabilities" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Atomic cross-file rename/move</strong> — No built-in equivalent. The closest manual process is a grep-find-edit chain that is non-atomic and error-prone. Frequency: medium. Impact: high (eliminates partial-update risk).</p></li>
+<li><p><strong>Semantic reference finding with categorization</strong> — <code class="docutils literal notranslate"><span class="pre">find_referencing_symbols</span></code> returns zero-false-positive results categorized by usage type (import, parameter, declaration, reference). Built-in Grep cannot distinguish these. Frequency: high. Impact: medium (saves manual filtering).</p></li>
+<li><p><strong>Type hierarchy traversal</strong> — Returns transitive super/subtype chains including external library types in one call. Built-in requires iteration and cannot reach external deps. Frequency: medium. Impact: medium.</p></li>
+<li><p><strong>Symbol-scoped body retrieval</strong> — Read a specific method by name path without reading the surrounding file. Built-in <code class="docutils literal notranslate"><span class="pre">Read</span></code> requires line-range knowledge. Frequency: high. Impact: low (both require 1 call, difference is stable vs ephemeral addressing).</p></li>
+</ol>
+<p><strong>Verdict:</strong> Four unique capabilities, all semantic-code operations. The most impactful is atomic cross-file refactoring. None of these have practical built-in equivalents.</p>
+</section>
+<hr class="docutils" />
+<section id="tasks-outside-selene-s-scope-built-in-only">
+<h2>8. Tasks Outside Selene’s Scope (Built-In Only)<a class="headerlink" href="#tasks-outside-selene-s-scope-built-in-only" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>Tool</p></th>
+<th class="head"><p>Frequency</p></th>
+<th class="head"><p>Share of daily work</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Read config/TOML/yaml files</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Read</span></code></p></td>
+<td><p>High</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Free-text search (log strings, TODOs, URLs)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Grep</span></code></p></td>
+<td><p>High</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>File discovery by name pattern</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Glob</span></code></p></td>
+<td><p>Medium</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Shell commands (git, pip, pytest)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bash</span></code></p></td>
+<td><p>High</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Write new files from scratch</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write</span></code></p></td>
+<td><p>Medium</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Read images, notebooks, PDFs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Read</span></code></p></td>
+<td><p>Low</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Estimated share of daily work covered by built-in-only tasks: <strong>20–30%</strong>. The remaining 70–80% involves reading, editing, and navigating code where Selene’s semantic tools are applicable.</p>
+<p><strong>Verdict:</strong> Selene covers the code-editing and code-navigation portions of a session. Config reading, text search, and shell operations remain built-in territory.</p>
+</section>
+<hr class="docutils" />
+<section id="practical-usage-rule">
+<h2>9. Practical Usage Rule<a class="headerlink" href="#practical-usage-rule" title="Link to this heading">#</a></h2>
+<p><strong>Use Selene for:</strong> Any cross-file refactoring (rename, move), any “who uses this?” query, any type-hierarchy navigation, any full-method-body replacement, and any situation where you need symbol-accurate results without false positives.</p>
+<p><strong>Use built-ins for:</strong> Small edits (1–3 lines) inside methods, free-text search, reading non-code files, file discovery, and shell operations.</p>
+<p><strong>Hybrid pattern (most efficient):</strong> Use Selene to explore (overview, find symbol, find references) and Edit for small targeted changes. Use Selene for any cross-file refactoring. Use <code class="docutils literal notranslate"><span class="pre">Read</span></code>/<code class="docutils literal notranslate"><span class="pre">Grep</span></code>/<code class="docutils literal notranslate"><span class="pre">Glob</span></code> for non-code tasks and text search. This combination captures the strengths of both toolsets.</p>
+<p><strong>Verdict:</strong> The optimal workflow uses Selene’s semantic tools for code navigation and cross-file refactoring, and built-in Edit for small single-file changes. The two toolsets are complementary — Selene handles the structured code operations, built-ins handle the text and system operations.</p>
+</section>
+<hr class="docutils" />
+<section id="appendix-call-count-summary">
+<h2>Appendix: Call Count Summary<a class="headerlink" href="#appendix-call-count-summary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>Selene calls</p></th>
+<th class="head"><p>Built-in calls</p></th>
+<th class="head"><p>Delta</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Structural overview (1 file)</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Method body retrieval</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>Find references (1 symbol)</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0 (but Selene has 0 false positives vs Grep’s 5+)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Type hierarchy</p></td>
+<td><p>1</p></td>
+<td><p>2–3</p></td>
+<td><p>−1 to −2</p></td>
+</tr>
+<tr class="row-even"><td><p>Small edit (1 line in 22-line method)</p></td>
+<td><p>1 (+1 read)</p></td>
+<td><p>1 (+1 read)</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Medium edit (6 lines in 20-line method)</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>Insert new method</p></td>
+<td><p>1 (+1 confirm)</p></td>
+<td><p>1 (+1 read)</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Single-file rename (4 occurrences)</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Cross-file rename (4 files, 10 occurrences)</strong></p></td>
+<td><p><strong>1</strong></p></td>
+<td><p><strong>8</strong></p></td>
+<td><p><strong>−7</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Move symbol to another module</strong></p></td>
+<td><p><strong>1</strong></p></td>
+<td><p><strong>5+</strong></p></td>
+<td><p><strong>−4+</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Move file + update imports</strong></p></td>
+<td><p><strong>1</strong></p></td>
+<td><p><strong>3+</strong></p></td>
+<td><p><strong>−2+</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Safe delete (usage check)</p></td>
+<td><p>1</p></td>
+<td><p>1 grep</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Largest single-task delta: cross-file rename saves 7 calls and provides atomicity.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./04-evaluation/030_results"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="030_copilot_cli_on_ente.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Copilot CLI (GPT-5.4, medium)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="050_junie_plugin_on_tianshou.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">JetBrains Junie Plugin (Opus 4.6)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headline-what-selene-changes">1. Headline: What Selene Changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#added-value-and-differences-by-area">2. Added Value and Differences by Area</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-file-renaming-1-call-replaces-58">2.1 Cross-file renaming: 1 call replaces 5–8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symbol-moving-1-call-replaces-5">2.2 Symbol moving: 1 call replaces 5+</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-finding-symbol-accurate-vs-text-matched">2.3 Reference finding: Symbol-accurate vs text-matched</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hierarchy-1-call-vs-2-grep-and-parse-cycles">2.4 Type hierarchy: 1 call vs 2+ grep-and-parse cycles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-overview-hierarchical-vs-flat">2.5 Structural overview: Hierarchical vs flat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-body-retrieval-targeted-read-vs-range-read">2.6 Method body retrieval: Targeted read vs range read</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-file-rename-no-meaningful-difference">2.7 Single-file rename: No meaningful difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#small-edits-13-lines-edit-is-more-token-efficient">2.8 Small edits (1–3 lines): Edit is more token-efficient</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insertion-stable-address-vs-text-anchor">2.9 Insertion: Stable address vs text anchor</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-evidence-grouped-by-capability">3. Detailed Evidence, Grouped by Capability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#codebase-understanding">3.1 Codebase Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-repo-overview">Task 1: Repo overview</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-structural-overview-of-a-large-file-collector-py-1551-lines">Task 2: Structural overview of a large file (<code class="docutils literal notranslate"><span class="pre">collector.py</span></code>, 1551 lines)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-retrieve-a-specific-method-body">Task 3: Retrieve a specific method body</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-find-all-references-to-collectstats">Task 4: Find all references to <code class="docutils literal notranslate"><span class="pre">CollectStats</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-type-hierarchy-of-basecollector">Task 5: Type hierarchy of <code class="docutils literal notranslate"><span class="pre">BaseCollector</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-6-external-dependency-symbol-lookup">Task 6: External dependency symbol lookup</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-file-edits">3.2 Single-File Edits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-7a-small-tweak-1-line-change-in-22-line-method">Task 7a: Small tweak (1-line change in 22-line method)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-7b-medium-rewrite-6-line-changes-in-20-line-method">Task 7b: Medium rewrite (~6 line changes in 20-line method)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-7c-large-rewrite-full-body-of-55-line-method">Task 7c: Large rewrite (full body of 55+ line method)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-8-insert-a-new-function-after-an-existing-one">Task 8: Insert a new function after an existing one</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-9-rename-a-private-helper-single-file-4-occurrences">Task 9: Rename a private helper (single-file, 4 occurrences)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-file-changes">3.3 Multi-File Changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-10-cross-file-rename-collectstatsbase-basecollectstats-4-files-10-occurrences">Task 10: Cross-file rename (<code class="docutils literal notranslate"><span class="pre">CollectStatsBase</span></code> → <code class="docutils literal notranslate"><span class="pre">BaseCollectStats</span></code>, 4 files, 10 occurrences)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-11-move-symbol-to-another-module">Task 11: Move symbol to another module</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-12-move-file-segtree-py-to-parent-directory">Task 12: Move file (<code class="docutils literal notranslate"><span class="pre">segtree.py</span></code> to parent directory)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-12-safe-delete">Task 12 (safe delete)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-13-inline">Task 13: Inline</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-and-correctness">3.4 Reliability and Correctness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-14-scope-precision">Task 14: Scope precision</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-15-atomicity">Task 15: Atomicity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-16-success-signals">Task 16: Success signals</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects">3.5 Workflow Effects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-17-chain-three-edits-in-one-file">Task 17: Chain three edits in one file</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-18-multi-step-exploration-across-edits">Task 18: Multi-step exploration across edits</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interesting-tasks">3.6 Non-Interesting Tasks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-19-read-non-code-file">Task 19: Read non-code file</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-20-free-text-pattern-search">Task 20: Free-text pattern search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token-efficiency-analysis">4. Token-Efficiency Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#payload-differences-across-edit-sizes">Payload differences across edit sizes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forced-reads">Forced reads</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-vs-ephemeral-addressing">Stable vs ephemeral addressing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-and-correctness-under-correct-use">5. Reliability and Correctness (Under Correct Use)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-of-matching">Precision of matching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-disambiguation">Scope disambiguation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomicity">Atomicity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-dependency-lookup">External dependency lookup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects-across-a-session">6. Workflow Effects Across a Session</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-advantages-compound">Where advantages compound</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-advantages-diminish">Where advantages diminish</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-capabilities">7. Unique Capabilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-outside-selene-s-scope-built-in-only">8. Tasks Outside Selene’s Scope (Built-In Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-usage-rule">9. Practical Usage Rule</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-call-count-summary">Appendix: Call Count Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
