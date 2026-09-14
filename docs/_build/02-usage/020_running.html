@@ -1,0 +1,742 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Running Selene &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02-usage/020_running';</script>
+    <script src="../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="JetBrains compatibility backend" href="025_jetbrains_plugin.html" />
+    <link rel="prev" title="Installation" href="010_installation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="000_intro.html">Usage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="010_installation.html">Installation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-evaluation/000_evaluation-intro.html">Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-evaluation/010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/030_results/000_evaluation-results.html">Results</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02-usage/020_running.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Running Selene</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-mcp-server">Running the MCP Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-i-o-mode">Standard I/O Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streamable-http-mode">Streamable HTTP Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcp-server-command-line-arguments">MCP Server Command-Line Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-commands">Other Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-ways-of-running-selene">Alternative Ways of Running Selene</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-from-local-source">Running from local source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-docker">Using Docker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-nix-to-run-the-latest-source-version">Using Nix to Run the Latest Source Version</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="running-selene">
+<h1>Running Selene<a class="headerlink" href="#running-selene" title="Link to this heading">#</a></h1>
+<p>Selene is a command-line tool with a variety of sub-commands.
+This section describes</p>
+<ul class="simple">
+<li><p>how to run Selene in general</p></li>
+<li><p>how to run and configure the most important command, i.e. starting the MCP server</p></li>
+<li><p>other useful commands.</p></li>
+</ul>
+<p>The main way to run Selene is to use the <a class="reference internal" href="010_installation.html#install-selene"><span class="std std-ref">installed version</span></a>,
+which should be available in your system PATH as <code class="docutils literal notranslate"><span class="pre">selene.</span></code></p>
+<p>In general, to get help, append <code class="docutils literal notranslate"><span class="pre">--help</span></code> to the command, i.e.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene --help
+selene &lt;command&gt; --help
+</pre></div>
+</div>
+<section id="running-the-mcp-server">
+<span id="start-mcp-server"></span><h2>Running the MCP Server<a class="headerlink" href="#running-the-mcp-server" title="Link to this heading">#</a></h2>
+<p>Given your preferred method of running Selene, you can start the MCP server using the <code class="docutils literal notranslate"><span class="pre">start-mcp-server</span></code> command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene start-mcp-server [options]&lt;br&gt;
+</pre></div>
+</div>
+<p>Note that no matter how you run the MCP server, Selene will, by default, start a web-based dashboard on localhost that will allow you to inspect
+the server’s operations, logs, and configuration.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>By default, Selene will use language servers for code understanding and analysis.<br>
+With the <a class="reference internal" href="025_jetbrains_plugin.html"><span class="doc std std-doc">Selene JetBrains Plugin</span></a>, we recently introduced a powerful alternative,
+which has several advantages over the language server-based approach.</p>
+</div>
+<section id="standard-i-o-mode">
+<h3>Standard I/O Mode<a class="headerlink" href="#standard-i-o-mode" title="Link to this heading">#</a></h3>
+<p>The typical usage involves the client (e.g. Claude Code, Codex or Cursor) running
+the MCP server as a subprocess and using the process’ stdin/stdout streams to communicate with it.
+In order to launch the server, the client thus needs to be provided with the command to run the MCP server.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>MCP servers which use stdio as a protocol are somewhat unusual as far as client/server architectures go, as the server
+necessarily has to be started by the client in order for communication to take place via the server’s standard input/output streams.
+In other words, you do not need to start the server yourself. The client application (e.g. Claude Desktop) takes care of this and
+therefore needs to be configured with a launch command.</p>
+</div>
+<p>Communication over stdio is the default for the Selene MCP server, so in the simplest
+case, you can simply run the <code class="docutils literal notranslate"><span class="pre">start-mcp-server</span></code> command without any additional options.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene start-mcp-server
+</pre></div>
+</div>
+<p>See the section <a class="reference internal" href="030_clients.html"><span class="doc std std-doc">“Configuring Your MCP Client”</span></a> for specific information on how to configure your MCP client (e.g. Claude Code, Codex, Cursor, etc.)
+to use such a launch command.</p>
+</section>
+<section id="streamable-http-mode">
+<span id="streamable-http"></span><h3>Streamable HTTP Mode<a class="headerlink" href="#streamable-http-mode" title="Link to this heading">#</a></h3>
+<p>When using <em>Streamable HTTP</em> mode, you control the server lifecycle yourself,
+i.e. you start the server and provide the client with the URL to connect to it.</p>
+<p>Simply provide <code class="docutils literal notranslate"><span class="pre">start-mcp-server</span></code> with the <code class="docutils literal notranslate"><span class="pre">--transport</span> <span class="pre">streamable-http</span></code> option and optionally provide the desired port
+via the <code class="docutils literal notranslate"><span class="pre">--port</span></code> option.
+For example, to start the server on port 9121, run</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene start-mcp-server --transport streamable-http --port &lt;port&gt;
+</pre></div>
+</div>
+<p>and then configure your client to connect to <code class="docutils literal notranslate"><span class="pre">http://localhost:9121/mcp</span></code>.</p>
+<p>By default, only connections from localhost are allowed; pass the <code class="docutils literal notranslate"><span class="pre">--host</span> <span class="pre">&lt;listen_address&gt;</span></code> option to configure
+the listen address and allow remote connections if needed (but be aware of the security implications of doing so).</p>
+<p><strong>When to use.</strong> Note that Selene is a stateful MCP server, and only one coding project can be active at a time.
+Therefore, starting a single Selene instance and connecting it to multiple clients is only
+appropriate if all clients will be working on the same project.<br>
+If you want several agents to work on different projects, making each client/agent start its own server
+in stdio mode is likely the best option.
+See section <a class="reference internal" href="040_workflow.html"><span class="doc std std-doc">The Project Workflow</span></a> for more information on how to manage projects in Selene.</p>
+<p>The legacy SSE transport is also supported (via <code class="docutils literal notranslate"><span class="pre">--transport</span> <span class="pre">sse</span></code> with corresponding /sse endpoint), its use is discouraged.</p>
+</section>
+<section id="mcp-server-command-line-arguments">
+<span id="mcp-args"></span><h3>MCP Server Command-Line Arguments<a class="headerlink" href="#mcp-server-command-line-arguments" title="Link to this heading">#</a></h3>
+<p>The Selene MCP server supports a wide range of additional command-line options.
+Use the command</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;selene&gt; start-mcp-server --help
+</pre></div>
+</div>
+<p>to get a list of all available options.</p>
+<p>Some useful options include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">&lt;path|name&gt;</span></code>: specify the project to work on by name or path.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--project-from-cwd</span></code>: auto-detect the project from current working directory<br>
+(walking up the parent directories and activating the nearest one that contains either <code class="docutils literal notranslate"><span class="pre">.selene/project.yml</span></code>
+or <code class="docutils literal notranslate"><span class="pre">.git</span></code>, if any). The nearest boundary wins, so a git worktree nested under another Selene project resolves
+to the worktree itself rather than the ancestor project.
+This option is intended for CLI-based agents like Claude Code, Gemini and Codex, which are typically started from within the project directory
+and which do not change directories during their operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--language-backend</span> <span class="pre">JetBrains</span></code>: use the Selene JetBrains Plugin as the language backend (overriding the default backend configured in the central configuration)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--context</span> <span class="pre">&lt;context&gt;</span></code>: specify the operation <a class="reference internal" href="050_configuration.html#contexts"><span class="std std-ref">context</span></a> in which Selene shall operate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">&lt;mode&gt;</span></code>: specify one or more <a class="reference internal" href="050_configuration.html#modes"><span class="std std-ref">modes</span></a> to enable (can be passed several times)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--open-web-dashboard</span> <span class="pre">&lt;true|false&gt;</span></code>: whether to open the web dashboard on startup (enabled by default)</p></li>
+</ul>
+</section>
+</section>
+<section id="other-commands">
+<h2>Other Commands<a class="headerlink" href="#other-commands" title="Link to this heading">#</a></h2>
+<p>Selene provides several other commands in addition to <code class="docutils literal notranslate"><span class="pre">start-mcp-server</span></code>,
+most of which are related to project setup and configuration.</p>
+<p>To get a list of available commands, run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;selene&gt; --help
+</pre></div>
+</div>
+<p>To get help on a specific command, run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;selene&gt; &lt;command&gt; --help
+</pre></div>
+</div>
+<p>In general, add <code class="docutils literal notranslate"><span class="pre">--help</span></code> to any command or sub-command to get information about its usage and available options.</p>
+<p>Here are some examples of commands you might find useful:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># get help about a sub-command</span>
+selene&gt;<span class="w"> </span>tools<span class="w"> </span>list<span class="w"> </span>--help
+
+<span class="c1"># list all available tools</span>
+selene&gt;<span class="w"> </span>tools<span class="w"> </span>list<span class="w"> </span>--all
+
+<span class="c1"># get detailed description of a specific tool</span>
+selene&gt;<span class="w"> </span>tools<span class="w"> </span>description<span class="w"> </span>find_symbol
+
+<span class="c1"># creating a new Selene project in the current directory</span>
+selene<span class="w"> </span>project<span class="w"> </span>create
+
+<span class="c1"># creating and immediately indexing a project</span>
+selene<span class="w"> </span>project<span class="w"> </span>create<span class="w"> </span>--index
+
+<span class="c1"># indexing the project in the current directory (auto-creates if needed)</span>
+selene<span class="w"> </span>project<span class="w"> </span>index
+
+<span class="c1"># run a health check on the project in the current directory</span>
+selene<span class="w"> </span>project<span class="w"> </span>health-check
+
+<span class="c1"># check if a path is ignored by the project</span>
+selene<span class="w"> </span>project<span class="w"> </span>is_ignored_path<span class="w"> </span>path/to/check
+
+<span class="c1"># edit Selene&#39;s configuration file</span>
+selene<span class="w"> </span>config<span class="w"> </span>edit
+
+<span class="c1"># list available contexts</span>
+selene<span class="w"> </span>context<span class="w"> </span>list
+
+<span class="c1"># create a new context</span>
+selene<span class="w"> </span>context<span class="w"> </span>create<span class="w"> </span>my-custom-context
+
+<span class="c1"># edit a custom context</span>
+selene<span class="w"> </span>context<span class="w"> </span>edit<span class="w"> </span>my-custom-context
+
+<span class="c1"># list available modes</span>
+selene<span class="w"> </span>mode<span class="w"> </span>list
+
+<span class="c1"># create a new mode</span>
+selene<span class="w"> </span>mode<span class="w"> </span>create<span class="w"> </span>my-custom-mode
+
+<span class="c1"># edit a custom mode</span>
+selene<span class="w"> </span>mode<span class="w"> </span>edit<span class="w"> </span>my-custom-mode
+
+<span class="c1"># list available prompt definitions</span>
+selene<span class="w"> </span>prompts<span class="w"> </span>list
+
+<span class="c1"># create an override for internal prompts</span>
+selene<span class="w"> </span>prompts<span class="w"> </span>create-override<span class="w"> </span>prompt-name
+
+<span class="c1"># edit a prompt override</span>
+selene<span class="w"> </span>prompts<span class="w"> </span>edit-override<span class="w"> </span>prompt-name
+</pre></div>
+</div>
+<p>Explore the full set of commands and options using the CLI itself!</p>
+</section>
+<section id="alternative-ways-of-running-selene">
+<h2>Alternative Ways of Running Selene<a class="headerlink" href="#alternative-ways-of-running-selene" title="Link to this heading">#</a></h2>
+<p>Depending on your requirements, you may want to run Selene in different ways.
+When applying one of these approaches, replace <code class="docutils literal notranslate"><span class="pre">selene</span></code> in commands mentioned throughout the documentation
+with the respective command and options. The same applies to <code class="docutils literal notranslate"><span class="pre">selene-hooks</span></code> commands.</p>
+<section id="running-from-local-source">
+<h3>Running from local source<a class="headerlink" href="#running-from-local-source" title="Link to this heading">#</a></h3>
+<p>From the Selene checkout, install dependencies with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--locked</span></code> and run <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">--no-sync</span> <span class="pre">selene</span> <span class="pre">&lt;command&gt;</span></code>.
+From another directory use <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">--directory</span> <span class="pre">/absolute/path/to/selene</span> <span class="pre">--no-sync</span> <span class="pre">selene</span> <span class="pre">&lt;command&gt;</span></code>.
+Pass <code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">/absolute/path/to/project</span></code> explicitly when starting the server this way.</p>
+</section>
+<section id="using-docker">
+<span id="docker"></span><h3>Using Docker<a class="headerlink" href="#using-docker" title="Link to this heading">#</a></h3>
+<p>The Docker approach offers several advantages:</p>
+<ul class="simple">
+<li><p>better security isolation for shell command execution</p></li>
+<li><p>no need to install language servers and dependencies locally</p></li>
+<li><p>consistent environment across different systems</p></li>
+</ul>
+<p>You can run the Selene MCP server directly via Docker as follows,
+assuming that the projects you want to work on are all located in <code class="docutils literal notranslate"><span class="pre">/path/to/your/projects</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>selene:local<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-i<span class="w"> </span>-v<span class="w"> </span>/path/to/your/projects:/workspaces/projects<span class="w"> </span>selene:local<span class="w"> </span>start-mcp-server
+</pre></div>
+</div>
+<p>This command mounts your projects into the container under <code class="docutils literal notranslate"><span class="pre">/workspaces/projects</span></code>, so when working with projects,
+you need to refer to them using the respective path (e.g. <code class="docutils literal notranslate"><span class="pre">/workspaces/projects/my-project</span></code>).</p>
+<p>Alternatively, you may use Docker compose. Adjust the file <code class="docutils literal notranslate"><span class="pre">compose.yml</span></code>, which is provided in the repository, according to your needs.
+See our <a class="reference download internal" download="" href="../_downloads/848a23e251eadafcbbe5d496aaef79ea/DOCKER.md"><code class="xref download docutils literal notranslate"><span class="pre">advanced</span> <span class="pre">Docker</span> <span class="pre">usage</span></code></a> documentation for more detailed instructions, configuration options, and limitations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Docker usage is subject to limitations; see the <a class="reference download internal" download="" href="../_downloads/848a23e251eadafcbbe5d496aaef79ea/DOCKER.md"><code class="xref download docutils literal notranslate"><span class="pre">advanced</span> <span class="pre">Docker</span> <span class="pre">usage</span></code></a> documentation for details.</p>
+</div>
+</section>
+<section id="using-nix-to-run-the-latest-source-version">
+<h3>Using Nix to Run the Latest Source Version<a class="headerlink" href="#using-nix-to-run-the-latest-source-version" title="Link to this heading">#</a></h3>
+<p>If you are using Nix and <a class="reference external" href="https://nixos.wiki/wiki/flakes">have enabled the <code class="docutils literal notranslate"><span class="pre">nix-command</span></code> and <code class="docutils literal notranslate"><span class="pre">flakes</span></code> features</a>, you can run Selene using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>run<span class="w"> </span>path:/absolute/path/to/selene<span class="w"> </span>--<span class="w"> </span>&lt;command&gt;<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>You can also install Selene by referencing this repo (<code class="docutils literal notranslate"><span class="pre">path:/absolute/path/to/selene</span></code>) and using it in your Nix flake. The package is exported as <code class="docutils literal notranslate"><span class="pre">selene</span></code>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02-usage"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="010_installation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Installation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="025_jetbrains_plugin.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">JetBrains compatibility backend</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-mcp-server">Running the MCP Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-i-o-mode">Standard I/O Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streamable-http-mode">Streamable HTTP Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcp-server-command-line-arguments">MCP Server Command-Line Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-commands">Other Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-ways-of-running-selene">Alternative Ways of Running Selene</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-from-local-source">Running from local source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-docker">Using Docker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-nix-to-run-the-latest-source-version">Using Nix to Run the Latest Source Version</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
