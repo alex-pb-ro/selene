@@ -1,0 +1,175 @@
+{
+  "method": {
+    "fixture": "required-parameter API change, aliased caller, direct/indirect tests and one dynamically assembled reflective call",
+    "model_calls": 0,
+    "synthetic_only": true,
+    "project_unchanged_by_analysis": true,
+    "regression_gate": "all tests in the synthetic tests directory, chosen independently of the impact report",
+    "source_sha256": {
+      "research/probes/change_impact.py": "17a0d40555b0212c2c7fa70e8d7b1207a747e24f91ebd8b1f40d4d8a0675dc7a",
+      "src/selene/changes/__init__.py": "92b0078c2e0310ca8a9d0d41f0da3fb9cf03bf0161247bac5375ca1143c528b1",
+      "src/selene/changes/model.py": "77c9bcd48f069ef98503ee38327a58626f6ac030b028f92e5eccc185d15d0add",
+      "src/selene/changes/resolver.py": "36047df348fdba4bd75899464d61c55d79160e158c4a2ddc4a493b18582543a1",
+      "src/selene/changes/unified_diff.py": "e1652a5041fc487974d9de27a07690fd7ed6e23532ae07df0b5c8074dd0bfc55",
+      "src/selene/context/__init__.py": "d42c5c1af9ecd71d4849cc1d16133cd5c102688eb105d52f9beaf70797691999",
+      "src/selene/context/bundles.py": "a9f2b79e5ee89b77295a6abe838b88c5e788d5543c13404ad67afb8391ccabd0",
+      "src/selene/context/model.py": "a204c69c40dfd3210b993d0e3f1e862790444cc5a7c370854ee94c549edf0e2d",
+      "src/selene/context/python_bindings.py": "cfab47356fa6443748a10f4bc1e3613f4fe58c21e58fc6b3daafe31d6b8561d0",
+      "src/selene/context/selection.py": "60dd2e2e31b76e2c26c12d106b53eb8550e19bc6dda342c407b5c3f18c7444de",
+      "src/selene/context/semantic.py": "4ecf72ee6482f04b0af896c4e6a10983b0fd2b14d5fb719fa261dca63879e9dd",
+      "src/selene/context/sources.py": "dab6a5e1cf740601719e0932b8a0c8d3991b7731c56470979e37034fea7ff625",
+      "src/selene/impact/__init__.py": "08561e05a84d37069c663643b5f3b9c8f3c4383255ecb2a1d4d40b4d2d373862",
+      "src/selene/impact/adapters.py": "dc8fecf524270773025b6399ea76cddcda86ec5ff7bdf0b5c9d07e77018648fc",
+      "src/selene/impact/graph.py": "1ef581d97f9dd3763eeda5f1c200cc1beb1e78521d7ba829843112e41d84fc79",
+      "src/selene/impact/model.py": "722012306128712a796a442654376973fa4186b623da61cadf5197e3bc11b35b",
+      "src/selene/impact/service.py": "dcbffcc364a01ed115bd6cd73aeb5ea76872e5a1b5445a8f437cc3d06842d9b3",
+      "src/selene/project.py": "5cea766148be178340d0f1029714445cfd51bb954924d4e49159d622d34099d1",
+      "src/selene/tools/impact_tools.py": "bc5c1c686cc50137c6901383422c8c9523a9509e35ac3766e66e1e676895c23c",
+      "src/selene/util/json_budget.py": "1a88bc660524ef3420001f78d3e8721785758fa7c608408478c5c2b410ef21f9"
+    },
+    "limitations": "One Python/Pyright fixture; no agent task-success or arbitrary-language completeness claim. The reflective case intentionally tests a static/lexical blind spot."
+  },
+  "analysis": {
+    "elapsed_ms": 2088.133,
+    "json_characters": 7477,
+    "budget": {
+      "unit": "json_characters",
+      "limit": 30000,
+      "used": 7477
+    },
+    "expected_static_sites": [
+      [
+        "client.py",
+        4
+      ],
+      [
+        "tests/test_direct.py",
+        4
+      ],
+      [
+        "tests/test_primary.py",
+        4
+      ]
+    ],
+    "observed_sites": [
+      [
+        "client.py",
+        1
+      ],
+      [
+        "client.py",
+        4
+      ],
+      [
+        "tests/test_direct.py",
+        4
+      ],
+      [
+        "tests/test_primary.py",
+        4
+      ]
+    ],
+    "known_static_site_recall": 1.0,
+    "known_static_test_recall": 1.0,
+    "recommended_tests": [
+      {
+        "path": "tests/test_direct.py",
+        "symbols": [
+          "test_direct"
+        ],
+        "sha256": "d6c1ad8595455ae9153b36c7f75b8eac29682277f273ded2cacfee84024456de",
+        "basis": "reference_to_symbol",
+        "evidence": "language_server",
+        "depth": 1
+      },
+      {
+        "path": "tests/test_primary.py",
+        "symbols": [
+          "test_primary"
+        ],
+        "sha256": "9f2cd6c925eb34e775a1729cb842cafff95241d31345093d380c502f0d7df4fb",
+        "basis": "reference_to_symbol",
+        "evidence": "language_server",
+        "depth": 2
+      }
+    ],
+    "uncertainties": [
+      {
+        "reason": "static_relationships_do_not_prove_runtime_impact",
+        "next_step": "Review dynamic dispatch, reflection, dependency injection, generated code and runtime configuration.",
+        "source": null
+      },
+      {
+        "reason": "proposed_code_has_not_been_typechecked_or_executed",
+        "next_step": "Apply the reviewed change and run focused tests plus the project's independent broader regression gate.",
+        "source": null
+      },
+      {
+        "reason": "test_roles_are_filename_heuristics_not_runtime_coverage",
+        "next_step": "Check fixture setup and test discovery in the project's actual runner.",
+        "source": null
+      },
+      {
+        "reason": "transitive_depth_limit_reached",
+        "next_step": "Analyze the returned boundary symbols or request a larger depth.",
+        "source": {
+          "path": "tests/test_primary.py",
+          "sha256": "9f2cd6c925eb34e775a1729cb842cafff95241d31345093d380c502f0d7df4fb",
+          "start_line": 3,
+          "end_line": 4,
+          "symbol": "test_primary"
+        }
+      },
+      {
+        "reason": "implementation_query_unavailable_or_failed",
+        "next_step": "Inspect the affected backend or narrow the analysis request.",
+        "source": null
+      },
+      {
+        "reason": "language_server_relationships_are_static_not_runtime_guarantees",
+        "next_step": "Inspect the affected backend or narrow the analysis request.",
+        "source": null
+      },
+      {
+        "reason": "semantic_operation_failed",
+        "next_step": "Inspect the affected backend or narrow the analysis request.",
+        "source": null
+      }
+    ]
+  },
+  "baseline": {
+    "selection": [
+      "tests"
+    ],
+    "test_count": 3,
+    "failed_tests": [],
+    "exit_code": 0
+  },
+  "selected_after_proposal": {
+    "selection": [
+      "tests/test_direct.py",
+      "tests/test_primary.py"
+    ],
+    "test_count": 2,
+    "failed_tests": [
+      "test_direct",
+      "test_primary"
+    ],
+    "exit_code": 1
+  },
+  "broader_after_proposal": {
+    "selection": [
+      "tests"
+    ],
+    "test_count": 3,
+    "failed_tests": [
+      "test_direct",
+      "test_opaque",
+      "test_primary"
+    ],
+    "exit_code": 1
+  },
+  "regressions_missed_by_selected_tests": [
+    "test_opaque"
+  ]
+}

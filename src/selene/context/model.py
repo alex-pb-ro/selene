@@ -62,14 +62,16 @@ class SemanticNode:
     kind: str
     declaration_line: int
     declaration_column: int
+    container_kind: str | None = None
 
 
 @dataclass(frozen=True)
 class SemanticEdge:
     target: SemanticNode
     origin: SourceReference
-    kind: Literal["definition_of_reference", "reference_to_symbol"]
+    kind: Literal["definition_of_reference", "reference_to_symbol", "implementation_of_symbol", "import_alias_binding"]
     site: SourceReference
+    site_column: int | None = None
 
 
 class StaleContextError(ValueError):

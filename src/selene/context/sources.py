@@ -41,6 +41,23 @@ class ContextSources:
         self._encoding = encoding
         self._max_files = max_files
         self._documents: dict[str, ContextDocument] = {}
+        self._canonical_paths: dict[str, str] = {}
+        for entry in observation.files.values():
+            if entry.text_status == "indexed":
+                self._canonical_paths.setdefault(entry.canonical_path, entry.path)
+                if entry.path == entry.canonical_path:
+                    self._canonical_paths[entry.canonical_path] = entry.path
+
+    def resolve_indexed_path(self, absolute_path: str | Path) -> str | None:
+        """Map an absolute local target to an admitted canonical source without reading its body."""
+        try:
+            path = Path(absolute_path)
+            if not path.is_absolute():
+                return None
+            canonical = path.resolve(strict=True).relative_to(self.index.scope.root).as_posix()
+        except (OSError, ValueError, RuntimeError):
+            return None
+        return self._canonical_paths.get(canonical)
 
     def contains(self, path: str) -> bool:
         normalized = self.index.scope.normalize(path)
