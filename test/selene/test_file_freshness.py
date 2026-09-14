@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from threading import Event
 from types import SimpleNamespace
+from unittest.mock import Mock
 
 import pytest
 
@@ -11,7 +12,7 @@ from selene.config.selene_config import ProjectConfig, SeleneConfig
 from selene.file_change_notifier import LanguageServerFileChangeNotifier
 from selene.project import Project
 from selene.util.file_snapshot import FileSnapshotConflict, FileSnapshotReader
-from solidlsp.ls import LSPFileBuffer
+from solidlsp.ls import LSPFileBuffer, SolidLanguageServer
 from solidlsp.ls_config import LanguageServerId
 from solidlsp.lsp_protocol_handler.lsp_types import FileChangeType
 
@@ -204,6 +205,34 @@ def test_buffer_keeps_draft_until_disk_conflict_is_resolved(tmp_path):
     buffer.ensure_open_in_ls()
     rewrite(path, "value = 4\n", 0)
     assert buffer.contents == "value = 4\n"
+
+
+def test_failed_nested_open_allows_a_fresh_request_after_owner_closes(tmp_path):
+    # open a real file buffer through the server with recorded protocol notifications
+    path = tmp_path / "module.py"
+    path.write_text("value = 1\n")
+    notifications = RecordingServer()
+    server = Mock(spec=SolidLanguageServer)
+    server.server_started = True
+    server.repository_root_path = str(tmp_path)
+    server._path_contains_dots.return_value = False
+    server.open_file_buffers = {}
+    server._encoding = "utf-8"
+    server._get_language_id_for_file.return_value = "python"
+    server.server = notifications.server
+
+    # fail a nested request after an external edit conflicts with the active draft
+    with SolidLanguageServer.open_file(server, "module.py") as buffer:
+        buffer.contents = "value = 2\n"
+        rewrite(path, "value = 3\n", 0)
+        with pytest.raises(FileSnapshotConflict, match="unsaved"):
+            with SolidLanguageServer.open_file(server, "module.py"):
+                pass
+
+    # a later independent request must read the external version without a stale conflict
+    with SolidLanguageServer.open_file(server, "module.py") as buffer:
+        assert buffer.contents == "value = 3\n"
+    assert notifications.opened[-1]["textDocument"]["text"] == "value = 3\n"
 
 
 def test_buffer_noop_edits_do_not_create_false_conflicts(tmp_path):

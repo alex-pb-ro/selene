@@ -1,0 +1,714 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Language Support &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01-about/020_programming-languages';</script>
+    <script src="../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Features" href="025_features.html" />
+    <link rel="prev" title="About Selene" href="000_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="000_intro.html">About Selene</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-usage/000_intro.html">Usage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-usage/999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-evaluation/000_evaluation-intro.html">Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-evaluation/010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/030_results/000_evaluation-results.html">Results</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/01-about/020_programming-languages.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Language Support</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-servers">Language Servers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-selene-jetbrains-plugin">The Selene JetBrains Plugin</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="language-support">
+<h1>Language Support<a class="headerlink" href="#language-support" title="Link to this heading">#</a></h1>
+<p>Selene provides a set of versatile code querying and editing functionalities
+based on symbolic understanding of the code across a wide range of programming languages.
+Equipped with these capabilities, Selene discovers and edits code just like a seasoned developer
+making use of an IDE’s capabilities would.
+Selene can efficiently find the right context and do the right thing even in very large and
+complex projects!</p>
+<p>There are two alternative technologies powering these capabilities:</p>
+<ul class="simple">
+<li><p><strong>Language servers</strong> implementing the language server Protocol (LSP) — the free/open-source alternative.</p></li>
+<li><p><strong>The Selene JetBrains Plugin</strong>, which leverages the powerful code analysis and editing
+capabilities of your JetBrains IDE.</p></li>
+</ul>
+<p>See the <a class="reference internal" href="025_features.html"><span class="doc std std-doc">Features</span></a> section for a detailed comparison of the capabilities provided by the JetBrains Plugin vs. language servers.</p>
+<section id="language-servers">
+<span id="id1"></span><h2>Language Servers<a class="headerlink" href="#language-servers" title="Link to this heading">#</a></h2>
+<p>Selene incorporates a powerful abstraction layer for the integration of language servers
+that implement the language server protocol (LSP).
+It even supports multiple language servers in parallel to support polyglot projects.</p>
+<p>The language servers themselves are typically open-source projects (like Selene)
+or at least freely available for use.</p>
+<p>We currently provide direct, out-of-the-box support for the programming languages listed below.
+Some languages require additional installations or setup steps, as noted.</p>
+<ul class="simple">
+<li><p><strong>Ada / SPARK</strong><br>
+(uses AdaCore’s <a class="reference external" href="https://github.com/AdaCore/ada_language_server">Ada Language Server (ALS)</a>,
+automatically downloaded; supports <code class="docutils literal notranslate"><span class="pre">.ads</span></code>, <code class="docutils literal notranslate"><span class="pre">.adb</span></code>, and <code class="docutils literal notranslate"><span class="pre">.ada</span></code> files;
+works best with a <code class="docutils literal notranslate"><span class="pre">.gpr</span></code> GNAT project file at the repository root;
+SPARK is handled by the same server transparently — set language <code class="docutils literal notranslate"><span class="pre">ada</span></code> for both.
+To use a pre-installed ALS (e.g. from Alire, GNAT Studio, or the VS Code Ada extension),
+set <code class="docutils literal notranslate"><span class="pre">ls_specific_settings.ada.ls_path</span></code>.)</p></li>
+<li><p><strong>AL</strong></p></li>
+<li><p><strong>Angular</strong><br>
+(experimental; requires Node.js + npm, plus <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> having been run in the project root so that <code class="docutils literal notranslate"><span class="pre">&#64;angular/core</span></code>
+is resolvable — without it, template-aware features silently return empty;
+subsumes <code class="docutils literal notranslate"><span class="pre">typescript</span></code> and <code class="docutils literal notranslate"><span class="pre">html</span></code> for <code class="docutils literal notranslate"><span class="pre">.ts</span></code>/<code class="docutils literal notranslate"><span class="pre">.html</span></code> files, so do not also list those)</p></li>
+<li><p><strong>Ansible</strong><br>
+(experimental; requires Node.js and npm; automatically installs <code class="docutils literal notranslate"><span class="pre">&#64;ansible/ansible-language-server</span></code>;
+must be explicitly specified in the <code class="docutils literal notranslate"><span class="pre">languages</span></code> entry in the <code class="docutils literal notranslate"><span class="pre">project.yml</span></code>; requires <code class="docutils literal notranslate"><span class="pre">ansible</span></code> in PATH for full functionality)
+the upstream <code class="docutils literal notranslate"><span class="pre">&#64;ansible/ansible-language-server&#64;1.2.3</span></code> supports hover, completion, definition,
+semantic tokens, and validation; document symbols, workspace symbols, references, and rename
+are not supported by this version)</p></li>
+<li><p><strong>Bash</strong></p></li>
+<li><p><strong>BSL</strong> (1C:Enterprise / OneScript)<br>
+(requires Java 21+ on PATH; uses <a class="reference external" href="https://github.com/1c-syntax/bsl-language-server">bsl-language-server</a> by 1c-syntax; the JAR is auto-downloaded and SHA-256-verified for the bundled default version; supports <code class="docutils literal notranslate"><span class="pre">.bsl</span></code> and <code class="docutils literal notranslate"><span class="pre">.os</span></code> files; configure optional <code class="docutils literal notranslate"><span class="pre">ls_path</span></code> or <code class="docutils literal notranslate"><span class="pre">bsl_ls_version</span></code> under <code class="docutils literal notranslate"><span class="pre">ls_specific_settings.bsl</span></code>)</p></li>
+<li><p><strong>C#</strong><br>
+(by default, uses the Roslyn language server (language <code class="docutils literal notranslate"><span class="pre">csharp</span></code>), requiring <a class="reference external" href="https://dotnet.microsoft.com/en-us/download/dotnet">.NET v10+</a> and, on Windows, <code class="docutils literal notranslate"><span class="pre">pwsh</span></code> (<a class="reference external" href="https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows?view=powershell-7.5">PowerShell 7+</a>);
+set language to <code class="docutils literal notranslate"><span class="pre">csharp_omnisharp</span></code> to use OmiSharp instead)</p></li>
+<li><p><strong>C/C++</strong><br>
+(by default, uses the clangd language server (language <code class="docutils literal notranslate"><span class="pre">cpp</span></code>) but we also support ccls (language <code class="docutils literal notranslate"><span class="pre">cpp_ccls</span></code>);
+for best results, provide a <code class="docutils literal notranslate"><span class="pre">compile_commands.json</span></code> at the repository root;
+see the <a class="reference internal" href="../03-special-guides/cpp_setup.html"><span class="doc std std-doc">C/C++ Setup Guide</span></a> for details;
+for Unreal Engine 5 projects, see the <a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html"><span class="doc std std-doc">Unreal Engine Setup Guide</span></a>.)</p></li>
+<li><p><strong>Clojure</strong></p></li>
+<li><p><strong>Crystal</strong><br>
+(requires <a class="reference external" href="https://github.com/elbywan/crystalline">Crystalline</a> language server to be installed and available on PATH;
+note: Crystalline has limited go-to-definition support and does not support find-references)</p></li>
+<li><p><strong>CUE</strong></p></li>
+<li><p><strong>Dart</strong></p></li>
+<li><p><strong>Elixir</strong><br>
+(requires Elixir installation; Expert language server is downloaded automatically)</p></li>
+<li><p><strong>Elm</strong><br>
+(requires Elm compiler)</p></li>
+<li><p><strong>Erlang</strong><br>
+(requires installation of beam and <a class="reference external" href="https://github.com/erlang-ls/erlang_ls">erlang_ls</a>; experimental, might be slow or hang;
+note that functions are addressed as <code class="docutils literal notranslate"><span class="pre">name#arity</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">create_user#4</span></code>, because <code class="docutils literal notranslate"><span class="pre">/</span></code> is reserved as the name path separator)</p></li>
+<li><p><strong>F#</strong><br>
+(requires <a class="reference external" href="https://dotnet.microsoft.com/en-us/download/dotnet">.NET v8.0+</a>; uses FsAutoComplete/Ionide, which is auto-installed; for Homebrew .NET on macOS, set DOTNET_ROOT in your environment)</p></li>
+<li><p><strong>Fortran</strong><br>
+(requires installation of fortls: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">fortls</span></code>)</p></li>
+<li><p><strong>GDScript</strong> (Godot Engine)<br>
+(requires the Godot editor to be running with its built-in LSP enabled — default on port 6008;
+Selene connects over TCP and does not launch Godot itself;
+see the <a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html"><span class="doc std std-doc">GDScript Setup Guide</span></a> for details)</p></li>
+<li><p><strong>Gleam</strong><br>
+(requires the <a class="reference external" href="https://gleam.run">Gleam compiler</a> on PATH; the language server is bundled with the compiler and started via <code class="docutils literal notranslate"><span class="pre">gleam</span> <span class="pre">lsp</span></code>)</p></li>
+<li><p><strong>Go</strong><br>
+(requires installation of <code class="docutils literal notranslate"><span class="pre">gopls</span></code>)</p></li>
+<li><p><strong>Groovy</strong><br>
+(requires local groovy-language-server.jar setup via <code class="docutils literal notranslate"><span class="pre">GROOVY_LS_JAR_PATH</span></code> or configuration)</p></li>
+<li><p><strong>Haskell</strong><br>
+(automatically locates HLS via ghcup, stack, or system PATH; supports Stack and Cabal projects)</p></li>
+<li><p><strong>Haxe</strong>
+(requires Haxe compiler 3.4.0+ and Node.js; uses the <a class="reference external" href="https://github.com/vshaxe/haxe-language-server">vshaxe language server</a>;
+automatically downloaded from Open VSX, or discovered from the vshaxe VSCode extension)</p></li>
+<li><p><strong>HLSL / GLSL / WGSL</strong>
+(uses <a class="reference external" href="https://github.com/antaalt/shader-sense">shader-language-server</a> (language <code class="docutils literal notranslate"><span class="pre">hlsl</span></code>); automatically downloaded;
+on macOS, requires Rust toolchain for building from source;
+note: reference search is not supported by this language server)</p></li>
+<li><p><strong>HTML</strong>
+(experimental; requires Node.js + npm)</p></li>
+<li><p><strong>Java</strong><br></p></li>
+<li><p><strong>JavaScript</strong><br>
+(supported via the TypeScript language server, i.e. use language <code class="docutils literal notranslate"><span class="pre">typescript</span></code> for both JavaScript and TypeScript)</p></li>
+<li><p><strong>Julia</strong><br>
+(by default, uses LanguageServer.jl (language <code class="docutils literal notranslate"><span class="pre">julia</span></code>); the
+<a class="reference external" href="https://github.com/jolars/fatou">Fatou</a> alternative (language <code class="docutils literal notranslate"><span class="pre">julia_fatou</span></code>) is installed
+automatically and requires <code class="docutils literal notranslate"><span class="pre">uv</span></code>/<code class="docutils literal notranslate"><span class="pre">uvx</span></code> in PATH)</p></li>
+<li><p><strong>Kotlin</strong><br>
+(uses the pre-alpha <a class="reference external" href="https://github.com/Kotlin/kotlin-lsp">official kotlin LS</a>, some issues may appear)</p></li>
+<li><p><strong>LaTeX</strong><br>
+(experimental; must be explicitly enabled via language <code class="docutils literal notranslate"><span class="pre">latex</span></code>; uses <a class="reference external" href="https://github.com/latex-lsp/texlab">texlab</a>,
+auto-downloaded as a SHA-256-verified prebuilt binary; supports <code class="docutils literal notranslate"><span class="pre">.tex</span></code>, <code class="docutils literal notranslate"><span class="pre">.bib</span></code>, <code class="docutils literal notranslate"><span class="pre">.sty</span></code>, and <code class="docutils literal notranslate"><span class="pre">.cls</span></code> files; texlab is
+GPL-3.0 and runs as a separate downloaded process)</p></li>
+<li><p><strong>Lean 4</strong><br>
+(requires <code class="docutils literal notranslate"><span class="pre">lean</span></code> and <code class="docutils literal notranslate"><span class="pre">lake</span></code> installed via <a class="reference external" href="https://github.com/leanprover/elan">elan</a>; uses the built-in Lean 4 LSP;
+the project must be a Lake project with <code class="docutils literal notranslate"><span class="pre">lake</span> <span class="pre">build</span></code> run before use)</p></li>
+<li><p><strong>Lua</strong></p></li>
+<li><p><strong>Luau</strong></p></li>
+<li><p><strong>Markdown</strong><br>
+(must explicitly enable language <code class="docutils literal notranslate"><span class="pre">markdown</span></code>, primarily useful for documentation-heavy projects)</p></li>
+<li><p><strong>MATLAB</strong><br>
+(requires Node.js and a licensed local MATLAB installation, R2021b or later; Selene automatically downloads version 1.3.9 of the VS Code MATLAB extension, which bundles the language server)</p></li>
+<li><p><strong>mSL</strong> (mIRC Scripting Language)<br>
+(auto-installed; no external dependencies required — uses a custom pygls-based LSP server shipped with Selene;
+supports document symbols, workspace symbols, references, and go-to-definition for aliases, events, menus, dialogs, and CTCP handlers in <code class="docutils literal notranslate"><span class="pre">.mrc</span></code> files)</p></li>
+<li><p><strong>Nextflow</strong><br>
+(uses the official <a class="reference external" href="https://github.com/nextflow-io/language-server">Nextflow language server</a>, which is automatically
+downloaded; requires a Java 17+ runtime, discovered via <code class="docutils literal notranslate"><span class="pre">ls_specific_settings.nextflow.java_home</span></code>, <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">java</span></code> on PATH;
+covers <code class="docutils literal notranslate"><span class="pre">.nf</span></code> scripts — Nextflow <code class="docutils literal notranslate"><span class="pre">.config</span></code> files are not treated as source files, since the language server reports no symbols for them;
+processes, workflows and functions are reported under their declared name, e.g. <code class="docutils literal notranslate"><span class="pre">GREET</span></code> for <code class="docutils literal notranslate"><span class="pre">process</span> <span class="pre">GREET</span></code>)</p></li>
+<li><p><strong>Nix</strong><br>
+(requires nixd installation)</p></li>
+<li><p><strong>OCaml</strong>
+(requires opam and ocaml-lsp-server to be installed manually; see the <a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html"><span class="std std-doc">OCaml Setup Guide</span></a>)</p></li>
+<li><p><strong>Pascal</strong><br>
+(uses Pascal/Lazarus, which is automatically downloaded; set <code class="docutils literal notranslate"><span class="pre">PP</span></code> and <code class="docutils literal notranslate"><span class="pre">FPCDIR</span></code> environment variables for source navigation)</p></li>
+<li><p><strong>Perl</strong><br>
+(requires installation of Perl::LanguageServer)</p></li>
+<li><p><strong>PHP</strong><br>
+(by default, uses the Intelephense language server (language <code class="docutils literal notranslate"><span class="pre">php</span></code>), set <code class="docutils literal notranslate"><span class="pre">INTELEPHENSE_LICENSE_KEY</span></code> environment variable for premium features;
+we also support <a class="reference external" href="https://github.com/phpactor/phpactor">Phpactor</a> (language <code class="docutils literal notranslate"><span class="pre">php_phpactor</span></code>), which requires PHP 8.1+;
+and the experimental <a class="reference external" href="https://github.com/PHPantom-dev/phpantom_lsp">PHPantom</a> backend (language <code class="docutils literal notranslate"><span class="pre">php_phpantom</span></code>)</p></li>
+<li><p><strong>PowerShell</strong><br>
+(requires PowerShell 7+ (<code class="docutils literal notranslate"><span class="pre">pwsh</span></code>) on PATH or in a standard install location; Selene automatically downloads PowerShell Editor Services 4.4.0 and installs PSScriptAnalyzer 1.25.0 via <code class="docutils literal notranslate"><span class="pre">Save-Module</span></code> from your configured PowerShell repository)</p></li>
+<li><p><strong>Python</strong>
+(by default, uses <a class="reference external" href="https://github.com/microsoft/pyright">Pyright</a> (language <code class="docutils literal notranslate"><span class="pre">python</span></code>);
+alternatives: <a class="reference external" href="https://github.com/DetachHead/basedpyright">BasedPyright</a> (language <code class="docutils literal notranslate"><span class="pre">python_basedpyright</span></code>),
+<a class="reference external" href="https://github.com/astral-sh/ty">ty</a> (language <code class="docutils literal notranslate"><span class="pre">python_ty</span></code>),
+<a class="reference external" href="https://github.com/facebook/pyrefly">pyrefly</a> (language <code class="docutils literal notranslate"><span class="pre">python_pyrefly</span></code>),
+<a class="reference external" href="https://github.com/palotas/jedi-language-server">Jedi</a> (language <code class="docutils literal notranslate"><span class="pre">python_jedi</span></code>);
+Pyright, BasedPyright, ty, and pyrefly require <code class="docutils literal notranslate"><span class="pre">uv</span></code>/<code class="docutils literal notranslate"><span class="pre">uvx</span></code> in PATH)</p></li>
+<li><p><strong>QML</strong>
+(requires Qt 6, provides <code class="docutils literal notranslate"><span class="pre">qmlls</span></code> or <code class="docutils literal notranslate"><span class="pre">qmlls6</span></code> on PATH; see the <a class="reference external" href="https://doc.qt.io/qt-6/qtqml-tool-qmlls.html">Qt qmlls documentation</a>)</p></li>
+<li><p><strong>R</strong><br>
+(requires installation of the <code class="docutils literal notranslate"><span class="pre">languageserver</span></code> R package)</p></li>
+<li><p><strong>Rego</strong><br>
+(requires the <a class="reference external" href="https://github.com/open-policy-agent/regal">Regal</a> language server on PATH)</p></li>
+<li><p><strong>Ruby</strong><br>
+(by default, uses <a class="reference external" href="https://github.com/Shopify/ruby-lsp">ruby-lsp</a> (language <code class="docutils literal notranslate"><span class="pre">ruby</span></code>); use language <code class="docutils literal notranslate"><span class="pre">ruby_solargraph</span></code> to use Solargraph instead.)</p></li>
+<li><p><strong>Rust</strong><br>
+(requires <a class="reference external" href="https://rustup.rs/">rustup</a> - uses rust-analyzer from your toolchain)</p></li>
+<li><p><strong>Scala</strong><br>
+(uses Metals LSP, which imports the build on first use — see the <a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html"><span class="doc std std-doc">setup guide</span></a>)</p></li>
+<li><p><strong>SCSS / Sass / CSS</strong>
+(experimental; requires Node.js + npm; uses <a class="reference external" href="https://github.com/wkillerud/some-sass">some-sass-language-server</a> to handle
+<code class="docutils literal notranslate"><span class="pre">.scss</span></code>, <code class="docutils literal notranslate"><span class="pre">.sass</span></code>, and <code class="docutils literal notranslate"><span class="pre">.css</span></code>)</p></li>
+<li><p><strong>Solidity</strong><br>
+(experimental; requires Node.js and npm; automatically installs <code class="docutils literal notranslate"><span class="pre">&#64;nomicfoundation/solidity-language-server</span></code>;
+works best with a <code class="docutils literal notranslate"><span class="pre">foundry.toml</span></code> or <code class="docutils literal notranslate"><span class="pre">hardhat.config.js</span></code> in the project root)</p></li>
+<li><p><strong>Svelte</strong>
+(requires Node.js v18+ and npm; supports <code class="docutils literal notranslate"><span class="pre">.svelte</span></code> Single File Components plus TypeScript/JavaScript files via <code class="docutils literal notranslate"><span class="pre">svelte-language-server</span></code>; a companion <code class="docutils literal notranslate"><span class="pre">typescript-language-server</span></code> + <code class="docutils literal notranslate"><span class="pre">typescript-svelte-plugin</span></code> is spawned automatically for cross-file rename, go-to-definition, and references across <code class="docutils literal notranslate"><span class="pre">.ts</span></code>/<code class="docutils literal notranslate"><span class="pre">.js</span></code> and <code class="docutils literal notranslate"><span class="pre">.svelte</span></code> files; use language <code class="docutils literal notranslate"><span class="pre">svelte</span></code> for Svelte projects instead of also enabling <code class="docutils literal notranslate"><span class="pre">typescript</span></code>)</p></li>
+<li><p><strong>Swift</strong></p></li>
+<li><p><strong>SystemVerilog</strong><br>
+(uses <code class="docutils literal notranslate"><span class="pre">verible-verilog-ls</span></code>, taken from PATH if present, otherwise version <code class="docutils literal notranslate"><span class="pre">v0.0-4051-g9fdb4057</span></code> is downloaded automatically)</p></li>
+<li><p><strong>Terraform</strong><br>
+(uses <code class="docutils literal notranslate"><span class="pre">terraform-ls</span></code> 0.36.5, which Selene downloads automatically; requires Terraform on PATH)</p></li>
+<li><p><strong>TOML</strong><br>
+(experimental; uses Taplo 0.10.0, taken from PATH if present, otherwise downloaded automatically)</p></li>
+<li><p><strong>TypeScript</strong></p></li>
+<li><p><strong>Deno</strong><br>
+(experimental; requires the <code class="docutils literal notranslate"><span class="pre">deno</span></code> CLI on PATH — it bundles the language server used here;
+serves Deno TypeScript/JavaScript and understands <code class="docutils literal notranslate"><span class="pre">npm:</span></code> / <code class="docutils literal notranslate"><span class="pre">jsr:</span></code> / <code class="docutils literal notranslate"><span class="pre">https:</span></code> imports and the <code class="docutils literal notranslate"><span class="pre">Deno.*</span></code>
+globals, which the plain TypeScript language server does not; overlaps <code class="docutils literal notranslate"><span class="pre">typescript</span></code> on file extensions,
+so it is not auto-detected and must be set as the language explicitly — do not also enable <code class="docutils literal notranslate"><span class="pre">typescript</span></code>
+for the same files)</p></li>
+<li><p><strong>Vue</strong>
+(3.x with TypeScript; requires Node.js v18+ and npm; supports .vue Single File Components with monorepo detection)</p></li>
+<li><p><strong>Wolfram Language</strong>
+(requires Wolfram Mathematica 13.0+ or Wolfram Engine 12.1+; uses the official <a class="reference external" href="https://github.com/WolframResearch/LSPServer">WolframResearch LSPServer</a> paclet; supports .wl and .wls files; references are within-file only)</p></li>
+<li><p><strong>YAML</strong></p></li>
+<li><p><strong>JSON</strong><br>
+(experimental; must be explicitly added to the languages list; requires Node.js and npm)</p></li>
+<li><p><strong>Zig</strong><br>
+(requires installation of ZLS - Zig Language Server)</p></li>
+</ul>
+<p>Additional language servers can easily be supported by providing an adapter implementation;
+see our <a class="reference download internal" download="" href="../_downloads/f45c180d73747f52fbe1c9fba7691053/CONTRIBUTING.md"><code class="xref download docutils literal notranslate"><span class="pre">contribution</span> <span class="pre">guide</span></code></a>.
+If you need to support a custom language server which is not yet publicly available, you have the option to <a class="reference internal" href="../03-special-guides/external_language_server_registration.html#external-ls-registration"><span class="std std-ref">register an external language server</span></a>.</p>
+</section>
+<section id="the-selene-jetbrains-plugin">
+<h2>The Selene JetBrains Plugin<a class="headerlink" href="#the-selene-jetbrains-plugin" title="Link to this heading">#</a></h2>
+<p>The Selene JetBrains Plugin leverages the powerful code analysis capabilities of JetBrains IDEs.
+The plugin naturally supports all programming languages and frameworks that are supported by JetBrains IDEs.</p>
+<p>When using the plugin, Selene connects to an instance of your JetBrains IDE via the plugin. For users who already
+work in a JetBrains IDE, this means Selene seamlessly integrates with the IDE instance you typically have open anyway,
+requiring no additional setup or configuration beyond the plugin itself.</p>
+<ul class="simple">
+<li><p>See the <a class="reference internal" href="../02-usage/025_jetbrains_plugin.html"><span class="doc std std-doc">JetBrains Plugin documentation</span></a> for a high-level overview of its benefits and usage details.</p></li>
+<li><p>See the <a class="reference internal" href="025_features.html"><span class="doc std std-doc">Features</span></a> section for a detailed comparison of the capabilities provided by the JetBrains Plugin vs. language servers.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./01-about"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="000_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">About Selene</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="025_features.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Features</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-servers">Language Servers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-selene-jetbrains-plugin">The Selene JetBrains Plugin</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
