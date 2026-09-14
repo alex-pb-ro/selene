@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "language": "php",
+      "symbols": 1,
+      "passed": true
+    },
+    {
+      "language": "yaml",
+      "symbols": 1,
+      "passed": true
+    },
+    {
+      "language": "json",
+      "symbols": 2,
+      "passed": true
+    },
+    {
+      "language": "solidity",
+      "symbols": 1,
+      "passed": true
+    }
+  ],
+  "node_network_attempts": [
+    {
+      "kind": "https.request",
+      "pid": 59949,
+      "script": "/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js",
+      "args": [
+        {
+          "hostname": "raw.githubusercontent.com",
+          "path": "/NomicFoundation/hardhat-vscode/development/flags.json"
+        }
+      ],
+      "stack": [
+        "    at deny (/private/tmp/selene-node-network-guard.cjs:2:299)",
+        "    at m.<computed> (/private/tmp/selene-node-network-guard.cjs:3:118)",
+        "    at /private/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js:2922:26999",
+        "    at Request2._makeRequest (/private/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js:440:24376)",
+        "    at /private/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js:440:3368"
+      ]
+    },
+    {
+      "kind": "https.request",
+      "pid": 59949,
+      "script": "/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js",
+      "args": [
+        {
+          "hostname": "binaries.soliditylang.org",
+          "path": "/wasm/list.json"
+        }
+      ],
+      "stack": [
+        "    at deny (/private/tmp/selene-node-network-guard.cjs:2:299)",
+        "    at m.<computed> (/private/tmp/selene-node-network-guard.cjs:3:118)",
+        "    at /private/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js:2922:26999",
+        "    at Request2._makeRequest (/private/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js:440:24376)",
+        "    at /private/tmp/selene-dependency-audit/runtime/node_modules/@nomicfoundation/solidity-language-server/out/index.js:440:3368"
+      ]
+    }
+  ],
+  "observation": "Real adapters initialize, open a synthetic document and enumerate symbols; Node HTTP/TLS/TCP/DNS/fetch hooks reject and record attempts, including a 22-second post-request observation. Not an OS-wide packet capture.",
+  "assessment": "PHP, YAML and JSON produced no recorded Node network attempts. Solidity made two fixed public-metadata GET attempts (feature flags and compiler versions), both blocked by the audit guard. These remaining requests are disclosed in SECURITY_AUDIT.md; this result is not zero-network certification."
+}

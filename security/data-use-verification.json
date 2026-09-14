@@ -1,0 +1,77 @@
+{
+  "mcp": {
+    "server": "Selene",
+    "tools": [
+      "create_text_file",
+      "replace_content",
+      "replace_in_files",
+      "replace_symbol_body",
+      "insert_after_symbol",
+      "insert_before_symbol",
+      "read_file",
+      "list_dir",
+      "find_file",
+      "search_for_pattern",
+      "get_symbols_overview",
+      "find_symbol",
+      "find_referencing_symbols",
+      "find_implementations",
+      "find_declaration",
+      "get_diagnostics_for_file",
+      "rename_symbol",
+      "safe_delete_symbol",
+      "write_memory",
+      "read_memory",
+      "list_memories",
+      "delete_memory",
+      "rename_memory",
+      "edit_memory",
+      "execute_shell_command",
+      "activate_project",
+      "get_current_config",
+      "onboarding",
+      "initial_instructions"
+    ],
+    "ignored_file_returned": true,
+    "outside_project_symlink_returned": true,
+    "direct_parent_traversal_blocked": true,
+    "memory_written": true,
+    "memory_file_mode": "0o644",
+    "memory_file_deleted": true,
+    "source_in_disk_log": true,
+    "outside_source_in_disk_log": true,
+    "deleted_memory_still_in_disk_log": true,
+    "source_in_client_stderr": true,
+    "memory_input_in_client_stderr": true,
+    "log_file_modes": [
+      "0o644"
+    ]
+  },
+  "dashboard": {
+    "unauthenticated_log_read_status": 200,
+    "synthetic_source_returned_without_token": true,
+    "unauthenticated_clear_status": 200,
+    "foreign_host_blocked": true,
+    "stats_contain_only_counts": true,
+    "scope": "Flask test client: demonstrates lack of authentication, not browser same-origin bypass."
+  },
+  "memory_scope": {
+    "global_memory_visible_from_second_project": true,
+    "memory_symlink_reads_outside_directory": true,
+    "scope": "Two managers sharing one temporary Selene home; no real company data."
+  },
+  "subprocess": {
+    "shell_exit_code": 0,
+    "fake_environment_value_in_managed_child": true,
+    "fake_value_received_by_non_mcp_loopback_service": true,
+    "scope": "Only a synthetic value sent to a loopback receiver owned by this audit. No Internet send attempted. Confirms no application-level MCP-only destination policy."
+  },
+  "method": {
+    "synthetic_only": true,
+    "umask": "022",
+    "runtime_code_modified": false,
+    "external_network_attempted_by_probe": false,
+    "temporary_evidence_directory": "/var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-data-use-ng9fo05p",
+    "repository_source_inventory_sha256": "74e1f7be82a878939bb358dd90da2a8207b618e3e9894abf1c2d0b29e3d12855"
+  }
+}

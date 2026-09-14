@@ -1,16 +1,10 @@
 {
   "sequential_noop_dispatch": {
     "n": 30,
-    "median_ms": 0.037,
-    "p95_ms": 0.109,
-    "min_ms": 0.031,
-    "max_ms": 0.115
-  },
-  "executor_safety": {
-    "next_task_runs_while_timed_out_operation_is_active": true,
-    "cancelled_future": true,
-    "operation_side_effect_occurs_after_cancel": true,
-    "scope": "Real executor; side effect is only setting an in-memory Event. No project edits."
+    "median_ms": 0.036,
+    "p95_ms": 0.064,
+    "min_ms": 0.03,
+    "max_ms": 0.068
   },
   "mcp_contexts": [
     {
@@ -18,14 +12,14 @@
       "tool_count": 29,
       "serialized_tool_catalog_bytes": 37204,
       "initial_instructions_chars": 130,
-      "initialization_ms": 573.168,
+      "initialization_ms": 976.44,
       "protocol": "2025-11-25",
       "list_memories_round_trip": {
         "n": 12,
-        "median_ms": 1.293,
-        "p95_ms": 2.322,
-        "min_ms": 1.147,
-        "max_ms": 2.322
+        "median_ms": 1.24,
+        "p95_ms": 2.296,
+        "min_ms": 1.161,
+        "max_ms": 2.296
       }
     },
     {
@@ -33,14 +27,14 @@
       "tool_count": 22,
       "serialized_tool_catalog_bytes": 30469,
       "initial_instructions_chars": 130,
-      "initialization_ms": 619.533,
+      "initialization_ms": 594.096,
       "protocol": "2025-11-25",
       "list_memories_round_trip": {
         "n": 12,
-        "median_ms": 1.32,
-        "p95_ms": 2.031,
-        "min_ms": 1.184,
-        "max_ms": 2.031
+        "median_ms": 1.164,
+        "p95_ms": 2.256,
+        "min_ms": 1.067,
+        "max_ms": 2.256
       }
     },
     {
@@ -48,14 +42,14 @@
       "tool_count": 23,
       "serialized_tool_catalog_bytes": 29651,
       "initial_instructions_chars": 130,
-      "initialization_ms": 554.96,
+      "initialization_ms": 598.15,
       "protocol": "2025-11-25",
       "list_memories_round_trip": {
         "n": 12,
-        "median_ms": 1.291,
-        "p95_ms": 1.815,
-        "min_ms": 1.163,
-        "max_ms": 1.815
+        "median_ms": 1.203,
+        "p95_ms": 2.399,
+        "min_ms": 1.101,
+        "max_ms": 2.399
       }
     }
   ],

@@ -1,0 +1,12 @@
+{
+  "requested_symbol_body": "def example():\n    return 42",
+  "canary_outside_symbol": true,
+  "outside_symbol_comment_persisted_in_cache": true,
+  "cache_file_mode": "0o644",
+  "cache_path": "/var/folders/bb/z15qwxcd4m7f6_b5zgb6frx80000gn/T/selene-cache-data-i2s_48xj/project/.selene/cache/python/document_symbols.pkl",
+  "source_removed_cache_persists": true,
+  "pyright_script": "/tmp/selene-uv-cache/archive-v0/M23DJHz9GfgaY18D/pyright/dist/langserver.index.js",
+  "pyright_script_sha256": "f200762078eb9880faf421a5b30f9ef3055b1d85c6f10780d75db4da8d8499f1",
+  "network_attempts": [],
+  "scope": "Real Pyright 1.1.403, synthetic source, Node network hooks enabled; not an OS-wide capture."
+}
