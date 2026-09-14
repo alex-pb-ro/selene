@@ -61,8 +61,6 @@ class ImpactAdapters:
             inspected += 1
             if inspected > 4096 or len(pointers) > 256:
                 raise ContextLimitReached("Schema comparison allowance exceeded")
-            if before == after:
-                continue
             if isinstance(before, dict) and isinstance(after, dict):
                 for key in before.keys() | after.keys():
                     child = path + "/" + key.replace("~", "~0").replace("/", "~1")
@@ -70,7 +68,14 @@ class ImpactAdapters:
                         pointers.add(child)
                     else:
                         pending.append((before[key], after[key], child))
-            else:
+            elif isinstance(before, list) and isinstance(after, list):
+                if len(before) != len(after):
+                    pointers.add(path)
+                else:
+                    pending.extend(
+                        (left, right, path + "/" + str(index)) for index, (left, right) in enumerate(zip(before, after, strict=False))
+                    )
+            elif isinstance(before, bool) != isinstance(after, bool) or before != after:
                 pointers.add(path)
         return pointers
 
