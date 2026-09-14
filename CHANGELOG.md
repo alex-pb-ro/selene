@@ -8,7 +8,7 @@ Status of the `main` branch. Changes prior to the next official version change w
 
 * General:
   - Fix: Keep timed-out and cancelled operations serialized until execution stops; propagate MCP cancellation
-    to cooperative write checkpoints and avoid automatic retries of uncertain mutations.
+    to cooperative write checkpoints, including workspace file renames, and avoid automatic retries of uncertain mutations.
   - Fix: Dispatch queued tasks immediately when work arrives, removing the idle polling delay.
   - Fix: MCP `initialize` now reports Selene's version instead of the installed mcp SDK version (#1889)
   - Fix: Parallel agents auto-registering projects could overwrite each other's changes to the global

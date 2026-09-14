@@ -345,6 +345,7 @@ class LanguageServerCodeEditor(CodeEditor[LanguageServerSymbol]):
         def apply(self) -> None:
             old_abs_path = os.path.join(self._code_editor.project_root, self._old_relative_path)
             new_abs_path = os.path.join(self._code_editor.project_root, self._new_relative_path)
+            CancellationToken.check_current()
             os.rename(old_abs_path, new_abs_path)
 
     def _workspace_edit_to_edit_operations(self, workspace_edit: ls_types.WorkspaceEdit) -> list["LanguageServerCodeEditor.EditOperation"]:
