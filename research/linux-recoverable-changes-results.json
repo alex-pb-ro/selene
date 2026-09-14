@@ -1,0 +1,24 @@
+{
+  "platform": "Linux-6.8.0-100-generic-aarch64-with-glibc2.41",
+  "synthetic_only": true,
+  "model_calls": 0,
+  "native_exchange_race_injected": false,
+  "competing_content_preserved_and_restored": false,
+  "extended_attribute_preserved": true,
+  "second_directory_permission_failure_is_partial_and_recoverable": true,
+  "original_and_proposed_snapshots_preserved": true,
+  "source_sha256": {
+    "src/selene/edit_plans/journal.py": "59d2d790c26da6ba04e126384d3b21e5d1baefd5023f304a5d921ccd26bc8a74",
+    "src/selene/edit_plans/execution.py": "113e22be9a38421bee3de890059d7d295ff8c839c5797b5a5f7e33c2b2d71c3f",
+    "src/selene/edit_plans/model.py": "ad71cd70e2684ec21b53416938d33dc45fb33cc13283cde35587b796cec06164",
+    "src/selene/edit_plans/__init__.py": "fa2217f3b0ec976f10e81465ca59929d867564503453b8e1c474e8d20c52ec35",
+    "src/selene/edit_plans/filesystem.py": "de97a0b03a7b8b156523a54787f5f94b62c7b50963132325c07ae1d82b13b5de",
+    "src/selene/edit_plans/service.py": "32e3a737c35e7eec9155983bbbfae613b5cccb15dbd395b46b3e1c90dafa784a"
+  },
+  "probe_sha256": {
+    "research/probes/recoverable_changes.py": "6e61192f176fff61f1b2543b0c3ed47b5551a6dda6569755117c3b30cc887260",
+    "research/probes/recoverable_exchange_race.c": "e62408cc77e77332a2b8ec2e035b07c848705001575a4996001525fdcca409a2"
+  },
+  "image": "sha256:0bd0af9111427d2dd6f4a23a6c4b0ddfff7981ba722a16033081f5a89c065efd",
+  "method": "Non-root Linux tmpfs fixtures; inherited Selene seccomp boundary before importing site/application code; no model or network calls."
+}
