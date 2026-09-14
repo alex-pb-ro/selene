@@ -38,12 +38,13 @@ class FileSystemSyncTestCase:
     _CALLER_ONE = "external_caller_one"
     _CALLER_TWO = "external_caller_two"
 
-    def __init__(self, use_selene_tool: bool, tool_use_relative_path: bool = True):
+    def __init__(self, use_selene_tool: bool, tool_use_relative_path: bool = True, mtime_delta_ns: int | None = None):
         """
         :param use_selene_tool: whether to use the Selene tool, which does not need an explicit FS sync
         """
         self._use_selene_tool = use_selene_tool
         self._tool_use_relative_path = tool_use_relative_path
+        self._mtime_delta_ns = mtime_delta_ns
 
     def _caller_source(self, *function_names: str) -> str:
         body = "\n\n".join(
@@ -93,6 +94,17 @@ class FileSystemSyncTestCase:
             self._sync_fs(project, 1, "Created")
             assert self._CALLER_ONE in self._referencing_symbol_names(agent), "new caller must be visible after poll"
 
+            # replace a caller with an equal-length name and preserve or decrease the timestamp
+            if self._mtime_delta_ns is not None:
+                timestamp = caller_abs.stat()
+                caller_abs.write_text(self._caller_source(self._CALLER_TWO), encoding="utf-8")
+                os.utime(caller_abs, ns=(timestamp.st_atime_ns, timestamp.st_mtime_ns + self._mtime_delta_ns))
+                assert caller_abs.stat().st_size == timestamp.st_size
+                self._sync_fs(project, 1, "Changed")
+                renamed_callers = self._referencing_symbol_names(agent)
+                assert self._CALLER_ONE not in renamed_callers
+                assert self._CALLER_TWO in renamed_callers
+
             # --- Changed -------------------------------------------------------------------------------
             caller_abs.write_text(self._caller_source(self._CALLER_ONE, self._CALLER_TWO), encoding="utf-8")
             self._sync_fs(project, 1, "Changed")
@@ -134,6 +146,12 @@ def test_ls_low_level_find_references_with_explicit_sync(tmp_path):
     FileSystemSyncTestCase(use_selene_tool=False).run(tmp_path)
 
 
+@pytest.mark.parametrize("mtime_delta_ns", [0, -1_000_000_000])
+@pytest.mark.parametrize("use_selene_tool", [True, False])
+def test_references_detect_same_size_edits_with_non_increasing_times(tmp_path, mtime_delta_ns, use_selene_tool):
+    FileSystemSyncTestCase(use_selene_tool=use_selene_tool, mtime_delta_ns=mtime_delta_ns).run(tmp_path)
+
+
 class SymbolPositionStaleAfterExternalEditTestCase:
     """
     Tests that a Changed (not Created/Deleted) external edit to a file that already has an open
@@ -155,7 +173,7 @@ class SymbolPositionStaleAfterExternalEditTestCase:
         assert len(symbols) == 1, f"expected exactly one match for {self._TARGET_SYMBOL}, got {symbols}"
         return symbols[0]
 
-    def run(self, tmp_path):
+    def run(self, tmp_path, mtime_delta_ns: int | None = None):
         repo_root = tmp_path / "repo"
         shutil.copytree(get_repo_path(LanguageServerId.PYTHON), repo_root)
         target_abs = repo_root / self._TARGET_FILE
@@ -171,7 +189,10 @@ class SymbolPositionStaleAfterExternalEditTestCase:
                 baseline_start_line = self._find(tool)["body_location"]["start_line"]
 
                 original = target_abs.read_text(encoding="utf-8")
+                timestamp = target_abs.stat()
                 target_abs.write_text(("# pad\n" * self._PAD_LINES) + original, encoding="utf-8")
+                if mtime_delta_ns is not None:
+                    os.utime(target_abs, ns=(timestamp.st_atime_ns, timestamp.st_mtime_ns + mtime_delta_ns))
 
                 after_start_line = self._find(tool)["body_location"]["start_line"]
 
@@ -182,10 +203,11 @@ class SymbolPositionStaleAfterExternalEditTestCase:
         )
 
 
-def test_find_symbol_tool_reflects_external_change_to_open_buffer(tmp_path):
+@pytest.mark.parametrize("mtime_delta_ns", [None, 0, -1_000_000_000])
+def test_find_symbol_tool_reflects_external_change_to_open_buffer(tmp_path, mtime_delta_ns):
     """
     Regression test for historical issue #1593: find_symbol returned a stale position for a symbol
     in a file that was already open in the language server session and was then edited outside
     of Selene's own edit tools.
     """
-    SymbolPositionStaleAfterExternalEditTestCase().run(tmp_path)
+    SymbolPositionStaleAfterExternalEditTestCase().run(tmp_path, mtime_delta_ns=mtime_delta_ns)

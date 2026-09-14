@@ -401,24 +401,23 @@ class FileUtils:
             log.error(f"Failed to read '{file_path}': File does not exist.")
             raise FileNotFoundError(f"File read '{file_path}' failed: File does not exist.")
         try:
-            try:
-                with open(file_path, encoding=encoding) as inp_file:
-                    return inp_file.read()
-            except UnicodeDecodeError as ude:
-                results = charset_normalizer.from_path(file_path)
-                match = results.best()
-                if match:
-                    log.warning(
-                        f"Could not decode {file_path} with encoding='{encoding}'; using best match '{match.encoding}' instead",
-                    )
-                    # Decoding the raw bytes bypasses the universal-newline translation that the
-                    # open() call above applies, so normalize explicitly to keep both paths equivalent.
-                    decoded = match.raw.decode(match.encoding)
-                    return decoded.replace("\r\n", "\n").replace("\r", "\n")
-                raise ude
+            return FileUtils.decode_file_contents(Path(file_path).read_bytes(), encoding, file_path)
         except Exception as exc:
             log.error(f"Failed to read '{file_path}' with encoding '{encoding}': {exc}")
             raise exc
+
+    @staticmethod
+    def decode_file_contents(content: bytes, encoding: str, file_path: str) -> str:
+        """Decode a captured file, with encoding detection and universal newlines."""
+        try:
+            decoded = content.decode(encoding)
+        except UnicodeDecodeError:
+            match = charset_normalizer.from_bytes(content).best()
+            if match is None:
+                raise
+            log.warning(f"Could not decode {file_path} with encoding='{encoding}'; using best match '{match.encoding}' instead")
+            decoded = match.raw.decode(match.encoding)
+        return decoded.replace("\r\n", "\n").replace("\r", "\n")
 
     @staticmethod
     def download_file(url: str, target_path: str) -> None:

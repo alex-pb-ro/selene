@@ -21,6 +21,7 @@ from sensai.util.helper import mark_used
 from sensai.util.pickle import getstate
 from sensai.util.string import ToStringMixin
 
+from selene.util.file_snapshot import FileSnapshotConflict, FileSnapshotReader, FileStamp
 from selene.util.file_system import match_path
 from selene.util.text_utils import MatchedConsecutiveLines
 from solidlsp import ls_types
@@ -107,8 +108,11 @@ class LSPFileBuffer:
         self.abs_path = abs_path
         self.language_server = language_server
         self.uri = uri
-        self._read_file_modified_date: float | None = None
-        self._read_file_modified_date_passed_to_ls: float | None = None
+        self._disk_stamp: FileStamp | None = None
+        self._disk_sha256: str | None = None
+        self._disk_text_sha256: str | None = None
+        self._disk_sha256_passed_to_ls: str | None = None
+        self._has_unsaved_changes = False
         self._contents: str | None = None
         self.version = version
         self.language_id = language_id
@@ -119,15 +123,15 @@ class LSPFileBuffer:
         if open_in_ls:
             self._open_in_ls()
 
-    def _open_in_ls(self) -> None:
+    def _open_in_ls(self, *, verify_content: bool = True) -> None:
         """
         Open the file in the language server if it is not already open.
         If it is already open, make sure the language server has the latest contents of the file.
         """
+        self._refresh_contents(verify_content=verify_content)
+        assert self._contents is not None
+        current_contents = self._contents
         if not self._is_open_in_ls:
-            self._is_open_in_ls = True
-            current_contents = self.contents
-            self._read_file_modified_date_passed_to_ls = self._read_file_modified_date
             self.language_server.server.notify.did_open_text_document(
                 {  # ty: ignore[invalid-argument-type]  # dict built from LSPConstants keys; shape matches the TypedDict
                     LSPConstants.TEXT_DOCUMENT: {
@@ -138,11 +142,12 @@ class LSPFileBuffer:
                     }
                 }
             )
+            self._is_open_in_ls = True
+            self._disk_sha256_passed_to_ls = self._disk_sha256
         else:
             # file already open: check if contents have changed and notify if so
-            current_contents = self.contents
-            if self._read_file_modified_date != self._read_file_modified_date_passed_to_ls:
-                self._read_file_modified_date_passed_to_ls = self._read_file_modified_date
+            if self._disk_sha256 != self._disk_sha256_passed_to_ls:
+                self.version += 1
                 self.language_server.server.notify.did_change_text_document(
                     {  # ty: ignore[invalid-argument-type]  # dict built from LSPConstants keys; shape matches the TypedDict
                         LSPConstants.TEXT_DOCUMENT: {
@@ -156,6 +161,7 @@ class LSPFileBuffer:
                         ],
                     }
                 )
+                self._disk_sha256_passed_to_ls = self._disk_sha256
 
     def close(self) -> None:
         if self._is_open_in_ls:
@@ -166,36 +172,36 @@ class LSPFileBuffer:
                     }
                 }
             )
+            self._is_open_in_ls = False
 
-    def ensure_open_in_ls(self) -> None:
+    def ensure_open_in_ls(self, *, verify_content: bool = True) -> None:
         """
         Ensure that the file is opened in the language server (or, if it is already open,
         that the language server is made aware of the file's updated contents in case it
         has changed on disk).
         """
-        self._open_in_ls()
+        self._open_in_ls(verify_content=verify_content)
 
-    def _invalidate_cached_data(self, mtime: float | None = None) -> float | None:
-        """
-        Invalidates cached data (file contents, hash) if the file was modified since it was read
-
-        :param: the current modification time if it was already read
-        """
-        if self._read_file_modified_date is not None:
-            if mtime is None:
-                mtime = self.abs_path.stat().st_mtime
-            if mtime > self._read_file_modified_date:
-                self._contents = None
-                self._content_hash = None
+    def _refresh_contents(self, *, verify_content: bool = False) -> None:
+        stamp = FileStamp.read(self.abs_path)
+        if not verify_content and stamp == self._disk_stamp and self._contents is not None:
+            return
+        snapshot = FileSnapshotReader.read(self.abs_path)
+        if self._disk_sha256 != snapshot.sha256 or self._contents is None:
+            contents = FileUtils.decode_file_contents(snapshot.content, self.encoding, str(self.abs_path))
+            if self._has_unsaved_changes and contents != self._contents:
+                raise FileSnapshotConflict(f"File changed on disk while its buffer has unsaved edits: {self.abs_path}")
+            self._contents = contents
+            self._content_hash = None
+            self._has_unsaved_changes = False
+            self._disk_text_sha256 = hashlib.sha256(contents.encode("utf-8")).hexdigest()
+        self._disk_sha256 = snapshot.sha256
+        self._disk_stamp = snapshot.stamp
 
     @property
     def contents(self) -> str:
-        file_modified_date = self.abs_path.stat().st_mtime
-        self._invalidate_cached_data(file_modified_date)
-        if self._contents is None:
-            self._read_file_modified_date = file_modified_date
-            self._contents = FileUtils.read_file(str(self.abs_path), self.encoding)
-            self._content_hash = None
+        self._refresh_contents()
+        assert self._contents is not None
         return self._contents
 
     @contents.setter
@@ -206,12 +212,15 @@ class LSPFileBuffer:
 
         :param new_contents: the new contents to set
         """
+        if self._disk_sha256 is None:
+            self._refresh_contents(verify_content=True)
         self._contents = new_contents
         self._content_hash = None
+        self._has_unsaved_changes = hashlib.sha256(new_contents.encode("utf-8")).hexdigest() != self._disk_text_sha256
 
     @property
     def content_hash(self) -> str:
-        self._invalidate_cached_data()
+        self._refresh_contents()
         if self._content_hash is None:
             self._content_hash = hashlib.md5(self.contents.encode(self.encoding)).hexdigest()
         return self._content_hash
@@ -1302,9 +1311,9 @@ class SolidLanguageServer(ABC):
             assert fb.uri == uri
             assert fb.ref_count >= 1
 
-            fb.ref_count += 1
             if open_in_ls:
                 fb.ensure_open_in_ls()
+            fb.ref_count += 1
         else:
             version = 0
             language_id = self._get_language_id_for_file(relative_file_path)
@@ -1371,6 +1380,7 @@ class SolidLanguageServer(ABC):
         assert uri in self.open_file_buffers
 
         file_buffer = self.open_file_buffers[uri]
+        file_buffer.ensure_open_in_ls(verify_content=False)
         file_buffer.version += 1
 
         new_contents, new_l, new_c = TextUtils.insert_text_at_position(file_buffer.contents, line, column, text_to_be_inserted)
@@ -1413,6 +1423,7 @@ class SolidLanguageServer(ABC):
         assert uri in self.open_file_buffers
 
         file_buffer = self.open_file_buffers[uri]
+        file_buffer.ensure_open_in_ls(verify_content=False)
         file_buffer.version += 1
         new_contents, deleted_text = TextUtils.delete_text_between_positions(
             file_buffer.contents, start_line=start["line"], start_col=start["character"], end_line=end["line"], end_col=end["character"]

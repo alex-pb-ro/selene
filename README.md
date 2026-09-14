@@ -40,6 +40,8 @@ Configuration and logs live in `~/.selene` (override with `SELENE_HOME`). Projec
 
 See [cancellation and timeouts](docs/02-usage/071_cancellation.md) for operation ordering, cleanup and recovery after an interrupted edit.
 
+See [source freshness](docs/02-usage/072_source_freshness.md) for external-edit detection, unsaved-buffer conflicts and synchronization limits.
+
 ## Privacy
 
 The fork removes startup usage reporting, remote dashboard news and advertising, dashboard update checks, and API-based token counting. Dashboard scripts are bundled locally; the browser does not need third-party fonts or scripts.

@@ -46,6 +46,9 @@ Status of the `main` branch. Changes prior to the next official version change w
     Selene's own tools to close the gap (#1852)
 
 * Language Servers:
+  - Fix: Release file buffers after a nested open fails on a conflicting external edit, allowing later requests to reopen the file.
+  - Fix: Refresh source content when timestamps are preserved or decrease, detect conflicting disk changes to unsaved buffers,
+    and retain failed language-server notifications for retry.
   - Fix: TypeScript and VTS now disable automatic type acquisition as intended, while VTS
     preserves explicit user settings across initialization and configuration requests (#1989)
     VTS initialization options now override defaults per top-level key rather than replacing the
