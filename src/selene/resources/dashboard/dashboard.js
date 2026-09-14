@@ -65,6 +65,7 @@ class Dashboard {
         this.languageToRemove = null;
         this.currentMemoryName = null;
         this.originalMemoryContent = null;
+        this.currentMemorySHA256 = null;
         this.memoryContentDirty = false;
         this.memoryToDelete = null;
         this.isAddingLanguage = false;
@@ -1768,6 +1769,19 @@ class Dashboard {
                     alert('Error: ' + response.message);
                     return;
                 }
+                const evidenceMessages = {
+                    current: 'Supporting source is unchanged.',
+                    stale: 'Supporting source has changed. Review this memory.',
+                    needs_review: 'This memory was edited after its last review.',
+                    expired: 'This memory has expired. Review it before relying on it.',
+                    scope_mismatch: 'This record belongs to another project. Its content is withheld.',
+                    unverified: 'Source evidence is unverified.'
+                };
+                $('#edit-memory-evidence-status').prop('hidden', !response.evidence_status)
+                    .text(evidenceMessages[response.evidence_status] || '');
+                self.currentMemorySHA256 = response.memory_sha256;
+                self.$editMemoryContent.prop('disabled', Boolean(response.content_withheld));
+                self.$editMemorySaveBtn.prop('disabled', Boolean(response.content_withheld));
                 self.originalMemoryContent = response.content;
                 self.$editMemoryContent.val(response.content);
                 self.memoryContentDirty = false;
@@ -1790,6 +1804,7 @@ class Dashboard {
         this.$editMemoryModal.fadeOut(200);
         this.currentMemoryName = null;
         this.originalMemoryContent = null;
+        this.currentMemorySHA256 = null;
         this.memoryContentDirty = false;
     }
 
@@ -1813,7 +1828,7 @@ class Dashboard {
 
         $.ajax({
             url: '/save_memory', type: 'POST', contentType: 'application/json', data: JSON.stringify({
-                memory_name: memoryName, content: content
+                memory_name: memoryName, content: content, expected_memory_sha256: self.currentMemorySHA256
             }), success: function (response) {
                 if (response.status === 'success') {
                     // Update original content and reset dirty flag

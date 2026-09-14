@@ -1,7 +1,9 @@
 import logging
+from dataclasses import asdict
 from typing import Literal
 
-from selene.tools import Tool, ToolMarkerCanEdit
+from selene.memories.evidence import MemoryEvidenceRequest
+from selene.tools import Tool, ToolMarkerCanEdit, ToolMarkerOptional
 
 log = logging.getLogger(__name__)
 
@@ -12,7 +14,14 @@ class WriteMemoryTool(Tool, ToolMarkerCanEdit):
     The memory name should be meaningful.
     """
 
-    def apply(self, memory_name: str, content: str, max_chars: int = -1) -> str:
+    def apply(
+        self,
+        memory_name: str,
+        content: str,
+        max_chars: int = -1,
+        provenance: MemoryEvidenceRequest | None = None,
+        expected_memory_sha256: str | None = None,
+    ) -> str:
         """
         Write information about this project that can be useful for future tasks in md format.
         The name should be meaningful and can include "/" to organize into topics.
@@ -23,6 +32,8 @@ class WriteMemoryTool(Tool, ToolMarkerCanEdit):
         :param memory_name: memory name
         :param content: memory content, utf8-encoded
         :param max_chars: see other tools
+        :param provenance: optional owner, source references, project-relative scope, origin and expiration; source hashes must match
+        :param expected_memory_sha256: current raw memory hash when upgrading/replacing a record with provenance; null requires absence
         """
         # NOTE: utf-8 encoding is configured in the MemoriesManager
         if max_chars == -1:
@@ -32,7 +43,9 @@ class WriteMemoryTool(Tool, ToolMarkerCanEdit):
                 f"Content for {memory_name} is too long. Max length is {max_chars} characters. " + "Please make the content shorter."
             )
 
-        return self.memory_manager.save_memory(memory_name, content, is_tool_context=True)
+        return self.memory_manager.save_memory(
+            memory_name, content, is_tool_context=True, provenance=provenance, expected_memory_sha256=expected_memory_sha256
+        )
 
 
 class ReadMemoryTool(Tool):
@@ -120,3 +133,43 @@ class EditMemoryTool(Tool, ToolMarkerCanEdit):
         return self.memory_manager.edit_memory(
             memory_name, needle, repl, mode, allow_multiple_occurrences, is_tool_context=True, regex_multiline=True
         )
+
+
+class CheckMemoryTool(Tool, ToolMarkerOptional):
+    """Check a memory's project scope, supporting source versions, content review and expiration."""
+
+    def apply(self, memory_name: str) -> str:
+        """Return a current evidence assessment without including the decision body.
+
+        :param memory_name: project memory name; legacy records are explicitly unverified
+        :return: source/version issues, raw memory SHA-256 and declared provenance; matching hashes do not prove the claim
+        """
+        return self._to_json(asdict(self.memory_manager.assess_memory(memory_name)))
+
+
+class ReviewMemoryTool(Tool, ToolMarkerCanEdit, ToolMarkerOptional):
+    """Record an explicit review with newly supplied, current evidence for an existing memory."""
+
+    def apply(
+        self,
+        memory_name: str,
+        provenance: MemoryEvidenceRequest,
+        expected_memory_sha256: str,
+        adopt_project: bool = False,
+    ) -> str:
+        """Rebind the current body to reviewed source references without generating a summary.
+
+        :param memory_name: existing project memory name
+        :param provenance: declared owner/origin, current source references, scope and optional expiration
+        :param expected_memory_sha256: exact memory hash returned by read_memory or check_memory
+        :param adopt_project: explicitly adopt a copied record into the active project after reviewing its applicability
+        :return: fresh scope/evidence assessment; declared ownership and semantic correctness are not authenticated
+        """
+        result = self.memory_manager.review_memory(
+            memory_name,
+            provenance,
+            expected_memory_sha256,
+            adopt_project=adopt_project,
+            is_tool_context=True,
+        )
+        return self._to_json(asdict(result))

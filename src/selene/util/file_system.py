@@ -18,7 +18,7 @@ from selene.util.cancellation import CancellationToken
 log = logging.getLogger(__name__)
 
 
-def write_file_atomic(path: str, content: str, *, encoding: str, newline: str | None = None) -> None:
+def write_file_atomic(path: str, content: str, *, encoding: str, newline: str | None = None, mode: int | None = None) -> None:
     """
     Write ``content`` to ``path`` atomically: the content is written to a temporary file in the
     same directory first, then swapped into place with ``os.replace``. A plain
@@ -30,6 +30,7 @@ def write_file_atomic(path: str, content: str, *, encoding: str, newline: str | 
     :param content: the text content to write
     :param encoding: the encoding to use for the write
     :param newline: passed through to the underlying ``open()`` call to control newline translation
+    :param mode: optional explicit permission mode; otherwise preserve existing permissions or apply the process umask
     """
     target_dir = os.path.dirname(path) or "."
     try:
@@ -44,7 +45,7 @@ def write_file_atomic(path: str, content: str, *, encoding: str, newline: str | 
         # tighten an existing file's permissions (e.g. 0644 -> 0600) on replace. Restore the
         # original mode, or fall back to what a plain open(path, "w") would have produced for a
         # new file (0666 masked by the process umask).
-        os.chmod(tmp_path, existing_mode if existing_mode is not None else _new_file_mode())
+        os.chmod(tmp_path, mode if mode is not None else existing_mode if existing_mode is not None else _new_file_mode())
         _replace_with_retry(tmp_path, path)
     except BaseException:
         try:

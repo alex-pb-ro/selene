@@ -44,6 +44,8 @@ class IsolatedServerBootstrap:
                 "prepare_change",
                 "apply_change",
                 "recover_change",
+                "check_memory",
+                "review_memory",
             ],
             "ls_specific_settings": {"python": {"ls_path": "/opt/selene/.venv/bin/pyright-langserver"}},
         }
