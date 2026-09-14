@@ -9,6 +9,7 @@ Status of the `main` branch. Changes prior to the next official version change w
 * General:
   - Add prepared multi-file text changes with source preconditions, local recovery journals,
     idempotent apply, syntax diagnostics and rollback that preserves later observed edits.
+  - Fix: Detect JSON schema changes between booleans and numbers, including nested object and array values, when finding consumers.
   - Add proposed-change impact analysis with versioned static relationships, declared schema/generation evidence,
     test recommendations and explicit unresolved behavior.
   - Add context bundles combining versioned code, dependencies, tests and documentation, with explicit evidence,
@@ -16,7 +17,7 @@ Status of the `main` branch. Changes prior to the next official version change w
   - Add a local incremental code and documentation index with versioned lexical search, native event invalidation,
     and content reconciliation when watcher coverage is unavailable.
   - Fix: Keep timed-out and cancelled operations serialized until execution stops; propagate MCP cancellation
-    to cooperative write checkpoints and avoid automatic retries of uncertain mutations.
+    to cooperative write checkpoints, including workspace file renames, and avoid automatic retries of uncertain mutations.
   - Fix: Dispatch queued tasks immediately when work arrives, removing the idle polling delay.
   - Fix: MCP `initialize` now reports Selene's version instead of the installed mcp SDK version (#1889)
   - Fix: Parallel agents auto-registering projects could overwrite each other's changes to the global
@@ -58,6 +59,7 @@ Status of the `main` branch. Changes prior to the next official version change w
 
 * Language Servers:
   - Add `persist_symbol_cache` to control storage and reload of document-symbol caches containing source text.
+  - Fix: Release file buffers after a nested open fails on a conflicting external edit, allowing later requests to reopen the file.
   - Fix: Refresh source content when timestamps are preserved or decrease, detect conflicting disk changes to unsaved buffers,
     and retain failed language-server notifications for retry.
   - Fix: TypeScript and VTS now disable automatic type acquisition as intended, while VTS

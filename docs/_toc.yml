@@ -1,0 +1,48 @@
+root: index
+entries:
+- file: 01-about/000_intro
+  entries:
+  - file: 01-about/020_programming-languages
+  - file: 01-about/025_features
+  - file: 01-about/030_selene-in-action
+  - file: 01-about/035_tools
+  - file: 01-about/050_acknowledgements
+- file: 02-usage/000_intro
+  entries:
+  - file: 02-usage/010_installation
+  - file: 02-usage/020_running
+  - file: 02-usage/025_jetbrains_plugin
+  - file: 02-usage/030_clients
+  - file: 02-usage/040_workflow
+  - file: 02-usage/045_memories
+  - file: 02-usage/050_configuration
+  - file: 02-usage/060_dashboard
+  - file: 02-usage/065_logs
+  - file: 02-usage/070_security
+  - file: 02-usage/999_additional-usage
+- file: 03-special-guides/000_intro
+  entries:
+  - file: 03-special-guides/cpp_setup
+  - file: 03-special-guides/custom_agent
+  - file: 03-special-guides/external_language_server_registration
+  - file: 03-special-guides/godot_gdscript_setup_guide_for_selene
+  - file: 03-special-guides/groovy_setup_guide_for_selene
+  - file: 03-special-guides/ocaml_setup_guide_for_selene
+  - file: 03-special-guides/scala_setup_guide_for_selene
+  - file: 03-special-guides/selene_on_chatgpt
+  - file: 03-special-guides/unreal_engine_setup_guide_for_selene
+- file: 04-evaluation/000_evaluation-intro
+  entries:
+  - file: 04-evaluation/010_methodology
+  - file: 04-evaluation/020_prompts/000_prompts
+    entries:
+    - file: 04-evaluation/020_prompts/010_evaluation-prompt
+    - file: 04-evaluation/020_prompts/020_summary-prompt
+  - file: 04-evaluation/030_results/000_evaluation-results
+    entries:
+    - file: 04-evaluation/030_results/010_cc_on_tianshou
+    - file: 04-evaluation/030_results/020_codex_on_jbplugin
+    - file: 04-evaluation/030_results/030_copilot_cli_on_ente
+    - file: 04-evaluation/030_results/040_glm_on_tianshou
+    - file: 04-evaluation/030_results/050_junie_plugin_on_tianshou
+
