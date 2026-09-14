@@ -1191,6 +1191,10 @@ class SolidLanguageServer(ABC):
         """
         self.server.set_request_timeout(timeout)
 
+    def update_ignored_paths(self, patterns: list[str]) -> None:
+        """Replace the local path filter after project ignore configuration changes."""
+        self._ignore_spec = pathspec.PathSpec.from_lines(pathspec.patterns.GitWildMatchPattern, patterns)
+
     def get_ignore_spec(self) -> pathspec.PathSpec:
         """
         Returns the pathspec matcher for the paths that were configured to be ignored through

@@ -1,0 +1,52 @@
+{
+  "measurements": [
+    {
+      "files": 100,
+      "watcher": "KqueueJournal",
+      "startup_ms": 25.514,
+      "unchanged_median_ms": 0.023,
+      "unchanged_p95_ms": 0.044,
+      "unchanged_io_events": {},
+      "changed_file_ms": 0.382
+    },
+    {
+      "files": 1000,
+      "watcher": "KqueueJournal",
+      "startup_ms": 263.45,
+      "unchanged_median_ms": 0.02,
+      "unchanged_p95_ms": 0.024,
+      "unchanged_io_events": {},
+      "changed_file_ms": 0.684
+    },
+    {
+      "files": 10000,
+      "watcher": "KqueueJournal",
+      "startup_ms": 2775.539,
+      "unchanged_median_ms": 0.031,
+      "unchanged_p95_ms": 0.074,
+      "unchanged_io_events": {},
+      "changed_file_ms": 8.025
+    }
+  ],
+  "method": {
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "python": "3.11.15",
+    "synthetic_only": true,
+    "model_calls": 0,
+    "language_servers": 0,
+    "scope": "Real project/index/notifier, 30 unchanged observations; startup and one changed file measured once per size.",
+    "limitations": "Single-machine microbenchmark. Directory creation and policy changes trigger full reconciliation. Native events are advisory; the index periodically reconciles content and validates retrieved candidates. Not a whole-project transaction, packet capture or language-server latency measurement.",
+    "source_sha256": {
+      "src/selene/indexing/journal.py": "f13920c3f374efc4fe8208c6634864f7e80ad95912ac9fdc0c5e35672ec39b96",
+      "src/selene/indexing/project_policy.py": "beba2d0e0953c98ef37a5dbde4fdb068d607493e92ddd9a063da982a36e6fab7",
+      "src/selene/indexing/inotify.py": "4926be8ca3da1a75e787d76c9f29409e8a1bb73cac51f5b35b39764e00eefc39",
+      "src/selene/indexing/local_index.py": "3c9284610781380c1be70dd8b97d071a1eab249b96caf9c867b7ac490ec69f62",
+      "src/selene/indexing/__init__.py": "731a65bfa55d9dc1fc2f37e4f3a1b7d5c3d7c0473c77fb203bc480c65c1c808c",
+      "src/selene/indexing/coverage.py": "122976ccbd9d11f7503c29f7bbed2d1724e72ca5de41a2cdc853e89df394ae79",
+      "src/selene/indexing/kqueue.py": "f33d26f1f4a24f130a37ed4f3e2552beeb851852d6c6656d6122af88e1879ad7",
+      "src/selene/indexing/scope.py": "de7edd35a5e84800bab799d1199b3c579d0e2741a4745069dd05c4e8cf492923",
+      "src/selene/file_change_notifier.py": "6ffe3d179df05588903df67086ad2649b200aa4d9bfdbfd9883d8613b231c7e2",
+      "src/selene/project.py": "13e7e86744dffb4bbc5eec38c5d275dd895a4443a1c82992467e64e0bdc4ad5d"
+    }
+  }
+}

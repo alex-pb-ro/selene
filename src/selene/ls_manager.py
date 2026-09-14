@@ -98,6 +98,12 @@ class LanguageServerManager:
             raise ValueError("No language servers available in the manager")
         return next(iter(self._language_servers.values()))
 
+    def update_ignored_paths(self, patterns: list[str]) -> None:
+        """Update local filters for current and subsequently created language servers."""
+        self._language_server_factory.ignored_patterns = list(patterns)
+        for server in self._language_servers.values():
+            server.update_ignored_paths(patterns)
+
     @staticmethod
     def from_languages(
         languages: list[LanguageServerIdLike], factory: LanguageServerFactory, project: "Project"

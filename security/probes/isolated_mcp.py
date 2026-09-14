@@ -20,6 +20,11 @@ class IsolatedMCPProbe:
         "src/selene/isolation/linux_network.py", "src/selene/isolation/bootstrap.py",
         "src/selene/config/selene_config.py", "src/selene/ls_manager.py", "src/selene/project.py",
         "src/solidlsp/ls.py", "src/solidlsp/settings.py", "containers/isolated/entrypoint.py", "LICENSE",
+        "src/selene/indexing/local_index.py", "src/selene/indexing/inotify.py", "src/selene/indexing/scope.py",
+        "src/selene/indexing/coverage.py", "src/selene/indexing/journal.py", "src/selene/indexing/kqueue.py",
+        "src/selene/indexing/project_policy.py", "src/selene/indexing/__init__.py",
+        "src/selene/util/file_snapshot.py", "src/selene/util/file_system.py", "src/selene/code_editor.py",
+        "src/selene/tools/index_tools.py", "src/selene/tools/file_tools.py", "src/selene/tools/__init__.py",
     )
 
     def __init__(self, fixture_root: Path, docker_socket: Path, image: str):
@@ -96,6 +101,16 @@ class IsolatedMCPProbe:
                         assert not symbols.isError and "visible_symbol" in self._text(symbols), self._text(symbols)
                         assert approved in self._text(symbols), self._text(symbols)
                         observations["local_pyright_symbol_body_returned"] = True
+
+                        indexed = await session.call_tool("search_index", {"query": "APPROVED_CLIENT_CANARY"})
+                        assert not indexed.isError and approved in self._text(indexed), self._text(indexed)
+                        observations["index_search_returns_versioned_source"] = bool(json.loads(self._text(indexed))["matches"][0]["sha256"])
+                        (project / "host_created.py").write_text("hostindexcanary = 1\n")
+                        host_indexed = await session.call_tool("search_index", {"query": "hostindexcanary"})
+                        assert not host_indexed.isError, self._text(host_indexed)
+                        assert [match["path"] for match in json.loads(self._text(host_indexed))["matches"]] == ["host_created.py"], self._text(host_indexed)
+                        observations["host_shared_filesystem_edit_is_indexed_immediately"] = True
+                        observations["index_watcher"] = json.loads(self._text(host_indexed))["status"]["watcher"]
 
                         network = await session.call_tool("execute_shell_command", {
                             "command": self._python("import socket; socket.socket(socket.AF_INET)"),

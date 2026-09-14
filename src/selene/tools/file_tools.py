@@ -85,7 +85,10 @@ class CreateTextFileTool(EditingToolWithDiagnostics):
             # writing the file
             CancellationToken.check_current()
             abs_path.parent.mkdir(parents=True, exist_ok=True)
-            abs_path.write_text(content, encoding=self.project.project_config.encoding, newline=self.project.line_ending.newline_str)
+            try:
+                abs_path.write_text(content, encoding=self.project.project_config.encoding, newline=self.project.line_ending.newline_str)
+            finally:
+                self.project.record_local_write(relative_path)
             answer = f"File created: {relative_path}."
             if will_overwrite_existing:
                 answer += " Overwrote existing file."

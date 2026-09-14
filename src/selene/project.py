@@ -15,6 +15,9 @@ from selene.config.selene_config import (
     ProjectConfigAutoGenerationMode,
     SeleneConfig,
 )
+from selene.indexing.local_index import LocalSourceIndex
+from selene.indexing.project_policy import ProjectIndexPolicy
+from selene.indexing.scope import ProjectSourceScope
 from selene.ls_manager import LanguageServerFactory, LanguageServerManager
 from selene.memories.memory_manager import MemoryManager
 from selene.util.file_proxy import FileCollection, FileProxy
@@ -60,6 +63,8 @@ class Project(ToStringMixin):
         self._language_server_manager_init_error: Exception | None = None
         self.is_newly_created = is_newly_created
         self._agent: Optional["SeleneAgent"] = None
+        self._local_index: LocalSourceIndex | None = None
+        self._local_index_lock = threading.Lock()
 
         # create .gitignore file in the project's Selene data folder if not yet present
         selene_data_gitignore_path = os.path.join(self._selene_data_folder, ".gitignore")
@@ -76,7 +81,7 @@ class Project(ToStringMixin):
         self._ignore_spec_available = threading.Event()
         threading.Thread(name=f"gather-ignorespec[{self.project_config.project_name}]", target=self._gather_ignorespec, daemon=True).start()
 
-    def _gather_ignorespec(self) -> None:
+    def _gather_ignorespec(self, *, strict: bool = False) -> None:
         with LogTime(f"Gathering ignore spec for project {self.project_config.project_name}", logger=log):
             try:
                 # gather ignored paths from the global configuration, project configuration, and gitignore files
@@ -90,10 +95,16 @@ class Project(ToStringMixin):
                     log.debug(f"Project ignored paths: {self.project_config.ignored_paths}")
                 log.debug(f"Combined ignored patterns: {ignored_patterns}")
                 if self.project_config.ignore_all_files_in_gitignore:
-                    gitignore_parser = GitignoreParser(self.project_root)
+                    gitignore_parser = GitignoreParser(self.project_root, strict=strict)
                     for spec in gitignore_parser.get_ignore_specs():
                         log.debug(f"Adding {len(spec.patterns)} patterns from {spec.file_path} to the ignored paths.")
                         ignored_patterns.extend(spec.patterns)
+                    try:
+                        exclude = ProjectSourceScope(self.project_root).read(".git/info/exclude")
+                    except (FileNotFoundError, NotADirectoryError):
+                        pass
+                    else:
+                        ignored_patterns.extend(exclude.content.decode("utf-8").splitlines())
                 self.__ignored_patterns = ignored_patterns
 
                 # Set up the pathspec matcher for the ignored paths
@@ -109,6 +120,33 @@ class Project(ToStringMixin):
                 log.error(f"Error while gathering ignore spec for project {self.project_config.project_name}: {e}", exc_info=e)
 
         self._ignore_spec_available.set()
+
+    def refresh_ignored_paths(self) -> None:
+        """Reload project ignore rules and update the local language-server filters."""
+        self._ignore_spec_available.wait()
+        previous = self.__ignored_patterns
+        self.__ignore_spec = None
+        self.__ignored_patterns = None
+        self._gather_ignorespec(strict=True)
+        _ = self._ignore_spec
+        current = self._ignored_patterns
+        if current != previous and self.language_server_manager is not None:
+            self.language_server_manager.update_ignored_paths(current)
+
+    def get_local_index(self) -> LocalSourceIndex:
+        """Return the project-owned, lazily initialized local source index."""
+        with self._local_index_lock:
+            if self._local_index is None:
+                self._local_index = LocalSourceIndex(
+                    ProjectSourceScope(self.project_root), ProjectIndexPolicy(self), encoding=self.project_config.encoding
+                )
+            return self._local_index
+
+    def record_local_write(self, relative_path: str) -> None:
+        """Invalidate an existing index after an owned edit, without creating one."""
+        with self._local_index_lock:
+            if self._local_index is not None:
+                self._local_index.record_local_write(relative_path)
 
     def _tostring_includes(self) -> list[str]:
         return []
@@ -349,37 +387,12 @@ class Project(ToStringMixin):
 
         :param relative_path: if provided, restrict search to this path
         """
-        rel_file_paths = []
-        start_path = os.path.join(self.project_root, relative_path)
-        if not os.path.exists(start_path):
-            raise FileNotFoundError(f"Relative path {start_path} not found.")
-        if os.path.isfile(start_path):
-            return [relative_path]
-        else:
-            for root, dirs, files in os.walk(start_path, followlinks=True):
-                # prevent recursion into ignored directories
-                dirs[:] = [d for d in dirs if not self.is_ignored_path(os.path.join(root, d))]
-
-                # collect non-ignored files
-                for file in files:
-                    abs_file_path = os.path.join(root, file)
-                    try:
-                        if not self.is_ignored_path(abs_file_path, ignore_non_source_files=True):
-                            try:
-                                rel_file_path = os.path.relpath(abs_file_path, start=self.project_root)
-                            except Exception:
-                                log.warning(
-                                    "Ignoring path '%s' because it appears to be outside of the project root (%s)",
-                                    abs_file_path,
-                                    self.project_root,
-                                )
-                                continue
-                            rel_file_paths.append(rel_file_path)
-                    except FileNotFoundError:
-                        log.warning(
-                            f"File {abs_file_path} not found (possibly due it being a symlink), skipping it in request_parsed_files",
-                        )
-            return rel_file_paths
+        index = self.get_local_index()
+        prefix = index.scope.normalize(relative_path)
+        if prefix and index.scope.resolve(prefix).is_file():
+            return [prefix]
+        observation = index.refresh()
+        return [path for path in observation.source_fingerprints if not prefix or path.startswith(prefix + "/")]
 
     def _create_file_collection(self, relative_path: str, *, code_files_only: bool, skip_ignored_files: bool) -> FileCollection:
         """
@@ -622,6 +635,10 @@ class Project(ToStringMixin):
         return 0
 
     def shutdown(self, timeout: float = 2.0) -> None:
+        with self._local_index_lock:
+            if self._local_index is not None:
+                self._local_index.close()
+                self._local_index = None
         if self.language_server_manager is not None:
             self.language_server_manager.stop_all(save_cache=True, timeout=timeout)
             self.language_server_manager = None

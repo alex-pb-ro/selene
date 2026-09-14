@@ -7,6 +7,8 @@ Entries below are inherited project history with names normalized for this check
 Status of the `main` branch. Changes prior to the next official version change will appear here.
 
 * General:
+  - Add a local incremental code and documentation index with versioned lexical search, native event invalidation,
+    and content reconciliation when watcher coverage is unavailable.
   - Fix: Keep timed-out and cancelled operations serialized until execution stops; propagate MCP cancellation
     to cooperative write checkpoints, including workspace file renames, and avoid automatic retries of uncertain mutations.
   - Fix: Dispatch queued tasks immediately when work arrives, removing the idle polling delay.

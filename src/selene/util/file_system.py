@@ -218,13 +218,14 @@ class GitignoreParser:
     and provides methods to check if paths should be ignored.
     """
 
-    def __init__(self, repo_root: str) -> None:
+    def __init__(self, repo_root: str, *, strict: bool = False) -> None:
         """
         Initialize the parser for a repository.
 
         :param repo_root: Root directory of the repository
         """
         self.repo_root = os.path.abspath(repo_root)
+        self._strict = strict
         self.ignore_specs: list[GitignoreSpec] = []
         self._load_gitignore_files()
 
@@ -288,6 +289,8 @@ class GitignoreParser:
             with open(gitignore_file_path, encoding="utf-8") as f:
                 content = f.read()
         except (OSError, UnicodeDecodeError):
+            if self._strict:
+                raise
             # If we can't read the file, return an empty spec
             return GitignoreSpec(gitignore_file_path, [])
 
