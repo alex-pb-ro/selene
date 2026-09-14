@@ -1,0 +1,1231 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Codex (GPT-5.4, high) &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04-evaluation/030_results/020_codex_on_jbplugin';</script>
+    <script src="../../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Copilot CLI (GPT-5.4, medium)" href="030_copilot_cli_on_ente.html" />
+    <link rel="prev" title="Claude Code (Opus 4.6, medium)" href="010_cc_on_tianshou.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../02-usage/000_intro.html">Usage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02-usage/999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../000_evaluation-intro.html">Evaluation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="000_evaluation-results.html">Results</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/04-evaluation/030_results/020_codex_on_jbplugin.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Codex (GPT-5.4, high)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headline-what-selene-changes">1. Headline: what Selene changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#added-value-and-differences-by-area">2. Added value and differences by area</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-evidence-grouped-by-capability">3. Detailed evidence, grouped by capability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure-and-entry-points">3.1 Repository structure and entry points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#large-file-structural-overview">3.2 Large file structural overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#targeted-method-body-retrieval">3.3 Targeted method body retrieval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references-code-usages-vs-mentions-anywhere">3.4 References: code usages vs mentions anywhere</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hierarchy">3.5 Type hierarchy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-dependency-symbol-lookup">3.6 External dependency symbol lookup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-file-edits-across-edit-sizes">3.7 Single-file edits across edit sizes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insert-method-at-structural-location">3.8 Insert method at structural location</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rename-private-helper-in-one-file">3.9 Rename: private helper in one file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rename-cross-file-class-including-imports">3.10 Rename: cross-file class including imports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-symbol-to-another-file-context">3.11 Move symbol to another file context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-file-package-location">3.12 Move file/package location</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#safe-delete-and-propagated-delete">3.13 Safe delete and propagated delete</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inline">3.14 Inline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-precision-and-overload-targeting">3.15 Scope precision and overload targeting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomicity-and-success-signals">3.16 Atomicity and success signals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects-across-multiple-edits">3.17 Workflow effects across multiple edits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-code-reads-and-free-text-search">3.18 Non-code reads and free-text search</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token-efficiency-analysis">4. Token-efficiency analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-correctness-under-correct-use">5. Reliability &amp; correctness under correct use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects-across-a-session">6. Workflow effects across a session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-capabilities">7. Unique capabilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-outside-selene-s-scope">8. Tasks outside Selene’s scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-usage-rule">9. Practical usage rule</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <blockquote>
+<div><p>Historical evaluation inherited from the baseline, with project names normalized. These results have not been rerun or verified for this fork.</p>
+</div></blockquote>
+<div class="note admonition">
+<p class="admonition-title">Evaluation Result</p>
+<p><strong>Generated by:</strong> GPT-5.4 (high) in Codex<br>
+<strong>Codebase:</strong> Selene JetBrains Plugin (Java)<br>
+<strong>Date</strong>: 2026-04-13</p>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="codex-gpt-5-4-high">
+<h1>Codex (GPT-5.4, high)<a class="headerlink" href="#codex-gpt-5-4-high" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>One-line summary:</strong> As a coding agent, I would ask my owner to add Selene because it turns fragile text-and-line-number work into precise symbol-aware navigation and
+refactoring, which makes real code changes feel faster, safer, and far less blind.</p>
+</div></blockquote>
+<p>This report compares Selene’s JetBrains-backed semantic coding tools with built-in file, shell, search, and patch tools in this repository. The comparison assumes competent use of both toolsets: built-ins are used for text, file, shell, config, and small patch work; Selene is used where symbol identity, language semantics, or IDE refactoring semantics apply.</p>
+<p>Method: I explored code first, avoided repo documentation and prior notes, ran real edits/refactors, and reverted after each experiment. After each edit/refactor experiment I checked <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span></code> and returned the tree to clean before moving on. Measurements are approximate, but call counts, diff sizes, and result shapes are from observed runs.</p>
+<section id="headline-what-selene-changes">
+<h2>1. Headline: what Selene changes<a class="headerlink" href="#headline-what-selene-changes" title="Link to this heading">#</a></h2>
+<p>Selene adds a semantic layer over the codebase. Its concrete delta is the ability to address and transform code by symbols: name paths, overload indexes, reference graphs, type hierarchies, external declarations, and JetBrains refactoring operations.</p>
+<p>Tasks where Selene adds capability:</p>
+<ul class="simple">
+<li><p>Code-reference search: <code class="docutils literal notranslate"><span class="pre">find_referencing_symbols</span></code> for <code class="docutils literal notranslate"><span class="pre">Symbol/findReferences</span></code> returned 6 precise code usages grouped by containing symbols. <code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">findReferences</span></code> also returned the declaration, the <code class="docutils literal notranslate"><span class="pre">/findReferences</span></code> route string, and comments.</p></li>
+<li><p>Type hierarchy: one <code class="docutils literal notranslate"><span class="pre">type_hierarchy</span></code> call for <code class="docutils literal notranslate"><span class="pre">PostRequestHandler</span></code> returned 18 direct endpoint subclasses, a transitive <code class="docutils literal notranslate"><span class="pre">TypeHierarchyHandler</span> <span class="pre">-&gt;</span> <span class="pre">GetSupertypesHandler/GetSubtypesHandler</span></code> branch, and the external <code class="docutils literal notranslate"><span class="pre">Object</span></code> supertype.</p></li>
+<li><p>External dependency lookup: <code class="docutils literal notranslate"><span class="pre">find_declaration</span></code> resolved <code class="docutils literal notranslate"><span class="pre">ReferencesSearch.search(anchorElement)</span></code> to <code class="docutils literal notranslate"><span class="pre">&lt;ext:ReferencesSearch.class|466808a0&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">find_symbol</span></code> returned the selected overload body. Built-in repo/cache grep found the import and call but not the dependency definition.</p></li>
+<li><p>Cross-file refactors: semantic rename, symbol move, file move, safe delete, and inline executed real IDE refactors and updated files/usages/imports.</p></li>
+<li><p>Stable addressing: a chained edit used <code class="docutils literal notranslate"><span class="pre">SymbolFinder/findFilesByName</span></code>, <code class="docutils literal notranslate"><span class="pre">SymbolFinder/getProject</span></code>, and <code class="docutils literal notranslate"><span class="pre">SymbolFinder/qualNameMatchesName</span></code> after earlier edits shifted line numbers.</p></li>
+</ul>
+<p>Tasks where Selene applies but offered little or no improvement:</p>
+<ul class="simple">
+<li><p>Tiny intra-method edits: a 1-line error-message change was smaller with a built-in patch; Selene body replacement required sending the whole method.</p></li>
+<li><p>Simple one-file private rename: manual patch and semantic rename produced the same 2-line diff for <code class="docutils literal notranslate"><span class="pre">qualNameMatchesName</span> <span class="pre">-&gt;</span> <span class="pre">qualifiedNameMatchesName</span></code>.</p></li>
+<li><p>Method insertion at a known spot: both workflows produced the same 4-line diff; Selene’s benefit was target stability, not smaller payload.</p></li>
+<li><p>Whole-method rewrite: Selene targets the method boundary cleanly, but the full replacement body still has to be sent.</p></li>
+</ul>
+<p>Tasks outside Selene’s scope:</p>
+<ul class="simple">
+<li><p>Reading config/non-code files such as <code class="docutils literal notranslate"><span class="pre">plugin.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">build.gradle.kts</span></code>.</p></li>
+<li><p>Free-text searches for URLs, endpoint strings, settings values, comments, and resources.</p></li>
+<li><p>File inventory, line counts, shell commands, build/test execution, Git operations, and arbitrary text edits.</p></li>
+</ul>
+<p>Value-weighted summary:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Rank</p></th>
+<th class="head text-right"><p>Difference</p></th>
+<th class="head text-right"><p>Frequency</p></th>
+<th class="head text-right"><p>Value per hit</p></th>
+<th class="head"><p>Delta</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td class="text-right"><p>Cross-file semantic refactors</p></td>
+<td class="text-right"><p>Medium-high</p></td>
+<td class="text-right"><p>High</p></td>
+<td><p>Often avoids 5-20 manual edit/search/verify steps and reduces partial-update risk.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td class="text-right"><p>Code usages vs text mentions</p></td>
+<td class="text-right"><p>High</p></td>
+<td class="text-right"><p>Medium-high</p></td>
+<td><p>Removes noisy grep triage for “who uses this symbol?”</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td class="text-right"><p>Symbol overview/body retrieval</p></td>
+<td class="text-right"><p>High</p></td>
+<td class="text-right"><p>Medium</p></td>
+<td><p>Avoids large reads and stale line targeting.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td class="text-right"><p>Type hierarchy/implementations</p></td>
+<td class="text-right"><p>Medium</p></td>
+<td class="text-right"><p>High</p></td>
+<td><p>Hard to reproduce correctly with text search, especially transitively.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td class="text-right"><p>Stable addressing across edit chains</p></td>
+<td class="text-right"><p>Medium</p></td>
+<td class="text-right"><p>Medium</p></td>
+<td><p>Reduces refresh work after line shifts.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td class="text-right"><p>External dependency lookup</p></td>
+<td class="text-right"><p>Low-medium</p></td>
+<td class="text-right"><p>High</p></td>
+<td><p>Needs IDE index; built-ins need source/decompiler infrastructure.</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td class="text-right"><p>Small local edits</p></td>
+<td class="text-right"><p>High</p></td>
+<td class="text-right"><p>Neutral/negative for Selene</p></td>
+<td><p>Built-in patch/edit usually sends less.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verdict:</strong> Selene materially changes symbol-centric exploration and refactoring; it does not replace built-ins for ordinary text, file, shell, config, or tiny local edits.</p>
+</section>
+<section id="added-value-and-differences-by-area">
+<h2>2. Added value and differences by area<a class="headerlink" href="#added-value-and-differences-by-area" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Cross-file semantic refactoring changes both workflow and correctness. Frequency: medium-high. Value per hit: high. The observed class rename updated a file/class plus imports/usages; the nested-record move changed 4 existing files and created 1 new file; the file move updated package/imports across 3 paths. Built-ins can reproduce the result, but only through search, file moves, patches, import cleanup, and verification.</p></li>
+<li><p>Semantic search separates code usage from text mention. Frequency: high. Value per hit: medium-high. Selene returned only code references for <code class="docutils literal notranslate"><span class="pre">Symbol/findReferences</span></code>; <code class="docutils literal notranslate"><span class="pre">rg</span></code> returned code, route strings, comments, and the declaration. Built-ins remain better for “mentioned anywhere.”</p></li>
+<li><p>Symbol overview/body retrieval cuts exploration payload. Frequency: high. Value per hit: medium. <code class="docutils literal notranslate"><span class="pre">get_symbols_overview</span></code> on <code class="docutils literal notranslate"><span class="pre">Symbol.java</span></code> returned fields, methods, nested classes, and overload indexes without reading the 1,000+ line file. Regex produced line-oriented candidates and still required manual scope interpretation.</p></li>
+<li><p>Type/dependency queries add capabilities not practically present in built-ins. Frequency: low-medium. Value per hit: high. Selene returned a transitive type graph and an external IntelliJ API method body; text tools needed iterative searches or extra source/decompiler setup.</p></li>
+<li><p>Small localized edits are not improved by symbol-body replacement. Frequency: high. Value per hit: neutral or negative for Selene. A one-line patch was smaller than replacing an 11-line method body.</p></li>
+<li><p>Some JetBrains refactors staged added/deleted files. Frequency: limited to class/file move/delete style operations. Value per hit: neutral operational tradeoff. Semantic value remains, but verification/revert must check the index as well as unstaged files.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene’s highest-value differences are symbol identity, reference graphs, and IDE refactor execution; built-ins remain superior for simple text-local work.</p>
+</section>
+<section id="detailed-evidence-grouped-by-capability">
+<h2>3. Detailed evidence, grouped by capability<a class="headerlink" href="#detailed-evidence-grouped-by-capability" title="Link to this heading">#</a></h2>
+<section id="repository-structure-and-entry-points">
+<h3>3.1 Repository structure and entry points<a class="headerlink" href="#repository-structure-and-entry-points" title="Link to this heading">#</a></h3>
+<p>Attempted: identify top-level layout, packages, and entry points.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span></code> -&gt; clean.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">--files</span> <span class="pre">-g</span> <span class="pre">'!*.md'</span> <span class="pre">-g</span> <span class="pre">'!docs/**'</span> <span class="pre">-g</span> <span class="pre">'!CLAUDE.md'</span></code> -&gt; code/config/resource inventory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Force</span></code> -&gt; top-level directories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">src/main/resources/META-INF/plugin.xml</span></code> -&gt; plugin entry points.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">build.gradle.kts</span> <span class="pre">-TotalCount</span> <span class="pre">80</span></code> -&gt; Gradle/IntelliJ platform setup.</p></li>
+</ol>
+<p>Selene call chain: not applicable for repository inventory and non-code config.</p>
+<p>Observed structure:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">service</span></code>: backend service and request handling.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service/endpoint</span></code>: endpoint handlers for symbol search, references, formatting, rename, move, safe delete, inline, inspections, and completions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">symbol</span></code>: symbol model, symbol lookup, hierarchy, path matching, and move processors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">util</span></code>: IDE/project/editor/UI helpers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ui</span></code>: tool window content.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.xml</span></code>: registers <code class="docutils literal notranslate"><span class="pre">PluginStartupActivity</span></code>, settings service/configurable, and a dummy test action.</p></li>
+</ul>
+<p>Payloads: built-ins used 5 small shell/read calls and returned several KB of code/config context; Selene had no relevant semantic operation.</p>
+<p><strong>Verdict:</strong> Repository layout and non-code entry-point discovery are built-in work; Selene starts adding value once the target is code symbols.</p>
+</section>
+<section id="large-file-structural-overview">
+<h3>3.2 Large file structural overview<a class="headerlink" href="#large-file-structural-overview" title="Link to this heading">#</a></h3>
+<p>Attempted: compare structural overview on <code class="docutils literal notranslate"><span class="pre">src/main/java/local/selene/symbol/Symbol.java</span></code>.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_symbols_overview(relative_path=Symbol.java,</span> <span class="pre">depth=1)</span></code></p></li>
+<li><p>Next step: <code class="docutils literal notranslate"><span class="pre">find_symbol(Symbol/findReferences,</span> <span class="pre">include_body=true)</span></code></p></li>
+</ol>
+<p>Selene output: one top-level <code class="docutils literal notranslate"><span class="pre">Symbol</span></code> class; fields; nested <code class="docutils literal notranslate"><span class="pre">ChildrenCollector</span></code> and <code class="docutils literal notranslate"><span class="pre">DocumentationResolver</span></code>; methods including overload-indexed names such as <code class="docutils literal notranslate"><span class="pre">getLocationString[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">getLocationString[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">move[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">move[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">getDocumentation[0]</span></code>, and <code class="docutils literal notranslate"><span class="pre">getDocumentation[1]</span></code>.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span></code> for method-like declaration lines in <code class="docutils literal notranslate"><span class="pre">Symbol.java</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span></code> for class/interface/enum lines in <code class="docutils literal notranslate"><span class="pre">Symbol.java</span></code>.</p></li>
+<li><p>Next step: line-slice read around the selected method.</p></li>
+</ol>
+<p>Built-in output: about 70 line-oriented method/class matches, including nested symbols, with no durable symbol identity beyond manual signature inspection.</p>
+<p>Payloads: Selene used 1 compact overview call plus a targeted follow-up. Built-ins used 2 regex searches plus a later line-range read.</p>
+<p><strong>Verdict:</strong> Selene’s overview is more actionable because its output feeds directly into stable symbol-addressed calls; regex outlines are useful but line-based.</p>
+</section>
+<section id="targeted-method-body-retrieval">
+<h3>3.3 Targeted method body retrieval<a class="headerlink" href="#targeted-method-body-retrieval" title="Link to this heading">#</a></h3>
+<p>Attempted: retrieve <code class="docutils literal notranslate"><span class="pre">Symbol/findReferences</span></code> without reading surrounding file content.</p>
+<p>Selene call chain: <code class="docutils literal notranslate"><span class="pre">find_symbol(relative_path=Symbol.java,</span> <span class="pre">name_path_pattern=Symbol/findReferences,</span> <span class="pre">include_body=true)</span></code>.</p>
+<p>Selene output: only the <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">ArrayList&lt;SymbolReference&gt;</span> <span class="pre">findReferences()</span></code> body.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;findReferences\\(&quot;</span> <span class="pre">src/main/java</span> <span class="pre">-n</span> <span class="pre">-C</span> <span class="pre">2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">Symbol.java</span></code> line slice around the declaration.</p></li>
+</ol>
+<p>Built-in output: search context across multiple files, then the selected method slice.</p>
+<p>Payloads: Selene input was one path/name-path request and returned roughly 25 method lines. Built-ins required search output plus a separate slice read.</p>
+<p><strong>Verdict:</strong> If the symbol is known, Selene retrieves the body in one precise call; built-ins need search plus line-targeted reading.</p>
+</section>
+<section id="references-code-usages-vs-mentions-anywhere">
+<h3>3.4 References: code usages vs mentions anywhere<a class="headerlink" href="#references-code-usages-vs-mentions-anywhere" title="Link to this heading">#</a></h3>
+<p>Attempted: find all references to <code class="docutils literal notranslate"><span class="pre">Symbol/findReferences</span></code>.</p>
+<p>Selene call chain: <code class="docutils literal notranslate"><span class="pre">find_referencing_symbols(relative_path=Symbol.java,</span> <span class="pre">name_path=Symbol/findReferences)</span></code>.</p>
+<p>Selene output:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Symbol/formatReferenceLocations/references</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Symbol/inline/refCountBefore</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Symbol/verifyInlineResult/refCountAfter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SymbolDTO/Builder/buildDTO/references</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RunInspectionsOnSymbolsHandler/handleRequest/refs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FindReferencesHandler/buildResponse/references</span></code></p></li>
+</ul>
+<p>Built-in call chain: <code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;findReferences&quot;</span> <span class="pre">src/main/java</span> <span class="pre">-n</span> <span class="pre">-C</span> <span class="pre">1</span></code>.</p>
+<p>Built-in output: same call sites plus the declaration, <code class="docutils literal notranslate"><span class="pre">/findReferences</span></code> route registration, and explanatory comments.</p>
+<p>Payloads: Selene returned a compact grouped usage list of about 500-700 characters. <code class="docutils literal notranslate"><span class="pre">rg</span></code> returned broader line context of about 1-2 KB and mixed code usages with text mentions.</p>
+<p><strong>Verdict:</strong> Selene has higher precision for “who uses this symbol in code”; built-ins have higher recall for “where is this text mentioned anywhere.”</p>
+</section>
+<section id="type-hierarchy">
+<h3>3.5 Type hierarchy<a class="headerlink" href="#type-hierarchy" title="Link to this heading">#</a></h3>
+<p>Attempted: list supertypes and subtypes transitively for <code class="docutils literal notranslate"><span class="pre">PostRequestHandler</span></code>.</p>
+<p>Selene call chain: <code class="docutils literal notranslate"><span class="pre">type_hierarchy(relative_path=PostRequestHandler.java,</span> <span class="pre">name_path=PostRequestHandler,</span> <span class="pre">hierarchy_type=both,</span> <span class="pre">depth=0)</span></code>.</p>
+<p>Selene output: external <code class="docutils literal notranslate"><span class="pre">Object</span></code> supertype; 18 direct endpoint subclasses; transitive nested branch <code class="docutils literal notranslate"><span class="pre">TypeHierarchyHandler</span></code> containing <code class="docutils literal notranslate"><span class="pre">GetSupertypesHandler</span></code> and <code class="docutils literal notranslate"><span class="pre">GetSubtypesHandler</span></code>.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;extends</span> <span class="pre">PostRequestHandler|extends</span> <span class="pre">TypeHierarchyHandler|class</span> <span class="pre">PostRequestHandler&quot;</span> <span class="pre">src/main/java</span> <span class="pre">-n</span></code></p></li>
+<li><p>Manually follow any discovered intermediate types.</p></li>
+<li><p>Repeat searches if deeper hierarchy exists.</p></li>
+</ol>
+<p>Payloads: Selene used 1 hierarchy query and returned structured JSON. Built-ins used pattern search and manual transitive grouping.</p>
+<p><strong>Verdict:</strong> Selene turns hierarchy discovery into a semantic graph query; text search requires iterative pattern expansion and manual reasoning.</p>
+</section>
+<section id="external-dependency-symbol-lookup">
+<h3>3.6 External dependency symbol lookup<a class="headerlink" href="#external-dependency-symbol-lookup" title="Link to this heading">#</a></h3>
+<p>Attempted: retrieve the IntelliJ dependency symbol behind <code class="docutils literal notranslate"><span class="pre">ReferencesSearch.search(anchorElement)</span></code>.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">find_declaration(relative_path=Symbol.java,</span> <span class="pre">regex=&quot;ReferencesSearch\\.(search)\\(anchorElement\\)&quot;)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_symbol(relative_path=&lt;ext:ReferencesSearch.class|466808a0&gt;,</span> <span class="pre">name_path_pattern=ReferencesSearch/search[0],</span> <span class="pre">include_body=true,</span> <span class="pre">search_deps=true)</span></code></p></li>
+</ol>
+<p>Selene output: declaration <code class="docutils literal notranslate"><span class="pre">ReferencesSearch/search[0]</span></code> in an external class path and the overload body:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="nd">@NotNull</span><span class="w"> </span><span class="n">Query</span><span class="o">&lt;</span><span class="n">PsiReference</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="nd">@NotNull</span><span class="w"> </span><span class="n">PsiElement</span><span class="w"> </span><span class="n">element</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">search</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">GlobalSearchScope</span><span class="p">.</span><span class="na">allScope</span><span class="p">(</span><span class="n">PsiUtilCore</span><span class="p">.</span><span class="na">getProjectInReadAction</span><span class="p">(</span><span class="n">element</span><span class="p">)),</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;ReferencesSearch&quot;</span> <span class="pre">src/main/java</span> <span class="pre">-n</span></code> -&gt; import and local call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span></code> over repo, <code class="docutils literal notranslate"><span class="pre">.intellijPlatform</span></code>, and Gradle caches for <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">ReferencesSearch</span></code> or matching method signatures -&gt; no useful source hit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-ChildItem</span></code> over Gradle/IntelliJ caches -&gt; jar candidates but no direct definition.</p></li>
+</ol>
+<p>Infrastructure difference: Selene depends on the JetBrains IDE index; built-ins need source jars, decompiler tooling, or classpath-specific jar inspection.</p>
+<p><strong>Verdict:</strong> External dependency lookup is a genuine Selene capability when IDE indexes are available; ordinary built-ins do not provide it.</p>
+</section>
+<section id="single-file-edits-across-edit-sizes">
+<h3>3.7 Single-file edits across edit sizes<a class="headerlink" href="#single-file-edits-across-edit-sizes" title="Link to this heading">#</a></h3>
+<p>Small tweak attempted: change <code class="docutils literal notranslate"><span class="pre">&quot;No</span> <span class="pre">symbol</span> <span class="pre">found</span> <span class="pre">for</span> <span class="pre">&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;No</span> <span class="pre">matching</span> <span class="pre">symbol</span> <span class="pre">found</span> <span class="pre">for</span> <span class="pre">&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">SymbolFinder/findSymbolByNamePath</span></code>.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p>Use existing search/body context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apply_patch</span></code> one-line replacement.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span></code>.</p></li>
+<li><p>Revert and clean check.</p></li>
+</ol>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_symbol_body(SymbolFinder/findSymbolByNamePath,</span> <span class="pre">full</span> <span class="pre">method</span> <span class="pre">body</span> <span class="pre">with</span> <span class="pre">changed</span> <span class="pre">string)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span></code>.</p></li>
+<li><p>Revert and clean check.</p></li>
+</ol>
+<p>Observed diff: both produced the same 1-line change. Payload difference: built-in edit input was a tiny hunk; Selene input was the full 11-line method body.</p>
+<p>Medium rewrite attempted: rewrite <code class="docutils literal notranslate"><span class="pre">SymbolFinder/findFilesByName</span></code> from list accumulation to stream collection.</p>
+<p>Built-in call chain: <code class="docutils literal notranslate"><span class="pre">apply_patch</span></code> over the method body, then diff/status/revert/status.</p>
+<p>Selene call chain: <code class="docutils literal notranslate"><span class="pre">replace_symbol_body(SymbolFinder/findFilesByName,</span> <span class="pre">new</span> <span class="pre">method</span> <span class="pre">body)</span></code>, then diff/status/revert/status.</p>
+<p>Observed diff: both produced <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">+++-------</span></code>, 3 insertions and 7 deletions. Payload difference was small: a patch hunk versus an 8-line replacement method.</p>
+<p>Large/whole-body rewrite attempted: rewrite <code class="docutils literal notranslate"><span class="pre">InspectionRunner/collectResults</span></code> while preserving signature and behavior shape.</p>
+<p>Built-in call chain: <code class="docutils literal notranslate"><span class="pre">apply_patch</span></code> against the method body, then diff/status/revert/status.</p>
+<p>Selene call chain: <code class="docutils literal notranslate"><span class="pre">replace_symbol_body(InspectionRunner/collectResults,</span> <span class="pre">full</span> <span class="pre">symbol</span> <span class="pre">text</span> <span class="pre">including</span> <span class="pre">Javadoc</span> <span class="pre">and</span> <span class="pre">replacement</span> <span class="pre">body)</span></code>, then diff/status/revert/status.</p>
+<p>Observed diff: both produced <code class="docutils literal notranslate"><span class="pre">38</span> <span class="pre">+++++++++++-----------</span></code>, 19 insertions and 19 deletions. Payload difference: built-in required a large contextual hunk; Selene required the full symbol text, about 70 lines including Javadoc/signature/body.</p>
+<p><strong>Verdict:</strong> Selene is not automatically more token-efficient for edits; its edit advantage is stable symbol targeting, while built-ins are smaller for tiny local hunks.</p>
+</section>
+<section id="insert-method-at-structural-location">
+<h3>3.8 Insert method at structural location<a class="headerlink" href="#insert-method-at-structural-location" title="Link to this heading">#</a></h3>
+<p>Attempted: insert <code class="docutils literal notranslate"><span class="pre">private</span> <span class="pre">Logger</span> <span class="pre">getLogger()</span></code> immediately after <code class="docutils literal notranslate"><span class="pre">SymbolFinder/getProject</span></code>.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p>Search/read surrounding area.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apply_patch</span></code> with nearby context.</p></li>
+<li><p>Diff/status/revert/status.</p></li>
+</ol>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">insert_after_symbol(relative_path=SymbolFinder.java,</span> <span class="pre">name_path=SymbolFinder/getProject,</span> <span class="pre">body=...)</span></code></p></li>
+<li><p>Diff/status/revert/status.</p></li>
+</ol>
+<p>Observed diff: both produced the same 4-line insertion.</p>
+<p>Payloads: built-ins sent inserted body plus surrounding text context; Selene sent inserted body plus symbol target.</p>
+<p><strong>Verdict:</strong> Structural insertion is a modest Selene improvement: same resulting diff, less dependence on line/context stability.</p>
+</section>
+<section id="rename-private-helper-in-one-file">
+<h3>3.9 Rename: private helper in one file<a class="headerlink" href="#rename-private-helper-in-one-file" title="Link to this heading">#</a></h3>
+<p>Attempted: rename <code class="docutils literal notranslate"><span class="pre">SymbolFinder/qualNameMatchesName</span></code> to <code class="docutils literal notranslate"><span class="pre">qualifiedNameMatchesName</span></code>.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;qualNameMatchesName&quot;</span> <span class="pre">SymbolFinder.java</span> <span class="pre">-n</span> <span class="pre">-C</span> <span class="pre">2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apply_patch</span></code> declaration and one call site.</p></li>
+<li><p>Diff/status/revert/status.</p></li>
+</ol>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">find_referencing_symbols(SymbolFinder/qualNameMatchesName)</span></code> -&gt; one referencing method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rename(name_path=SymbolFinder/qualNameMatchesName,</span> <span class="pre">new_name=qualifiedNameMatchesName,</span> <span class="pre">rename_in_comments=true,</span> <span class="pre">rename_in_text_occurrences=true)</span></code>.</p></li>
+<li><p>Diff/status/revert/status.</p></li>
+</ol>
+<p>Observed result: Selene returned <code class="docutils literal notranslate"><span class="pre">&quot;Success&quot;</span></code>. Both produced the same 2-line diff.</p>
+<p><strong>Verdict:</strong> Semantic rename has little advantage for a one-file helper with one call site, but it scales better than text edits as references spread or names become ambiguous.</p>
+</section>
+<section id="rename-cross-file-class-including-imports">
+<h3>3.10 Rename: cross-file class including imports<a class="headerlink" href="#rename-cross-file-class-including-imports" title="Link to this heading">#</a></h3>
+<p>Attempted: rename <code class="docutils literal notranslate"><span class="pre">MoveOperationFailedException</span></code> to <code class="docutils literal notranslate"><span class="pre">MoveFailedException</span></code>.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rename(relative_path=MoveOperationFailedException.java,</span> <span class="pre">name_path=MoveOperationFailedException,</span> <span class="pre">new_name=MoveFailedException,</span> <span class="pre">rename_in_comments=true,</span> <span class="pre">rename_in_text_occurrences=true)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">--stat</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">--cached</span> <span class="pre">--stat</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span></code>.</p></li>
+<li><p>Restore staged rename and modified files; clean check.</p></li>
+</ol>
+<p>Selene result: <code class="docutils literal notranslate"><span class="pre">&quot;Success&quot;</span></code>.</p>
+<p>Observed edits:</p>
+<ul class="simple">
+<li><p>Added/staged <code class="docutils literal notranslate"><span class="pre">MoveFailedException.java</span></code>.</p></li>
+<li><p>Deleted/staged <code class="docutils literal notranslate"><span class="pre">MoveOperationFailedException.java</span></code>.</p></li>
+<li><p>Updated import, Javadoc comment, and thrown class in <code class="docutils literal notranslate"><span class="pre">MoveProcessor.java</span></code>.</p></li>
+</ul>
+<p>Built-in equivalent chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;MoveOperationFailedException&quot;</span> <span class="pre">src/main/java</span> <span class="pre">-n</span></code>.</p></li>
+<li><p>Rename/create/delete file.</p></li>
+<li><p>Patch class name and constructor.</p></li>
+<li><p>Patch imports and usages.</p></li>
+<li><p>Patch comments/text occurrences if desired.</p></li>
+<li><p>Verify no unintended old references remain.</p></li>
+<li><p>Compile/test for a permanent change.</p></li>
+</ol>
+<p><strong>Verdict:</strong> Cross-file class renames are high-value Selene cases because file/class coupling, imports, usages, and optional comments are handled as one semantic refactor.</p>
+</section>
+<section id="move-symbol-to-another-file-context">
+<h3>3.11 Move symbol to another file context<a class="headerlink" href="#move-symbol-to-another-file-context" title="Link to this heading">#</a></h3>
+<p>Attempted: move nested record <code class="docutils literal notranslate"><span class="pre">InspectionRunner/PendingFix</span></code> to a top-level file in the same package.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">move(relative_path=InspectionRunner.java,</span> <span class="pre">name_path=InspectionRunner/PendingFix,</span> <span class="pre">target_relative_path=src/main/java/local/selene/service/endpoint)</span></code>.</p></li>
+<li><p>Diff/status/cached-diff inspection.</p></li>
+<li><p>Restore staged new file and modified files; clean check.</p></li>
+</ol>
+<p>Selene result:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;source_relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/main/java/local/selene/service/endpoint/InspectionRunner.java&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;target_relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/main/java/local/selene/service/endpoint&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;moved_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PendingFix&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CLASS&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Observed edits:</p>
+<ul class="simple">
+<li><p>Created/staged <code class="docutils literal notranslate"><span class="pre">PendingFix.java</span></code> with package and imports.</p></li>
+<li><p>Removed nested record from <code class="docutils literal notranslate"><span class="pre">InspectionRunner.java</span></code>.</p></li>
+<li><p>Updated 3 external references from <code class="docutils literal notranslate"><span class="pre">InspectionRunner.PendingFix</span></code> to <code class="docutils literal notranslate"><span class="pre">PendingFix</span></code>.</p></li>
+<li><p>Removed unused imports in 2 files.</p></li>
+</ul>
+<p>Built-in equivalent chain: read nested record/import needs, add file, delete nested symbol, search usages, patch qualified usages, patch internal references if needed, remove imports, verify, compile/test.</p>
+<p><strong>Verdict:</strong> Symbol move is a substantial Selene addition because the difficult part is reference/import repair, not copying text.</p>
+</section>
+<section id="move-file-package-location">
+<h3>3.12 Move file/package location<a class="headerlink" href="#move-file-package-location" title="Link to this heading">#</a></h3>
+<p>Attempted: move <code class="docutils literal notranslate"><span class="pre">PluginUtil.java</span></code> from <code class="docutils literal notranslate"><span class="pre">util</span></code> to <code class="docutils literal notranslate"><span class="pre">service</span></code>.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">move(relative_path=src/main/java/local/selene/util/PluginUtil.java,</span> <span class="pre">target_relative_path=src/main/java/local/selene/service)</span></code>.</p></li>
+<li><p>Diff/status/cached-diff inspection.</p></li>
+<li><p>Restore staged rename and modified imports; clean check.</p></li>
+</ol>
+<p>Selene result:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;source_relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/main/java/local/selene/util/PluginUtil.java&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;target_relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/main/java/local/selene/service&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Observed edits:</p>
+<ul class="simple">
+<li><p>Staged rename <code class="docutils literal notranslate"><span class="pre">util/PluginUtil.java</span> <span class="pre">-&gt;</span> <span class="pre">service/PluginUtil.java</span></code>.</p></li>
+<li><p>Changed package declaration to <code class="docutils literal notranslate"><span class="pre">de.local.selene.service</span></code>.</p></li>
+<li><p>Updated import in <code class="docutils literal notranslate"><span class="pre">PluginStartupActivity</span></code>.</p></li>
+<li><p>Removed now-unneeded same-package import in <code class="docutils literal notranslate"><span class="pre">SeleneBackendService</span></code>.</p></li>
+</ul>
+<p>Built-in equivalent chain: move file, patch package declaration, search <code class="docutils literal notranslate"><span class="pre">PluginUtil</span></code>, patch imports/usages, remove redundant imports, verify no old package import remains, compile/test.</p>
+<p><strong>Verdict:</strong> File moves are high-value when packages/imports must change; built-ins can do them manually but require dependency repair steps.</p>
+</section>
+<section id="safe-delete-and-propagated-delete">
+<h3>3.13 Safe delete and propagated delete<a class="headerlink" href="#safe-delete-and-propagated-delete" title="Link to this heading">#</a></h3>
+<p>Attempted: delete unused <code class="docutils literal notranslate"><span class="pre">DebugUtil</span></code>.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">safe_delete(relative_path=DebugUtil.java,</span> <span class="pre">name_path=DebugUtil,</span> <span class="pre">delete_even_if_used=false,</span> <span class="pre">propagate=false)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">--cached</span> <span class="pre">--stat</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span></code>.</p></li>
+<li><p>Restore staged deletion; clean check.</p></li>
+</ol>
+<p>Selene result:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;deleted_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DebugUtil&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;src/main/java/local/selene/util/DebugUtil.java&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;affected_references&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Symbol deleted successfully with no affected references.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Built-in equivalent chain: <code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;DebugUtil&quot;</span></code>, inspect declaration vs usages, delete file/symbol, verify no remaining usages.</p>
+<p>Propagated deletion: no suitable correct-use candidate was found where JetBrains safe-delete propagation would meaningfully delete a used symbol and propagate deletion through call sites. For ordinary used-method deletion, correct safe delete reports usages or, if forced, deletes the symbol and reports affected references; that is not the same as arbitrary call-site deletion.</p>
+<p><strong>Verdict:</strong> Safe delete adds an integrated usage check plus deletion operation; propagated deletion was not evaluated because this codebase did not provide a suitable candidate.</p>
+</section>
+<section id="inline">
+<h3>3.14 Inline<a class="headerlink" href="#inline" title="Link to this heading">#</a></h3>
+<p>Attempted: inline <code class="docutils literal notranslate"><span class="pre">ProjectUtil/getAbsolutePath</span></code>, a single-expression helper.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">find_symbol(ProjectUtil/getAbsolutePath,</span> <span class="pre">include_body=true)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_referencing_symbols(ProjectUtil/getAbsolutePath)</span></code> -&gt; 2 references.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inline_symbol(relative_path=ProjectUtil.java,</span> <span class="pre">name_path=ProjectUtil/getAbsolutePath,</span> <span class="pre">keep_definition=false)</span></code>.</p></li>
+<li><p>Diff/status/revert/status.</p></li>
+</ol>
+<p>Selene result: <code class="docutils literal notranslate"><span class="pre">{&quot;status&quot;:</span> <span class="pre">&quot;SUCCESS&quot;}</span></code>.</p>
+<p>Observed edits:</p>
+<ul class="simple">
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">getAbsolutePath</span></code>.</p></li>
+<li><p>Replaced internal call in <code class="docutils literal notranslate"><span class="pre">ProjectUtil/getVirtualFile</span></code>.</p></li>
+<li><p>Replaced external call in <code class="docutils literal notranslate"><span class="pre">RefreshFileHandler</span></code>.</p></li>
+</ul>
+<p>Built-in equivalent chain: read helper body, <code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">getAbsolutePath</span></code>, patch each call site with substituted expression, delete helper, verify no stale references, compile/test.</p>
+<p><strong>Verdict:</strong> Inline is a strong Selene refactor for legally substitutable helpers; built-ins can reproduce it but must manually adapt each substitution.</p>
+</section>
+<section id="scope-precision-and-overload-targeting">
+<h3>3.15 Scope precision and overload targeting<a class="headerlink" href="#scope-precision-and-overload-targeting" title="Link to this heading">#</a></h3>
+<p>Attempted: distinguish overloaded <code class="docutils literal notranslate"><span class="pre">Symbol/getLocationString</span></code> methods.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">find_symbol(Symbol/getLocationString[0],</span> <span class="pre">include_body=true)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_symbol(Symbol/getLocationString[1],</span> <span class="pre">include_body=true)</span></code>.</p></li>
+</ol>
+<p>Selene output:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[0]</span></code>: <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">String</span> <span class="pre">getLocationString()</span> <span class="pre">{</span> <span class="pre">return</span> <span class="pre">getLocationString(element);</span> <span class="pre">}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[1]</span></code>: <code class="docutils literal notranslate"><span class="pre">private</span> <span class="pre">static</span> <span class="pre">String</span> <span class="pre">getLocationString(PsiElement</span> <span class="pre">element)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code></p></li>
+</ul>
+<p>Built-in call chain: <code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;getLocationString&quot;</span> <span class="pre">Symbol.java</span> <span class="pre">-n</span> <span class="pre">-C</span> <span class="pre">1</span></code>, then manual signature inspection.</p>
+<p><strong>Verdict:</strong> Selene’s overload-indexed name paths provide precise symbol addressing that text search does not.</p>
+</section>
+<section id="atomicity-and-success-signals">
+<h3>3.16 Atomicity and success signals<a class="headerlink" href="#atomicity-and-success-signals" title="Link to this heading">#</a></h3>
+<p>Observed Selene success signals:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">OK</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insert_after_symbol</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">OK</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rename</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">&quot;Success&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">move</span></code> -&gt; JSON with source/target/moved symbol or paths</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">safe_delete</span></code> -&gt; JSON with deleted symbol, affected references, and message</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inline_symbol</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">{&quot;status&quot;:</span> <span class="pre">&quot;SUCCESS&quot;}</span></code></p></li>
+</ul>
+<p>Built-in success signals:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apply_patch</span></code> -&gt; “Success. Updated the following files”</p></li>
+<li><p>Shell/Git commands -&gt; exit codes and textual output</p></li>
+<li><p>Cross-file consistency -&gt; user-driven diff/search/build verification</p></li>
+</ul>
+<p>Atomicity comparison: Selene refactors executed as single IDE operations. Built-in equivalents are chains of searches, file operations, and patches; a competent user can make them correct, but intermediate states can be partial.</p>
+<p>Tradeoff: class/file move/delete refactors staged added/deleted files in the Git index, so clean verification must check both staged and unstaged state.</p>
+<p><strong>Verdict:</strong> Selene gives clearer semantic success signals and more atomic cross-file edits; built-ins require manual consistency management.</p>
+</section>
+<section id="workflow-effects-across-multiple-edits">
+<h3>3.17 Workflow effects across multiple edits<a class="headerlink" href="#workflow-effects-across-multiple-edits" title="Link to this heading">#</a></h3>
+<p>Attempted: chain 3 edits in <code class="docutils literal notranslate"><span class="pre">SymbolFinder.java</span></code> without refreshing between them.</p>
+<p>Selene call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_symbol_body(SymbolFinder/findFilesByName,</span> <span class="pre">...)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insert_after_symbol(SymbolFinder/getProject,</span> <span class="pre">...)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rename(SymbolFinder/qualNameMatchesName,</span> <span class="pre">...)</span></code>.</p></li>
+<li><p>Diff/status/revert/status.</p></li>
+</ol>
+<p>Observed result: all edits applied after earlier edits shifted file positions. Final diff touched 18 lines with net 9 insertions and 9 deletions.</p>
+<p>Built-in equivalent chain: initial read/search, apply first patch, rely on robust patch context or refresh line numbers, apply second patch, refresh or search again, apply rename patch, verify.</p>
+<p><strong>Verdict:</strong> Selene’s name paths remain useful after line shifts, so its advantage compounds in multi-edit sessions.</p>
+</section>
+<section id="non-code-reads-and-free-text-search">
+<h3>3.18 Non-code reads and free-text search<a class="headerlink" href="#non-code-reads-and-free-text-search" title="Link to this heading">#</a></h3>
+<p>Attempted: read config and search free text.</p>
+<p>Built-in call chain:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">plugin.xml</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">build.gradle.kts</span> <span class="pre">-TotalCount</span> <span class="pre">80</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span> <span class="pre">&quot;http://|https://|localhost|127\\.0\\.0\\.1|8080|24538|SELENE|selene&quot;</span> <span class="pre">src/main/java</span> <span class="pre">src/main/resources</span> <span class="pre">-n</span></code>.</p></li>
+</ol>
+<p>Selene call chain: not applicable.</p>
+<p>Observed result: built-ins exposed plugin registration, Gradle platform setup, URLs, IDs, settings defaults, and resource/text mentions.</p>
+<p><strong>Verdict:</strong> Built-ins are natural and sufficient for config reading and free-text search; this is outside Selene’s semantic-code scope.</p>
+</section>
+</section>
+<section id="token-efficiency-analysis">
+<h2>4. Token-efficiency analysis<a class="headerlink" href="#token-efficiency-analysis" title="Link to this heading">#</a></h2>
+<p>Payload differences across edit sizes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>Built-in payload</p></th>
+<th class="head"><p>Selene payload</p></th>
+<th class="head"><p>More efficient</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1-line string tweak</p></td>
+<td><p>Tiny patch hunk, 1 changed line</p></td>
+<td><p>Full 11-line method body</p></td>
+<td><p>Built-ins</p></td>
+</tr>
+<tr class="row-odd"><td><p>Medium method rewrite</p></td>
+<td><p>10-line diff hunk</p></td>
+<td><p>Full 8-line replacement method</p></td>
+<td><p>Roughly equal</p></td>
+</tr>
+<tr class="row-even"><td><p>Large body rewrite</p></td>
+<td><p>Large contextual patch, 38-line diff</p></td>
+<td><p>Full symbol text, about 70 lines</p></td>
+<td><p>Roughly equal; Selene has better target</p></td>
+</tr>
+<tr class="row-odd"><td><p>Insert method</p></td>
+<td><p>Inserted body plus surrounding context</p></td>
+<td><p>Inserted body plus name path</p></td>
+<td><p>Selene slightly</p></td>
+</tr>
+<tr class="row-even"><td><p>Private one-file rename</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rg</span></code> plus 2-line patch</p></td>
+<td><p>optional refs query plus rename command</p></td>
+<td><p>Roughly equal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cross-file rename/move/inline</p></td>
+<td><p>Multiple searches, file operations, patches, verifications</p></td>
+<td><p>One semantic refactor plus diff/status</p></td>
+<td><p>Selene</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Forced reads:</p>
+<ul class="simple">
+<li><p>Built-ins commonly need a search before a precise read, then a line slice or full context before editing.</p></li>
+<li><p>Selene can skip full-file reads when the symbol name path is known.</p></li>
+<li><p>When the symbol is not known, Selene’s <code class="docutils literal notranslate"><span class="pre">get_symbols_overview</span></code> and shallow <code class="docutils literal notranslate"><span class="pre">find_symbol</span></code> calls provide compact discovery rather than full-file reads.</p></li>
+</ul>
+<p>Output payload:</p>
+<ul class="simple">
+<li><p>Selene exploration output is structured and scoped to symbols.</p></li>
+<li><p>Built-in grep output can be larger because it includes declarations, comments, strings, and unrelated text mentions.</p></li>
+<li><p>Built-ins can be extremely low-output for known-location small edits.</p></li>
+</ul>
+<p>Stable vs ephemeral addressing:</p>
+<ul class="simple">
+<li><p>Built-ins address code by file paths, line numbers, text context, or byte positions. Line numbers and slices go stale after edits.</p></li>
+<li><p>Selene addresses symbols by <code class="docutils literal notranslate"><span class="pre">relative_path</span> <span class="pre">+</span> <span class="pre">name_path</span></code>, with overload indexes where needed. The chained-edit experiment showed those targets survived line shifts.</p></li>
+<li><p>Path-changing operations still require updated paths afterward, so symbol stability is strongest before moves/renames that alter file locations.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene saves tokens by avoiding broad reads/search triage and by collapsing multi-file edit chains; built-ins remain more token-efficient for tiny known-location hunks.</p>
+</section>
+<section id="reliability-correctness-under-correct-use">
+<h2>5. Reliability &amp; correctness under correct use<a class="headerlink" href="#reliability-correctness-under-correct-use" title="Link to this heading">#</a></h2>
+<p>Precision of matching:</p>
+<ul class="simple">
+<li><p>Selene reference search returned code usages and excluded route strings/comments.</p></li>
+<li><p>Built-in text search returned all mentions and therefore mixed true code usage with broader text hits.</p></li>
+<li><p>Selene overload indexes targeted <code class="docutils literal notranslate"><span class="pre">Symbol/getLocationString[0]</span></code> and <code class="docutils literal notranslate"><span class="pre">[1]</span></code>; text search required manual signature inspection.</p></li>
+</ul>
+<p>Scope disambiguation:</p>
+<ul class="simple">
+<li><p>Selene name paths encode class nesting and overload identity.</p></li>
+<li><p>Built-ins can disambiguate with careful patterns and reads, but the disambiguation is manual.</p></li>
+<li><p>In simple cases, such as a private helper with one call site, this semantic precision had little practical value. In overloaded, nested, or cross-file cases, it materially reduced ambiguity.</p></li>
+</ul>
+<p>Atomicity:</p>
+<ul class="simple">
+<li><p>Selene refactors apply through JetBrains refactoring operations and produce one operation-level success signal.</p></li>
+<li><p>Built-in equivalents are decomposed into separate searches, file moves, patches, and verification steps.</p></li>
+<li><p>Competent users can verify either path, but Selene reduces the number of intermediate inconsistent states.</p></li>
+</ul>
+<p>Semantic queries vs text search:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type_hierarchy</span></code> and dependency declaration lookup produced semantic information not available from ordinary grep.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rg</span></code> remained better for broad mention searches and config/resource scans.</p></li>
+</ul>
+<p>External dependency limitations:</p>
+<ul class="simple">
+<li><p>Selene’s dependency lookup depends on IDE/language indexes and available dependency metadata.</p></li>
+<li><p>Built-ins can match or exceed it only if paired with source jars, decompilers, or separate language-server tooling.</p></li>
+</ul>
+<p>Operational tradeoff:</p>
+<ul class="simple">
+<li><p>Several Selene refactors staged created/deleted files. This is not a correctness problem, but it adds index-state verification to the cleanup workflow.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene improves correctness where symbol identity and cross-file semantics matter; built-ins remain reliable and simpler for text/file tasks.</p>
+</section>
+<section id="workflow-effects-across-a-session">
+<h2>6. Workflow effects across a session<a class="headerlink" href="#workflow-effects-across-a-session" title="Link to this heading">#</a></h2>
+<p>Where Selene advantages compound:</p>
+<ul class="simple">
+<li><p>Symbol overview results become inputs to body reads, reference searches, renames, moves, safe deletes, and inline operations.</p></li>
+<li><p>Name paths remain useful after line shifts, reducing re-read/re-target work during multi-edit sessions.</p></li>
+<li><p>Refactor-heavy sessions benefit because one semantic command replaces search/edit/verify loops across files.</p></li>
+</ul>
+<p>Where Selene advantages diminish:</p>
+<ul class="simple">
+<li><p>After a full file has already been read, overview adds less incremental value.</p></li>
+<li><p>If the task is a small textual substitution in a known place, symbolic body replacement can cost more payload than a tiny patch.</p></li>
+<li><p>For non-code and free-text work, Selene has no role.</p></li>
+</ul>
+<p>Intermediate result durability:</p>
+<ul class="simple">
+<li><p>Selene intermediate results such as <code class="docutils literal notranslate"><span class="pre">SymbolFinder/findFilesByName</span></code> or <code class="docutils literal notranslate"><span class="pre">Symbol/getLocationString[1]</span></code> remain meaningful as long as the file/symbol still exists.</p></li>
+<li><p>Built-in line numbers became stale after insertions; robust textual patch context remained usable when surrounding lines did not change.</p></li>
+</ul>
+<p>Verification cost:</p>
+<ul class="simple">
+<li><p>Both workflows still need <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code>, build/test, and domain-specific verification for permanent changes.</p></li>
+<li><p>Selene success signals reduce the need to inspect every call site manually, but not the need to inspect the intended diff.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene’s advantages compound inside symbol-centric sessions and diminish once the work becomes plain text, config, shell, or already-loaded single-file editing.</p>
+</section>
+<section id="unique-capabilities">
+<h2>7. Unique capabilities<a class="headerlink" href="#unique-capabilities" title="Link to this heading">#</a></h2>
+<p>Unique here means no practical built-in equivalent without adding separate language-server, IDE, source-index, or decompiler infrastructure.</p>
+<ul class="simple">
+<li><p>Transitive type hierarchy. Frequency: medium. Impact: high when changing base classes, interfaces, or handler contracts. Built-ins can grep explicit <code class="docutils literal notranslate"><span class="pre">extends</span></code> clauses but do not produce a semantic transitive graph or external supertypes.</p></li>
+<li><p>External dependency declaration/body lookup from a call site. Frequency: low-medium. Impact: high for API behavior questions. Selene resolved <code class="docutils literal notranslate"><span class="pre">ReferencesSearch.search</span></code> into an external class method body; ordinary built-ins did not.</p></li>
+<li><p>IDE semantic move of a nested symbol to a top-level file with usage/import repair. Frequency: low-medium. Impact: high during refactors. Built-ins can reproduce this only as a manual multi-step refactor.</p></li>
+<li><p>Safe delete with semantic usage check. Frequency: medium. Impact: medium-high. Built-ins can search and delete, but they do not provide an integrated safe-delete operation over code usages.</p></li>
+<li><p>Inline refactor with call-site substitution. Frequency: low-medium. Impact: medium-high. Built-ins can patch substitutions manually, but expression adaptation and helper deletion are not primitive text operations.</p></li>
+</ul>
+<p>Not unique: reading files, listing files, grep, small patches, simple one-file renames, config/resource understanding, and shell/Git operations.</p>
+<p><strong>Verdict:</strong> Selene’s unique practical capabilities are hierarchy/dependency queries and IDE refactors; its non-unique areas are ordinary text and file operations.</p>
+</section>
+<section id="tasks-outside-selene-s-scope">
+<h2>8. Tasks outside Selene’s scope<a class="headerlink" href="#tasks-outside-selene-s-scope" title="Link to this heading">#</a></h2>
+<p>Built-in-only or built-in-natural tasks observed:</p>
+<ul class="simple">
+<li><p>Repository inventory and top-level layout.</p></li>
+<li><p>Reading <code class="docutils literal notranslate"><span class="pre">plugin.xml</span></code>, <code class="docutils literal notranslate"><span class="pre">build.gradle.kts</span></code>, scripts, resources, and generated artifacts.</p></li>
+<li><p>Free-text search for URLs, settings strings, endpoint strings, magic constants, resource IDs, and comments.</p></li>
+<li><p>Running shell commands, builds, tests, Git operations, and filesystem cleanup.</p></li>
+<li><p>Small text edits where a one-line patch is the whole task.</p></li>
+</ul>
+<p>Estimated share of daily coding work:</p>
+<ul class="simple">
+<li><p>About 30-50% of a normal coding session is built-in-natural: shell, tests, grep, config reads, small text patches, and Git checks.</p></li>
+<li><p>Selene applies to much of the remaining 50-70% when the work is code navigation, symbol understanding, references, hierarchy, or refactoring.</p></li>
+<li><p>Selene coverage rises in refactor-heavy sessions and falls in config/debug/test-log sessions.</p></li>
+</ul>
+<p><strong>Verdict:</strong> Selene augments the semantic-code portion of development; built-ins still carry a large and necessary share of routine work.</p>
+</section>
+<section id="practical-usage-rule">
+<h2>9. Practical usage rule<a class="headerlink" href="#practical-usage-rule" title="Link to this heading">#</a></h2>
+<p>Use Selene when the task can be stated as a code-symbol operation:</p>
+<ul class="simple">
+<li><p>“What methods/classes are in this file?”</p></li>
+<li><p>“Give me this method body.”</p></li>
+<li><p>“Who uses this symbol?”</p></li>
+<li><p>“What implements/subclasses this?”</p></li>
+<li><p>“Rename, move, delete, or inline this symbol and update usages.”</p></li>
+<li><p>“Find the declaration of this call, including dependency symbols.”</p></li>
+<li><p>“Apply several edits where line locations may shift.”</p></li>
+</ul>
+<p>Use built-ins when the task is text, file, shell, config, or tiny local editing:</p>
+<ul class="simple">
+<li><p>“List files.”</p></li>
+<li><p>“Read config.”</p></li>
+<li><p>“Search for this string anywhere.”</p></li>
+<li><p>“Change this one known line.”</p></li>
+<li><p>“Run tests/build.”</p></li>
+<li><p>“Inspect Git state.”</p></li>
+<li><p>“Edit markdown/resources/scripts.”</p></li>
+</ul>
+<p>For mixed workflows:</p>
+<ol class="arabic simple">
+<li><p>Use built-ins to find files/config and run verification.</p></li>
+<li><p>Use Selene to identify and transform code symbols.</p></li>
+<li><p>Use built-ins to inspect final diffs and run tests.</p></li>
+<li><p>Prefer built-ins for tiny local hunks after the symbol has already been located.</p></li>
+<li><p>Prefer Selene for any refactor that crosses file boundaries or depends on type/reference semantics.</p></li>
+</ol>
+<p><strong>Verdict:</strong> Choose Selene for symbol identity and semantic refactoring; choose built-ins for text, shell, config, verification, and minimal local edits.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./04-evaluation/030_results"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="010_cc_on_tianshou.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Claude Code (Opus 4.6, medium)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="030_copilot_cli_on_ente.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Copilot CLI (GPT-5.4, medium)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headline-what-selene-changes">1. Headline: what Selene changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#added-value-and-differences-by-area">2. Added value and differences by area</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-evidence-grouped-by-capability">3. Detailed evidence, grouped by capability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure-and-entry-points">3.1 Repository structure and entry points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#large-file-structural-overview">3.2 Large file structural overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#targeted-method-body-retrieval">3.3 Targeted method body retrieval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references-code-usages-vs-mentions-anywhere">3.4 References: code usages vs mentions anywhere</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hierarchy">3.5 Type hierarchy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-dependency-symbol-lookup">3.6 External dependency symbol lookup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-file-edits-across-edit-sizes">3.7 Single-file edits across edit sizes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insert-method-at-structural-location">3.8 Insert method at structural location</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rename-private-helper-in-one-file">3.9 Rename: private helper in one file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rename-cross-file-class-including-imports">3.10 Rename: cross-file class including imports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-symbol-to-another-file-context">3.11 Move symbol to another file context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-file-package-location">3.12 Move file/package location</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#safe-delete-and-propagated-delete">3.13 Safe delete and propagated delete</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inline">3.14 Inline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-precision-and-overload-targeting">3.15 Scope precision and overload targeting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atomicity-and-success-signals">3.16 Atomicity and success signals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects-across-multiple-edits">3.17 Workflow effects across multiple edits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-code-reads-and-free-text-search">3.18 Non-code reads and free-text search</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token-efficiency-analysis">4. Token-efficiency analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-correctness-under-correct-use">5. Reliability &amp; correctness under correct use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-effects-across-a-session">6. Workflow effects across a session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-capabilities">7. Unique capabilities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-outside-selene-s-scope">8. Tasks outside Selene’s scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-usage-rule">9. Practical usage rule</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

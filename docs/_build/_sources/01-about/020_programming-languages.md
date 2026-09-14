@@ -1,0 +1,207 @@
+# Language Support
+
+Selene provides a set of versatile code querying and editing functionalities
+based on symbolic understanding of the code across a wide range of programming languages.
+Equipped with these capabilities, Selene discovers and edits code just like a seasoned developer
+making use of an IDE's capabilities would.
+Selene can efficiently find the right context and do the right thing even in very large and
+complex projects!
+
+There are two alternative technologies powering these capabilities:
+
+* **Language servers** implementing the language server Protocol (LSP) — the free/open-source alternative.
+* **The Selene JetBrains Plugin**, which leverages the powerful code analysis and editing
+  capabilities of your JetBrains IDE.
+
+See the [Features](025_features) section for a detailed comparison of the capabilities provided by the JetBrains Plugin vs. language servers.
+
+(language-servers)=
+## Language Servers
+
+Selene incorporates a powerful abstraction layer for the integration of language servers
+that implement the language server protocol (LSP).
+It even supports multiple language servers in parallel to support polyglot projects.
+
+The language servers themselves are typically open-source projects (like Selene)
+or at least freely available for use.
+
+We currently provide direct, out-of-the-box support for the programming languages listed below.
+Some languages require additional installations or setup steps, as noted.
+
+* **Ada / SPARK**<br>
+  (uses AdaCore's [Ada Language Server (ALS)](https://github.com/AdaCore/ada_language_server),
+  automatically downloaded; supports `.ads`, `.adb`, and `.ada` files;
+  works best with a `.gpr` GNAT project file at the repository root;
+  SPARK is handled by the same server transparently — set language `ada` for both.
+  To use a pre-installed ALS (e.g. from Alire, GNAT Studio, or the VS Code Ada extension),
+  set `ls_specific_settings.ada.ls_path`.)
+* **AL**
+* **Angular**<br>
+  (experimental; requires Node.js + npm, plus `npm install` having been run in the project root so that `@angular/core`
+  is resolvable — without it, template-aware features silently return empty;
+  subsumes `typescript` and `html` for `.ts`/`.html` files, so do not also list those)
+* **Ansible**<br>
+  (experimental; requires Node.js and npm; automatically installs `@ansible/ansible-language-server`;
+  must be explicitly specified in the `languages` entry in the `project.yml`; requires `ansible` in PATH for full functionality)
+  the upstream `@ansible/ansible-language-server@1.2.3` supports hover, completion, definition,
+  semantic tokens, and validation; document symbols, workspace symbols, references, and rename
+  are not supported by this version)
+* **Bash**
+* **BSL** (1C:Enterprise / OneScript)<br>
+  (requires Java 21+ on PATH; uses [bsl-language-server](https://github.com/1c-syntax/bsl-language-server) by 1c-syntax; the JAR is auto-downloaded and SHA-256-verified for the bundled default version; supports `.bsl` and `.os` files; configure optional `ls_path` or `bsl_ls_version` under `ls_specific_settings.bsl`)
+* **C#**<br>
+  (by default, uses the Roslyn language server (language `csharp`), requiring [.NET v10+](https://dotnet.microsoft.com/en-us/download/dotnet) and, on Windows, `pwsh` ([PowerShell 7+](https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows?view=powershell-7.5));
+  set language to `csharp_omnisharp` to use OmiSharp instead)
+* **C/C++**<br>
+  (by default, uses the clangd language server (language `cpp`) but we also support ccls (language `cpp_ccls`);
+  for best results, provide a `compile_commands.json` at the repository root;
+  see the [C/C++ Setup Guide](../03-special-guides/cpp_setup) for details;
+  for Unreal Engine 5 projects, see the [Unreal Engine Setup Guide](../03-special-guides/unreal_engine_setup_guide_for_selene).)
+* **Clojure**
+* **Crystal**<br>
+  (requires [Crystalline](https://github.com/elbywan/crystalline) language server to be installed and available on PATH;
+  note: Crystalline has limited go-to-definition support and does not support find-references)
+* **CUE**
+* **Dart**
+* **Elixir**<br>
+  (requires Elixir installation; Expert language server is downloaded automatically)
+* **Elm**<br>
+  (requires Elm compiler)
+* **Erlang**<br>
+  (requires installation of beam and [erlang_ls](https://github.com/erlang-ls/erlang_ls); experimental, might be slow or hang;
+  note that functions are addressed as `name#arity`, e.g. `create_user#4`, because `/` is reserved as the name path separator)
+* **F#**<br>
+  (requires [.NET v8.0+](https://dotnet.microsoft.com/en-us/download/dotnet); uses FsAutoComplete/Ionide, which is auto-installed; for Homebrew .NET on macOS, set DOTNET_ROOT in your environment)
+* **Fortran**<br>
+  (requires installation of fortls: `pip install fortls`)
+* **GDScript** (Godot Engine)<br>
+  (requires the Godot editor to be running with its built-in LSP enabled — default on port 6008;
+  Selene connects over TCP and does not launch Godot itself;
+  see the [GDScript Setup Guide](../03-special-guides/godot_gdscript_setup_guide_for_selene) for details)
+* **Gleam**<br>
+  (requires the [Gleam compiler](https://gleam.run) on PATH; the language server is bundled with the compiler and started via `gleam lsp`)
+* **Go**<br>
+  (requires installation of `gopls`)
+* **Groovy**<br>
+  (requires local groovy-language-server.jar setup via `GROOVY_LS_JAR_PATH` or configuration)
+* **Haskell**<br>
+  (automatically locates HLS via ghcup, stack, or system PATH; supports Stack and Cabal projects)
+* **Haxe**
+  (requires Haxe compiler 3.4.0+ and Node.js; uses the [vshaxe language server](https://github.com/vshaxe/haxe-language-server);
+  automatically downloaded from Open VSX, or discovered from the vshaxe VSCode extension)
+* **HLSL / GLSL / WGSL**
+  (uses [shader-language-server](https://github.com/antaalt/shader-sense) (language `hlsl`); automatically downloaded;
+  on macOS, requires Rust toolchain for building from source;
+  note: reference search is not supported by this language server)
+* **HTML**
+  (experimental; requires Node.js + npm)
+* **Java**<br>
+* **JavaScript**<br>
+  (supported via the TypeScript language server, i.e. use language `typescript` for both JavaScript and TypeScript)
+* **Julia**<br>
+  (by default, uses LanguageServer.jl (language `julia`); the
+  [Fatou](https://github.com/jolars/fatou) alternative (language `julia_fatou`) is installed
+  automatically and requires `uv`/`uvx` in PATH)
+* **Kotlin**<br>
+  (uses the pre-alpha [official kotlin LS](https://github.com/Kotlin/kotlin-lsp), some issues may appear)
+* **LaTeX**<br>
+  (experimental; must be explicitly enabled via language `latex`; uses [texlab](https://github.com/latex-lsp/texlab),
+  auto-downloaded as a SHA-256-verified prebuilt binary; supports `.tex`, `.bib`, `.sty`, and `.cls` files; texlab is
+  GPL-3.0 and runs as a separate downloaded process)
+* **Lean 4**<br>
+  (requires `lean` and `lake` installed via [elan](https://github.com/leanprover/elan); uses the built-in Lean 4 LSP;
+  the project must be a Lake project with `lake build` run before use)
+* **Lua**
+* **Luau**
+* **Markdown**<br>
+  (must explicitly enable language `markdown`, primarily useful for documentation-heavy projects)
+* **MATLAB**<br>
+  (requires Node.js and a licensed local MATLAB installation, R2021b or later; Selene automatically downloads version 1.3.9 of the VS Code MATLAB extension, which bundles the language server)
+* **mSL** (mIRC Scripting Language)<br>
+  (auto-installed; no external dependencies required — uses a custom pygls-based LSP server shipped with Selene;
+  supports document symbols, workspace symbols, references, and go-to-definition for aliases, events, menus, dialogs, and CTCP handlers in `.mrc` files)
+* **Nextflow**<br>
+  (uses the official [Nextflow language server](https://github.com/nextflow-io/language-server), which is automatically
+  downloaded; requires a Java 17+ runtime, discovered via `ls_specific_settings.nextflow.java_home`, `JAVA_HOME` or `java` on PATH;
+  covers `.nf` scripts — Nextflow `.config` files are not treated as source files, since the language server reports no symbols for them;
+  processes, workflows and functions are reported under their declared name, e.g. `GREET` for `process GREET`)
+* **Nix**<br>
+  (requires nixd installation)
+* **OCaml**
+  (requires opam and ocaml-lsp-server to be installed manually; see the [OCaml Setup Guide](../03-special-guides/ocaml_setup_guide_for_selene.md))
+* **Pascal**<br>
+  (uses Pascal/Lazarus, which is automatically downloaded; set `PP` and `FPCDIR` environment variables for source navigation)
+* **Perl**<br>
+  (requires installation of Perl::LanguageServer)
+* **PHP**<br>
+  (by default, uses the Intelephense language server (language `php`), set `INTELEPHENSE_LICENSE_KEY` environment variable for premium features;
+  we also support [Phpactor](https://github.com/phpactor/phpactor) (language `php_phpactor`), which requires PHP 8.1+;
+  and the experimental [PHPantom](https://github.com/PHPantom-dev/phpantom_lsp) backend (language `php_phpantom`)
+* **PowerShell**<br>
+  (requires PowerShell 7+ (`pwsh`) on PATH or in a standard install location; Selene automatically downloads PowerShell Editor Services 4.4.0 and installs PSScriptAnalyzer 1.25.0 via `Save-Module` from your configured PowerShell repository)
+* **Python**
+  (by default, uses [Pyright](https://github.com/microsoft/pyright) (language `python`);
+  alternatives: [BasedPyright](https://github.com/DetachHead/basedpyright) (language `python_basedpyright`),
+  [ty](https://github.com/astral-sh/ty) (language `python_ty`),
+  [pyrefly](https://github.com/facebook/pyrefly) (language `python_pyrefly`),
+  [Jedi](https://github.com/palotas/jedi-language-server) (language `python_jedi`);
+  Pyright, BasedPyright, ty, and pyrefly require `uv`/`uvx` in PATH)
+* **QML**
+  (requires Qt 6, provides `qmlls` or `qmlls6` on PATH; see the [Qt qmlls documentation](https://doc.qt.io/qt-6/qtqml-tool-qmlls.html))
+* **R**<br>
+  (requires installation of the `languageserver` R package)
+* **Rego**<br>
+  (requires the [Regal](https://github.com/open-policy-agent/regal) language server on PATH)
+* **Ruby**<br>
+  (by default, uses [ruby-lsp](https://github.com/Shopify/ruby-lsp) (language `ruby`); use language `ruby_solargraph` to use Solargraph instead.)
+* **Rust**<br>
+  (requires [rustup](https://rustup.rs/) - uses rust-analyzer from your toolchain)
+* **Scala**<br>
+  (uses Metals LSP, which imports the build on first use — see the [setup guide](../03-special-guides/scala_setup_guide_for_selene))
+* **SCSS / Sass / CSS**
+  (experimental; requires Node.js + npm; uses [some-sass-language-server](https://github.com/wkillerud/some-sass) to handle
+  `.scss`, `.sass`, and `.css`)
+* **Solidity**<br>
+  (experimental; requires Node.js and npm; automatically installs `@nomicfoundation/solidity-language-server`;
+  works best with a `foundry.toml` or `hardhat.config.js` in the project root)
+* **Svelte**
+  (requires Node.js v18+ and npm; supports `.svelte` Single File Components plus TypeScript/JavaScript files via `svelte-language-server`; a companion `typescript-language-server` + `typescript-svelte-plugin` is spawned automatically for cross-file rename, go-to-definition, and references across `.ts`/`.js` and `.svelte` files; use language `svelte` for Svelte projects instead of also enabling `typescript`)
+* **Swift**
+* **SystemVerilog**<br>
+  (uses `verible-verilog-ls`, taken from PATH if present, otherwise version `v0.0-4051-g9fdb4057` is downloaded automatically)
+* **Terraform**<br>
+  (uses `terraform-ls` 0.36.5, which Selene downloads automatically; requires Terraform on PATH)
+* **TOML**<br>
+  (experimental; uses Taplo 0.10.0, taken from PATH if present, otherwise downloaded automatically)
+* **TypeScript**
+* **Deno**<br>
+  (experimental; requires the `deno` CLI on PATH — it bundles the language server used here;
+  serves Deno TypeScript/JavaScript and understands `npm:` / `jsr:` / `https:` imports and the `Deno.*`
+  globals, which the plain TypeScript language server does not; overlaps `typescript` on file extensions,
+  so it is not auto-detected and must be set as the language explicitly — do not also enable `typescript`
+  for the same files)
+* **Vue**
+  (3.x with TypeScript; requires Node.js v18+ and npm; supports .vue Single File Components with monorepo detection)
+* **Wolfram Language**
+  (requires Wolfram Mathematica 13.0+ or Wolfram Engine 12.1+; uses the official [WolframResearch LSPServer](https://github.com/WolframResearch/LSPServer) paclet; supports .wl and .wls files; references are within-file only)
+* **YAML**
+* **JSON**<br>
+  (experimental; must be explicitly added to the languages list; requires Node.js and npm)
+* **Zig**<br>
+  (requires installation of ZLS - Zig Language Server)
+
+Additional language servers can easily be supported by providing an adapter implementation;
+see our {download}`contribution guide <../../CONTRIBUTING.md>`.
+If you need to support a custom language server which is not yet publicly available, you have the option to [register an external language server](external-ls-registration).
+
+## The Selene JetBrains Plugin
+
+The Selene JetBrains Plugin leverages the powerful code analysis capabilities of JetBrains IDEs.
+The plugin naturally supports all programming languages and frameworks that are supported by JetBrains IDEs.
+
+When using the plugin, Selene connects to an instance of your JetBrains IDE via the plugin. For users who already
+work in a JetBrains IDE, this means Selene seamlessly integrates with the IDE instance you typically have open anyway,
+requiring no additional setup or configuration beyond the plugin itself.
+
+* See the [JetBrains Plugin documentation](../02-usage/025_jetbrains_plugin) for a high-level overview of its benefits and usage details.
+* See the [Features](025_features) section for a detailed comparison of the capabilities provided by the JetBrains Plugin vs. language servers.

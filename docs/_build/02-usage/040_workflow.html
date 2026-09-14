@@ -1,0 +1,765 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Project Workflow &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02-usage/040_workflow';</script>
+    <script src="../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Memories &amp; Onboarding" href="045_memories.html" />
+    <link rel="prev" title="Connecting Your MCP Client" href="030_clients.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="000_intro.html">Usage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="030_clients.html">Connecting Your MCP Client</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-evaluation/000_evaluation-intro.html">Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-evaluation/010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/030_results/000_evaluation-results.html">Results</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02-usage/040_workflow.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Project Workflow</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-creation">Project Creation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicit-project-creation">Explicit Project Creation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-configuration">Project Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-activation">Project Activation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onboarding-memories">Onboarding &amp; Memories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-your-project">Preparing Your Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-your-codebase">Structure Your Codebase</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-from-a-clean-state">Start from a Clean State</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-platform-native-line-endings">Use Platform-Native Line Endings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-linting-and-automated-tests">Logging, Linting, and Automated Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-projects-multiple-agents">Multiple Projects, Multiple Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-single-agent-editing-multiple-projects-simultaneously">A Single Agent Editing Multiple Projects Simultaneously</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-from-external-projects">Reading from External Projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-agents-accessing-a-single-selene-instance">Multiple Agents Accessing a Single Selene Instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-agents-working-on-different-projects">Multiple Agents Working on Different Projects</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-project-workflow">
+<h1>The Project Workflow<a class="headerlink" href="#the-project-workflow" title="Link to this heading">#</a></h1>
+<p>Selene uses a project-based workflow.
+A <strong>project</strong> is simply a directory on your filesystem that contains code and other files
+that you want Selene to work with.</p>
+<p>Assuming that you have project you want to work with (which may initially be empty),
+setting up a project with Selene typically involves the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Project creation</strong>: Configuring project settings for Selene (and indexing the project, if desired)</p></li>
+<li><p><strong>Project activation</strong>: Making Selene aware of the project you want to work with</p></li>
+<li><p><strong>Onboarding</strong>: Getting Selene familiar with the project (creating memories)</p></li>
+<li><p><strong>Working on coding tasks</strong>: Using Selene to help you with actual coding tasks in the project</p></li>
+</ol>
+<section id="project-creation">
+<span id="project-creation-indexing"></span><h2>Project Creation<a class="headerlink" href="#project-creation" title="Link to this heading">#</a></h2>
+<p>Project creation is the process of defining fundamental project settings that are relevant to Selene’s operation.</p>
+<p>You can create a project either<br></p>
+<ul class="simple">
+<li><p>explicitly, using the project creation command (see below), or</p></li>
+<li><p>implicitly, by just activating a directory as a project while already in a conversation; this will use default settings for your project (skip to the next section).</p></li>
+</ul>
+<section id="explicit-project-creation">
+<h3>Explicit Project Creation<a class="headerlink" href="#explicit-project-creation" title="Link to this heading">#</a></h3>
+<p>To explicitly create a project, use the following command while in the project directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene project create [options] [project directory]
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The project directory defaults to the current directory if not specified.</p></li>
+<li><p>For an existing project, the programming languages will be detected based on
+the source files present, and the main language will be activated automatically.
+If multiple languages are detected, you will be prompted whether you want to enable them.<br></p></li>
+<li><p>For an empty project, you can optionally specify one or more languages
+to be activated explicitly via the <code class="docutils literal notranslate"><span class="pre">--language</span></code> parameter
+(e.g. <code class="docutils literal notranslate"><span class="pre">--language</span> <span class="pre">python</span> <span class="pre">--language</span> <span class="pre">typescript</span></code>).</p></li>
+<li><p>You can optionally specify a custom project name with <code class="docutils literal notranslate"><span class="pre">--name</span> <span class="pre">my-name</span></code>.</p></li>
+<li><p>You can immediately index the project after creation with <code class="docutils literal notranslate"><span class="pre">--index</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="project-configuration">
+<span id="project-config"></span><h2>Project Configuration<a class="headerlink" href="#project-configuration" title="Link to this heading">#</a></h2>
+<p>After creation, you can adjust the project settings in the generated <code class="docutils literal notranslate"><span class="pre">.selene/project.yml</span></code> file
+within the project directory.</p>
+<p>The file allows you to configure …</p>
+<ul class="simple">
+<li><p>the name by which you want to refer to the project (relevant when telling the LLM to dynamically activate the project)</p></li>
+<li><p>the set of built-in language servers and explicitly registered external adapters for which servers are spawned
+(not relevant when using the JetBrains plugin). External adapter IDs become available after their Python package is installed;
+see <a class="reference internal" href="../03-special-guides/external_language_server_registration.html"><span class="std std-doc">External Language Server Adapters</span></a>.
+The <a class="reference internal" href="060_dashboard.html"><span class="doc std std-doc">Dashboard</span></a> can dynamically add or remove built-in language servers and installed, registered external
+adapters while Selene is running. It does not install adapter packages or offer unregistered adapter IDs.</p></li>
+<li><p>the <a class="reference internal" href="025_jetbrains_plugin.html#per-project-language-backend"><span class="std std-ref">language backend</span></a> to use for this project (overriding the global setting)</p></li>
+<li><p>the encoding used in source files</p></li>
+<li><p>ignore rules</p></li>
+<li><p>write access</p></li>
+<li><p>the list of workspace folders to be processed by language servers (when using the LSP backend)</p></li>
+<li><p>an initial prompt that shall be passed to the LLM whenever the project is activated</p></li>
+<li><p>a shell command to run upon project activation (prior to language backend initialisation)</p></li>
+<li><p>the set of tools and modes to use for the project</p></li>
+<li><p>and some other settings.</p></li>
+</ul>
+<p>For detailed information on the parameters and possible settings, see the
+<a class="reference download internal" download="" href="../_downloads/86a40f6886b5dd216f92c7593e1184e9/project.template.yml"><span class="xref download myst">template file</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many settings in project.yml <em>extend</em> or <em>override</em> settings in <a class="reference internal" href="050_configuration.html#global-config"><span class="std std-ref">Selene’s global configuration</span></a>.
+So use the project configuration specifically for aspects that apply only to the particular project.</p>
+</div>
+<p><strong>Local Overrides</strong>. The <code class="docutils literal notranslate"><span class="pre">project.yml</span></code> file is intended to be versioned together with the project.
+You can specify local overrides for the settings in a <code class="docutils literal notranslate"><span class="pre">project.local.yml</span></code> file in the same directory
+(which, by default, is ignored by git).
+Any keys defined therein will override the respective key in <code class="docutils literal notranslate"><span class="pre">project.yml</span></code>.</p>
+</section>
+<section id="indexing">
+<span id="id1"></span><h2>Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Indexing is not a relevant operation when using the JetBrains plugin, as indexing is handled by the IDE.</p>
+</div>
+<p>Especially for larger project, it can be advisable to index the project after creation, pre-caching
+symbol information provided by the language server(s). This will avoid delays during the first tool invocation
+that requires symbol information.</p>
+<p>While in the project directory, run this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene project index
+</pre></div>
+</div>
+<p>Indexing has to be called only once. During regular usage, Selene will automatically update the index whenever files change.</p>
+</section>
+<section id="project-activation">
+<span id="id2"></span><h2>Project Activation<a class="headerlink" href="#project-activation" title="Link to this heading">#</a></h2>
+<p>Project activation makes Selene aware of the project you want to work with.
+You can either choose to do this</p>
+<ul>
+<li><p>while in a conversation, by telling the LLM to activate a project, e.g.,</p>
+<ul class="simple">
+<li><p>“Activate the project /path/to/my_project” (for first-time activation with auto-creation)</p></li>
+<li><p>“Activate the project my_project”</p></li>
+</ul>
+<p>Note that this option requires the <code class="docutils literal notranslate"><span class="pre">activate_project</span></code> tool to be active,
+which it isn’t in single-project <a class="reference internal" href="050_configuration.html#contexts"><span class="std std-ref">contexts</span></a> like <code class="docutils literal notranslate"><span class="pre">ide</span></code> or <code class="docutils literal notranslate"><span class="pre">claude-code</span></code> <em>if</em> a project is provided at startup.
+(The tool is deactivated, because we assume that in these contexts, user will only work on the single, open project and have
+no need to switch it.)</p>
+</li>
+<li><p>when the MCP server starts, by passing the project path or name as a command-line argument
+(e.g. when using a single-project mode like <code class="docutils literal notranslate"><span class="pre">ide</span></code> or <code class="docutils literal notranslate"><span class="pre">claude-code</span></code>): <code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">&lt;path|name&gt;</span></code></p></li>
+</ul>
+<p>When working with the JetBrains plugin, be sure to have the same project folder open as a project in your IDE,
+i.e. the folder that is activated in Selene should correspond to the root folder of the project in your IDE.</p>
+</section>
+<section id="onboarding-memories">
+<h2>Onboarding &amp; Memories<a class="headerlink" href="#onboarding-memories" title="Link to this heading">#</a></h2>
+<p>By default, Selene will perform an <strong>onboarding process</strong> when
+it is started for the first time for a project.
+The goal of the onboarding is for Selene to get familiar with the project
+and to store memories, which it can then draw upon in future interactions.</p>
+<p>In general, <strong>memories</strong> provide a way for Selene to store and retrieve
+information about the project, relevant conventions, and other relevant aspects.
+Memories may reference each other using the <code class="docutils literal notranslate"><span class="pre">`mem:NAME`</span></code> convention; references
+are kept in sync across renames, and a <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">memories</span> <span class="pre">check</span></code> command is available
+to report stale references.</p>
+<p>During the first onboarding, Selene seeds a <code class="docutils literal notranslate"><span class="pre">memory_maintenance</span></code> memory describing the
+conventions (style, references) that subsequent memories should follow, and the
+agent is instructed to read it before writing any project-specific memories.</p>
+<p>For more information on this, including the target memory layout, the <code class="docutils literal notranslate"><span class="pre">mem:</span></code> reference
+convention, the <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">memories</span></code> CLI subcommands, and how to manage or disable these
+features, see <a class="reference internal" href="045_memories.html"><span class="doc std std-doc">Memories &amp; Onboarding</span></a>.</p>
+</section>
+<section id="preparing-your-project">
+<h2>Preparing Your Project<a class="headerlink" href="#preparing-your-project" title="Link to this heading">#</a></h2>
+<p>When using Selene to work on your project, it can be helpful to follow a few best practices.</p>
+<section id="structure-your-codebase">
+<h3>Structure Your Codebase<a class="headerlink" href="#structure-your-codebase" title="Link to this heading">#</a></h3>
+<p>Selene uses the code structure for finding, reading and editing code. This means that it will
+work well with well-structured code but may perform poorly on fully unstructured one (like a “God class”
+with enormous, non-modular functions).</p>
+<p>Furthermore, for languages that are not statically typed, the use of type annotations (if supported)
+are highly beneficial.</p>
+</section>
+<section id="start-from-a-clean-state">
+<h3>Start from a Clean State<a class="headerlink" href="#start-from-a-clean-state" title="Link to this heading">#</a></h3>
+<p>It is best to start a code generation task from a clean git state. Not only will
+this make it easier for you to inspect the changes, but also the model itself will
+have a chance of seeing what it has changed by calling <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code> and thereby
+correct itself or continue working in a followup conversation if needed.</p>
+</section>
+<section id="use-platform-native-line-endings">
+<h3>Use Platform-Native Line Endings<a class="headerlink" href="#use-platform-native-line-endings" title="Link to this heading">#</a></h3>
+<p><strong>Important</strong>: since Selene will write to files using the system-native line endings
+and it might want to look at the git diff, it is important to
+set <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">core.autocrlf</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> on Windows.
+With <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">core.autocrlf</span></code> set to <code class="docutils literal notranslate"><span class="pre">false</span></code> on Windows, you may end up with huge diffs
+due to line endings only.
+It is generally a good idea to globally enable this git setting on Windows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.autocrlf<span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="logging-linting-and-automated-tests">
+<h3>Logging, Linting, and Automated Tests<a class="headerlink" href="#logging-linting-and-automated-tests" title="Link to this heading">#</a></h3>
+<p>Selene can successfully complete tasks in an <em>agent loop</em>, where it iteratively
+acquires information, performs actions, and reflects on the results.
+However, Selene cannot use a debugger; it must rely on the results of program executions,
+linting results, and test results to assess the correctness of its actions.
+Therefore, software that is designed to meaningful interpretable outputs (e.g. log messages)
+and that has a good test coverage is much easier to work with for Selene.</p>
+<p>We generally recommend to start an editing task from a state where all linting checks and tests pass.</p>
+</section>
+</section>
+<section id="multiple-projects-multiple-agents">
+<h2>Multiple Projects, Multiple Agents<a class="headerlink" href="#multiple-projects-multiple-agents" title="Link to this heading">#</a></h2>
+<p>There are several ways in which you might want to work with multiple projects simultaneously.</p>
+<section id="a-single-agent-editing-multiple-projects-simultaneously">
+<h3>A Single Agent Editing Multiple Projects Simultaneously<a class="headerlink" href="#a-single-agent-editing-multiple-projects-simultaneously" title="Link to this heading">#</a></h3>
+<p>If fulfilling a task requires a single agent to edit code in multiple projects, the recommended approach is to create a <strong>monorepo folder</strong>,
+i.e. a folder that contains all the projects as sub-folders, and open that monorepo folder as a project in Selene.
+You may also use symbolic links to create a monorepo folder if the projects are located in different places on your filesystem.</p>
+<p>If several languages are used across the projects, specify all of them as needed when using the LSP backend;
+For JetBrains mode, make sure that your IDE is configured to work with all the languages used across the projects (e.g. by installing the respective language plugins).</p>
+</section>
+<section id="reading-from-external-projects">
+<span id="query-projects"></span><h3>Reading from External Projects<a class="headerlink" href="#reading-from-external-projects" title="Link to this heading">#</a></h3>
+<p>If, while working on a project, you want Selene to be able to read code or other information from another project (e.g. a library or otherwise related project),
+this can be enabled via the <code class="docutils literal notranslate"><span class="pre">query_project</span></code> tool.
+Provided that the project you want to query is known to Selene (i.e. you have created it as described above),
+the <code class="docutils literal notranslate"><span class="pre">query_project</span></code> tool allows the agent to query files and symbolic information from that project.</p>
+<p>To enable this tool, <a class="reference internal" href="050_configuration.html#modes"><span class="std std-ref">activate the mode</span></a> <code class="docutils literal notranslate"><span class="pre">query-projects</span></code>.
+This also enables a second tool for listing projects that can be queried.</p>
+<p>Depending on the language backend being used, the management of resources for the external projects varies:</p>
+<ul>
+<li><p>When using the JetBrains backend, make sure that every project for which you want symbolic queries to work is open in an IDE instance.</p></li>
+<li><p>When using the LSP backend, executing symbolic tools via the query tool requires that Selene’s <strong>Project Server</strong> be started,
+which will automatically spawn the necessary language servers for the projects that are queried.</p>
+<p>To start the server, run</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene start-project-server
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="multiple-agents-accessing-a-single-selene-instance">
+<h3>Multiple Agents Accessing a Single Selene Instance<a class="headerlink" href="#multiple-agents-accessing-a-single-selene-instance" title="Link to this heading">#</a></h3>
+<p>If you want multiple agents to access the same project via a single Selene instance,
+i.e. you do not want several instances of Selene (including its language servers) to be running,
+you can achieve this by <a class="reference internal" href="020_running.html#streamable-http"><span class="std std-ref">starting the Selene MCP server in HTTP mode</span></a>
+and connecting all client agents to the same HTTP endpoint.
+The agents will then share the resources of the single Selene instance.</p>
+</section>
+<section id="multiple-agents-working-on-different-projects">
+<h3>Multiple Agents Working on Different Projects<a class="headerlink" href="#multiple-agents-working-on-different-projects" title="Link to this heading">#</a></h3>
+<p>For this use case, simply run a separate instance of Selene for each project, which naturally
+occurs when Selene is started by the MCP client in stdio mode.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02-usage"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="030_clients.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Connecting Your MCP Client</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="045_memories.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Memories &amp; Onboarding</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-creation">Project Creation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicit-project-creation">Explicit Project Creation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-configuration">Project Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-activation">Project Activation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onboarding-memories">Onboarding &amp; Memories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-your-project">Preparing Your Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-your-codebase">Structure Your Codebase</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-from-a-clean-state">Start from a Clean State</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-platform-native-line-endings">Use Platform-Native Line Endings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-linting-and-automated-tests">Logging, Linting, and Automated Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-projects-multiple-agents">Multiple Projects, Multiple Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-single-agent-editing-multiple-projects-simultaneously">A Single Agent Editing Multiple Projects Simultaneously</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-from-external-projects">Reading from External Projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-agents-accessing-a-single-selene-instance">Multiple Agents Accessing a Single Selene Instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-agents-working-on-different-projects">Multiple Agents Working on Different Projects</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
