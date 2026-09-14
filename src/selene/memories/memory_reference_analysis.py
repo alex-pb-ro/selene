@@ -573,7 +573,7 @@ class MemoryReferenceAnalyzer:
             if source_name == self._manager.MEMORY_MAINTENANCE_NAME:
                 continue
 
-            content = self._manager.load_memory(source_name)
+            content = self._manager.load_memory_content(source_name)
             if not content:
                 # skip empty memories silently — no references can exist in empty content
                 continue
@@ -754,7 +754,7 @@ class MemoryReferenceAnalyzer:
             warnings_by_source.setdefault(w.source_memory, []).append(w)
 
         for source_memory, source_warnings in warnings_by_source.items():
-            content = self._manager.load_memory(source_memory)
+            content = self._manager.load_memory_content(source_memory)
             total_n = 0
             per_target_records: list[AutofixedReference] = []
 

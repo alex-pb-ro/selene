@@ -196,6 +196,16 @@ class SeleneMCPFactory:
                 # lists get handled by parent calls
                 return node
 
+            # expose the type of local definitions without expanding recursive references
+            reference = node.get("$ref")
+            if isinstance(reference, str) and reference.startswith("#/"):
+                definition = s
+                for component in reference[2:].split("/"):
+                    key = component.replace("~1", "/").replace("~0", "~")
+                    definition = definition.get(key) if isinstance(definition, dict) else None
+                if isinstance(definition, dict) and "type" in definition:
+                    node.setdefault("type", deepcopy(definition["type"]))
+
             # ---- handle type ----
             t = node.get("type")
             if isinstance(t, str):
@@ -226,15 +236,16 @@ class SeleneMCPFactory:
             # ---- simplify anyOf/oneOf if they only differ by integer/number ----
             for key in ("oneOf", "anyOf"):
                 if key in node and isinstance(node[key], list):
-                    # Special case: anyOf or oneOf with "type X" and "null"
+                    # retain constraints when selecting the non-null alternative
                     if len(node[key]) == 2:
-                        types = [sub.get("type") for sub in node[key]]
-                        if "null" in types:
-                            non_null_type = next(t for t in types if t != "null")
-                            if isinstance(non_null_type, str):
-                                node["type"] = non_null_type
-                                node.pop(key, None)
-                                continue
+                        alternatives = node[key]
+                        non_null = [sub for sub in alternatives if sub.get("type") != "null"]
+                        if len(non_null) == 1:
+                            selected = walk(non_null[0])
+                            node.pop(key)
+                            for name, value in selected.items():
+                                node.setdefault(name, value)
+                            continue
                     simplified = []
                     changed = False
                     for sub in node[key]:

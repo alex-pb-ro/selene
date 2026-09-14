@@ -5,6 +5,7 @@ from concurrent.futures import CancelledError
 from threading import Event
 
 import pytest
+from jsonschema import Draft202012Validator
 from mcp.server.fastmcp.tools.base import Tool as MCPTool
 
 from selene import __version__
@@ -12,6 +13,7 @@ from selene.agent import Tool, ToolRegistry
 from selene.config.context_mode import SeleneAgentContext
 from selene.config.selene_config import SeleneConfig
 from selene.mcp import SeleneMCPFactory
+from selene.memories.evidence import MemoryEvidenceRequest
 from selene.util.cancellation import CancellationToken
 
 make_tool = SeleneMCPFactory.make_mcp_tool
@@ -105,6 +107,31 @@ def test_make_tool_execution() -> None:
     result = asyncio.run(mcp_tool.run({"name": "Alice", "age": 30}))
 
     assert result == "Hello Alice, you are 30 years old!"
+
+
+@pytest.mark.parametrize("compatible", [False, True])
+def test_nested_memory_provenance_schema_and_execution(compatible: bool) -> None:
+    """Clients can validate and submit nested provenance, including an omitted optional record."""
+
+    class ProvenanceTool(BaseMockTool):
+        def apply(self, required: MemoryEvidenceRequest, optional: MemoryEvidenceRequest | None = None) -> str:
+            """Return the owners from required and optional provenance."""
+            return required.owner + (":" + optional.owner if optional else "")
+
+        def apply_ex(self, **kwargs) -> str:
+            kwargs.pop("mcp_ctx", None)
+            kwargs.pop("log_call", None)
+            kwargs.pop("catch_exceptions", None)
+            return self.apply(**kwargs)
+
+    tool = make_tool(ProvenanceTool(), openai_tool_compatible=compatible)
+    validator = Draft202012Validator(tool.parameters)
+    record = {"owner": "team:local", "evidence": [{"path": "module.py", "sha256": "a" * 64, "start_line": 1, "end_line": 2}]}
+    for payload, expected in (({"required": record}, "team:local"), ({"required": record, "optional": record}, "team:local:team:local")):
+        validator.validate(payload)
+        assert asyncio.run(tool.run(payload)) == expected
+    for malformed in ({"evidence": []}, {"owner": "team:local", "evidence": "not an array"}, {"owner": "team:local", "evidence": [{}]}):
+        assert not validator.is_valid({"required": record, "optional": malformed})
 
 
 def test_mcp_tool_keeps_event_loop_responsive_and_propagates_cancellation():

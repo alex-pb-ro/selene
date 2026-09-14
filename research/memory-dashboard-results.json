@@ -1,0 +1,14 @@
+{
+  "synthetic_only": true,
+  "external_requests_allowed": false,
+  "stale_notice_visible": true,
+  "source_version_submitted_with_edit": true,
+  "foreign_body_withheld_and_save_disabled": true,
+  "page_errors": [],
+  "source_sha256": {
+    "src/selene/resources/dashboard/index.html": "57bf184b0a5ccd93c35a56e8e8344706328d55865d9325da9aea0e5fcf19d856",
+    "src/selene/resources/dashboard/dashboard.js": "4ece46ea8ed727c9923455787527e78301e699641959f4ad31feff4f9df095f3",
+    "src/selene/resources/dashboard/dashboard.css": "0c888b7646285badef0edd17ad78e22c0490633ff0f2218b73c4253af638a941",
+    "research/probes/memory_dashboard.cjs": "1ddc4118a7c1edbc733e76ccaf1e7b6fc439e15b916c5725624d40ca1c8737d2"
+  }
+}

@@ -19,6 +19,11 @@ inferring appropriateness from the file name.
 When the agent starts working on a project, it receives the list of available memories.
 The agent should be instructed to update memories by the user when appropriate.
 
+Project memories can optionally include [source evidence and freshness checks](078_memory_evidence.md).
+These records remain Markdown files, with a JSON comment containing their declared owner,
+project binding and supporting source versions. Ordinary Markdown memories remain readable;
+they are explicitly unverified when assessed with `check_memory`.
+
 ### Design Rationale
 
 Selene's memory system is intentionally minimal. It was designed to satisfy the following
@@ -42,9 +47,9 @@ criteria:
 5. **Prefer deliberate reads to triggers.** The agent decides what to read and when. The harness does
    not inject memory content on the agent's behalf.
 6. **Framework-agnostic.** The storage format is plain Markdown files in
-   a simple directory layout. The only Selene-specific convention is the `mem:`
-   prefix for references to memories, which does not prevent using the memory files outside
-   of Selene.
+   a simple directory layout. The `mem:` reference convention and optional provenance comment
+   do not prevent reading or editing the memory files outside of Selene. Provenance assessments
+   require the matching project and its current source files.
 7. **Configurable and composable.** Two orthogonal memory scopes -
    [per-project](memories) (committed alongside the code) and [global](global-memories)
    (shared across all your projects) - can be combined freely. Within either scope,

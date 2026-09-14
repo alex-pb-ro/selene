@@ -35,6 +35,11 @@ class IsolatedMCPProbe:
         "src/selene/edit_plans/__init__.py", "src/selene/edit_plans/model.py", "src/selene/edit_plans/filesystem.py",
         "src/selene/edit_plans/journal.py", "src/selene/edit_plans/execution.py", "src/selene/edit_plans/service.py",
         "src/selene/tools/change_plan_tools.py",
+        "src/selene/memories/evidence.py", "src/selene/memories/project_evidence.py",
+        "src/selene/memories/memory_manager.py", "src/selene/memories/memory_reference_analysis.py",
+        "src/selene/tools/memory_tools.py", "src/selene/dashboard.py", "src/selene/mcp.py",
+        "src/selene/resources/dashboard/dashboard.js", "src/selene/resources/dashboard/index.html",
+        "src/selene/resources/config/modes/no-memories.yml",
     )
 
     def __init__(self, fixture_root: Path, docker_socket: Path, image: str):
@@ -80,6 +85,7 @@ class IsolatedMCPProbe:
             project.mkdir()
             approved = "APPROVED_CLIENT_CANARY"
             outside = "OUTSIDE_WORKSPACE_CANARY"
+            memory_canary = "EXPLICIT_DECISION_CANARY"
             (project / "module.py").write_text(f'def visible_symbol():\n    return "{approved}"\n')
             (base / "outside.txt").write_text(outside)
             (project / "escape.txt").symlink_to("../outside.txt")
@@ -147,6 +153,39 @@ class IsolatedMCPProbe:
                         rejected = await session.call_tool("analyze_change", {"changes": [{**proposal, "expected_sha256": "0" * 64}]})
                         assert rejected.isError and "ChangeConflict" in self._text(rejected), self._text(rejected)
                         observations["impact_analyzes_unapplied_change_and_rejects_wrong_source_hash"] = True
+
+                        # bind an explicitly authored decision to current local source evidence
+                        provenance = {"owner": "team:synthetic", "scope": "module.py", "origin": "decision", "evidence": [
+                            {"path": "module.py", "sha256": hashlib.sha256(original).hexdigest(), "start_line": 1, "end_line": 2},
+                        ]}
+                        recorded = await session.call_tool("write_memory", {
+                            "memory_name": "architecture/api", "content": "Prefer explicit API inputs. " + memory_canary, "provenance": provenance,
+                        })
+                        assert not recorded.isError, self._text(recorded)
+                        checked = await session.call_tool("check_memory", {"memory_name": "architecture/api"})
+                        assert not checked.isError, self._text(checked)
+                        memory_status = json.loads(self._text(checked))
+                        assert memory_status["status"] == "current", memory_status
+                        memory_path = project / ".selene" / "memories" / "architecture" / "api.md"
+                        assert memory_path.stat().st_mode & 0o777 == 0o600
+                        assert approved not in memory_path.read_text()
+                        edited = await session.call_tool("edit_memory", {
+                            "memory_name": "architecture/api", "needle": "explicit", "repl": "documented", "mode": "literal",
+                        })
+                        assert not edited.isError, self._text(edited)
+                        review_needed = await session.call_tool("check_memory", {"memory_name": "architecture/api"})
+                        edited_status = json.loads(self._text(review_needed))
+                        assert edited_status["status"] == "needs_review", edited_status
+                        stale_review = await session.call_tool("review_memory", {
+                            "memory_name": "architecture/api", "provenance": provenance, "expected_memory_sha256": memory_status["memory_sha256"],
+                        })
+                        assert stale_review.isError and "version conflict" in self._text(stale_review), self._text(stale_review)
+                        reviewed = await session.call_tool("review_memory", {
+                            "memory_name": "architecture/api", "provenance": provenance, "expected_memory_sha256": edited_status["memory_sha256"],
+                        })
+                        assert not reviewed.isError and json.loads(self._text(reviewed))["status"] == "current", self._text(reviewed)
+                        observations["memory_records_versions_and_requires_review_after_body_edits"] = True
+
                         (project / "host_created.py").write_text("hostindexcanary = 1\n")
                         stale = await session.call_tool("read_context_items", {"bundle_id": page["bundle_id"], "item_ids": [page["items"][0]["id"]]})
                         assert stale.isError and "StaleContextError" in self._text(stale), self._text(stale)
@@ -202,6 +241,23 @@ class IsolatedMCPProbe:
                         applied_again = await session.call_tool("apply_change", {"plan_id": plan_id})
                         assert not applied_again.isError and json.loads(self._text(applied_again))["status"] == "applied", self._text(applied_again)
                         observations["prepared_changes_preserve_source_and_apply_idempotently"] = True
+                        changed_memory = await session.call_tool("check_memory", {"memory_name": "architecture/api"})
+                        assert not changed_memory.isError, self._text(changed_memory)
+                        changed_memory_status = json.loads(self._text(changed_memory))
+                        assert changed_memory_status["status"] == "stale", changed_memory_status
+                        warned = await session.call_tool("read_memory", {"memory_name": "architecture/api"})
+                        assert not warned.isError and '"status": "stale"' in self._text(warned) and memory_canary in self._text(warned), self._text(warned)
+                        updated_provenance = {**provenance, "evidence": [
+                            {"path": "module.py", "sha256": hashlib.sha256(planned_contents.encode()).hexdigest(), "start_line": 1, "end_line": 2},
+                        ]}
+                        reviewed_change = await session.call_tool("review_memory", {
+                            "memory_name": "architecture/api", "provenance": updated_provenance,
+                            "expected_memory_sha256": changed_memory_status["memory_sha256"],
+                        })
+                        assert not reviewed_change.isError and json.loads(self._text(reviewed_change))["status"] == "current", self._text(reviewed_change)
+                        observations["memory_flags_source_changes_and_accepts_explicit_current_evidence"] = True
+                        observations["decision_canary_absent_from_daemon_logs"] = self._daemon_logs(project, memory_canary)["source_canary_absent_from_daemon_logs"]
+
                         observations.update(self._daemon_logs(project, approved))
 
                         image_paths = {
@@ -229,9 +285,20 @@ class IsolatedMCPProbe:
                         assert (project / "module.py").read_bytes() == original
                         assert not (project / "planned.py").exists()
                         observations["prepared_changes_roll_back_across_container_restart"] = True
+                        restarted_check = await session.call_tool("check_memory", {"memory_name": "architecture/api"})
+                        assert not restarted_check.isError, self._text(restarted_check)
+                        restarted_status = json.loads(self._text(restarted_check))
+                        assert restarted_status["status"] == "stale", restarted_status
+                        rereviewed = await session.call_tool("review_memory", {
+                            "memory_name": "architecture/api", "provenance": provenance,
+                            "expected_memory_sha256": restarted_status["memory_sha256"],
+                        })
+                        assert not rereviewed.isError and json.loads(self._text(rereviewed))["status"] == "current", self._text(rereviewed)
+                        observations["memory_scope_and_evidence_checks_survive_container_restart"] = True
+
 
             captured = stderr_path.read_text()
-            assert approved not in captured and outside not in captured, captured
+            assert approved not in captured and outside not in captured and memory_canary not in captured, captured
             observations["source_canaries_absent_from_client_stderr"] = True
             metadata = [path for path in (project / ".selene").rglob("*") if path.is_file()]
             retained = [p for p in metadata if approved.encode() in p.read_bytes()]
@@ -240,6 +307,9 @@ class IsolatedMCPProbe:
             assert journals.stat().st_mode & 0o777 == 0o700
             assert (journals / ".gitignore").read_text() == "*\n"
             observations["source_canary_retained_only_in_explicit_private_change_journal"] = True
+            decision_copies = [p for p in metadata if memory_canary.encode() in p.read_bytes()]
+            assert decision_copies == [memory_path], decision_copies
+            observations["decision_retained_only_in_explicit_private_memory"] = True
             return {
                 "observations": observations,
                 "method": {

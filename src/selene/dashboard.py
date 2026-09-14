@@ -93,11 +93,15 @@ class RequestGetMemory(BaseModel):
 class ResponseGetMemory(BaseModel):
     content: str
     memory_name: str
+    memory_sha256: str | None = None
+    evidence_status: str | None = None
+    content_withheld: bool = False
 
 
 class RequestSaveMemory(BaseModel):
     memory_name: str
     content: str
+    expected_memory_sha256: str | None = None
 
 
 class RequestDeleteMemory(BaseModel):
@@ -555,8 +559,14 @@ class SeleneDashboardAPI:
             if project is None:
                 raise ValueError("No active project")
 
-            content = project.memory_manager.load_memory(request_get_memory.memory_name)
-            return ResponseGetMemory(content=content, memory_name=request_get_memory.memory_name)
+            view = project.memory_manager.load_memory_for_editing(request_get_memory.memory_name)
+            return ResponseGetMemory(
+                content=view.content,
+                memory_name=request_get_memory.memory_name,
+                memory_sha256=view.assessment.memory_sha256,
+                evidence_status=view.assessment.status if view.has_provenance else None,
+                content_withheld=view.has_provenance and view.assessment.provenance is None,
+            )
 
         return self._agent.execute_task(run, logged=False)
 
@@ -565,7 +575,12 @@ class SeleneDashboardAPI:
             project = self._agent.get_active_project()
             if project is None:
                 raise ValueError("No active project")
-            project.memory_manager.save_memory(request_save_memory.memory_name, request_save_memory.content, is_tool_context=False)
+            project.memory_manager.save_memory(
+                request_save_memory.memory_name,
+                request_save_memory.content,
+                is_tool_context=False,
+                expected_memory_sha256=request_save_memory.expected_memory_sha256,
+            )
 
         self._agent.execute_task(run, logged=True, name="SaveMemory")
 

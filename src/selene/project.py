@@ -20,6 +20,7 @@ from selene.indexing.project_policy import ProjectIndexPolicy
 from selene.indexing.scope import ProjectSourceScope
 from selene.ls_manager import LanguageServerFactory, LanguageServerManager
 from selene.memories.memory_manager import MemoryManager
+from selene.memories.project_evidence import ProjectMemoryEvidence
 from selene.util.file_proxy import FileCollection, FileProxy
 from selene.util.file_system import GitignoreParser, match_path, scan_directory
 from selene.util.text_utils import MatchedConsecutiveLines, search_files
@@ -55,6 +56,7 @@ class Project(ToStringMixin):
             self._selene_data_folder,
             read_only_memory_patterns=read_only_memory_patterns,
             ignored_memory_patterns=ignored_memory_patterns,
+            evidence_evaluator=ProjectMemoryEvidence(self),
         )
 
         # resolve line ending (project -> global)

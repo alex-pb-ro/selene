@@ -35,6 +35,9 @@ Status of the `main` branch. Changes prior to the next official version change w
     the check; a symbol with no references is still a pass
 
 * Memories:
+  - Add optional project-bound provenance with source versions, declared owners, expiration,
+    freshness assessments and explicit review; show review status in the dashboard.
+  - Fix: Preserve nested provenance types and validation constraints in compatible tool schemas.
   - Fix: `save_memory`/`edit_memory` wrote directly to the memory file with `open(path, "w")`, which
     truncates it before the new content is written; a crash, OOM kill, or full disk partway through
     the write could destroy the previous, valid content instead of just losing the update. Both now
