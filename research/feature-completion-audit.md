@@ -39,8 +39,21 @@ SDK v2/Tasks migration, broad cross-repository graphs, local embeddings, persist
 
 Read-only inspection found remote `main` at `40e84b84fc22815f6977f0a0110faf688975791f`. It deleted the server source but retains common ancestor `5dc6cbd3ce9d59799774f2a22fe97c846d555196` with the feature branches. The requested local checkout stays unchanged on that main commit.
 
-The original source-base publication hold was broader than necessary: draft PRs can expose the requested diffs without restoring main or resolving its deletions. A draft stack is prepared: the first foundation PR targets main; later PRs target the preceding branch. Source restoration or retargeting must be resolved deliberately before integration. No merge, reset, force-push or source restoration is part of the proposed publication step. Workflow files use manual `workflow_dispatch` triggers; the draft stack does not claim automatic CI results.
+The user explicitly approved public PR publication on 14 September 2026. All ten prepared branches were then pushed and the following draft PRs created. Each PR's open/draft state, head commit, base branch, title, description and exact changed-file list matched the prepared stack at creation. The JSON audit records that verification snapshot; subsequent audit-only commits can advance the acceptance PR's head.
 
-Automatic approval review rejected the attempted branch push before execution. Its stated reason was that exporting the non-public implementation and audit source to an external repository lacked explicit authorization for that payload and destination. The user has been asked to approve publication of the implementation, tests and audit artifacts to the public `alex-pb-ro/selene` repository. No branch or PR has been published, and no alternative upload was attempted. This approval is distinct from the later decision about integrating the source deletions on main.
+| PR | Scope | Target branch |
+| --- | --- | --- |
+| [#1](https://github.com/alex-pb-ro/selene/pull/1) | Immediate task dispatch | `main` |
+| [#2](https://github.com/alex-pb-ro/selene/pull/2) | Cancellation ownership | `fix/task-dispatch` |
+| [#3](https://github.com/alex-pb-ro/selene/pull/3) | Source freshness | `fix/cancellation-ownership` |
+| [#4](https://github.com/alex-pb-ro/selene/pull/4) | Isolated stdio deployment | `fix/source-freshness` |
+| [#5](https://github.com/alex-pb-ro/selene/pull/5) | Incremental local indexing | `fix/privacy-boundaries` |
+| [#6](https://github.com/alex-pb-ro/selene/pull/6) | Context bundles | `feat/incremental-index` |
+| [#7](https://github.com/alex-pb-ro/selene/pull/7) | Change-impact analysis | `feat/context-bundles` |
+| [#8](https://github.com/alex-pb-ro/selene/pull/8) | Recoverable multi-file edits | `feat/change-impact` |
+| [#9](https://github.com/alex-pb-ro/selene/pull/9) | Scoped memory evidence | `feat/recoverable-edits` |
+| [#10](https://github.com/alex-pb-ro/selene/pull/10) | Comparative acceptance and isolated benchmark preparation | `feat/evidence-memory` |
 
-PR URLs and verified branch targets are recorded in the JSON audit after creation. Until those exist, local branches alone do not satisfy the user's separate-PR deliverable. Even after publication, the remaining evaluation limits above must stay visible rather than being presented as achieved acceptance gates.
+The publication deliverable is satisfied: each of the five requested features has its own PR, alongside four foundation PRs and one acceptance follow-up. The earlier automatic approval rejection was resolved by explicit user authorization; no alternate upload was used. This authorization covers publication of the prepared implementation, tests and audit artifacts. It does not select a model/client or authorize fresh benchmark sessions.
+
+The draft stack exposes the requested diffs while preserving main's state. Source restoration or retargeting must be resolved deliberately before integration; no merge, reset, force-push or source restoration was performed. Workflow files use manual `workflow_dispatch` triggers, and the draft stack does not claim automatic CI results. The remaining agent-evaluation limits above are still unmeasured.
