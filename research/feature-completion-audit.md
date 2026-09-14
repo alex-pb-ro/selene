@@ -31,6 +31,8 @@ The [comparative context follow-up](context-acceptance-verification.md) supplies
 
 Still missing from the research evaluation strategy are paired runs with the same model/client/task against native tools, prior Selene and the new features; independently checked task completion and unintended edits; provider-reported tokens; and a representative real-project/backend suite. Those cannot be inferred from green unit tests or faster dispatch. The existing impact experiment measures missed regressions on one synthetic case only. Instruction benefit is not claimed because this work did not expand the instruction templates or generate automatic summaries.
 
+The [agent benchmark preparation](agent-benchmark-preparation-verification.md) now supplies three authored tasks, independent checks, reference repairs, regression mutants and eighteen matched workspaces. All twelve trusted-fixture outcomes and nine result-schema checks behaved as expected. No agent trials ran. Client/provider selection, fresh-session authorization, verified client tool confinement and an isolated submission verifier remain prerequisites; this preparation does not close the missing evaluation gates.
+
 SDK v2/Tasks migration, broad cross-repository graphs, local embeddings, persistent semantic stores and server pools were later roadmap options, not substitutes for the five selected capabilities. They remain outside this implementation. No claim is made that the entire research roadmap is delivered.
 
 ## Publication and integration

@@ -46,7 +46,10 @@
     "research/linux-recoverable-changes-results.json": "7dd92e9ad4cb74e89d364b3e399d06507d46edfeebef44f0233d595681089bcc",
     "research/isolated-memory-mcp-results.json": "df622e7a0f24a1ce11ee2ad3f1e5c0e849687d3306d63ed02dcd3079ab78a7c6",
     "research/context-acceptance-results.json": "29b924d28f94702ed8e05433f8068a712a8f24600ff3b46f7f7d3683ce447711",
-    "research/memory-dashboard-results.json": "7dafce8fefc42f7c643cac71ad94e70a40e2c6e9f86e43cef1612ac0b3d1daf0"
+    "research/memory-dashboard-results.json": "7dafce8fefc42f7c643cac71ad94e70a40e2c6e9f86e43cef1612ac0b3d1daf0",
+    "research/agent-benchmark-package-results.json": "87e7e2712e0a1857362217888995261e43a89ca76395d01e067ac76ee9e7bef1",
+    "research/agent-benchmark-preparation-results.json": "d4fa5bbdb2030a7b5d208fe9f0211c847791b4e795eae94aadca7015226ef956",
+    "research/agent-benchmark-preparation-verification.md": "abb8f980553276665490f4e97ef7f37e6191a31fda28d8302ad18bccb2b4bc9a"
   },
   "completion": "not_achieved",
   "outstanding": [
@@ -60,5 +63,27 @@
     "push_executed": false,
     "rejection": "Automatic approval review requires explicit authorization to export implementation and audit source to the public alex-pb-ro/selene repository.",
     "pending_question": "May I publish the ten prepared branches and draft PRs, including implementation source, tests and audit artifacts, to public alex-pb-ro/selene?"
+  },
+  "agent_benchmark_preparation": {
+    "status": "prepared_not_executed",
+    "task_package": "research/agent_benchmarks/README.md",
+    "verification": "research/agent-benchmark-preparation-verification.md",
+    "authored_tasks": 3,
+    "trusted_fixture_expected_outcomes": 12,
+    "result_schema_checks_passed": 9,
+    "workspaces_prepared": 18,
+    "paired_groups_with_identical_visible_inputs": 6,
+    "agents_started": 0,
+    "model_calls": 0,
+    "client_launcher": "not_implemented",
+    "isolated_submission_verifier": "not_implemented",
+    "pending_question": "Which approved client and model should run the 18 paired benchmark trials, and do you authorize fresh, sequential agent sessions for them?",
+    "remaining": [
+      "approved client/provider/model and fresh-session authorization",
+      "verified scope restrictions for all client-native and MCP tools",
+      "isolated submission verifier",
+      "actual paired outcomes, provider usage and human review",
+      "representative real-project and broader workflow coverage"
+    ]
   }
 }

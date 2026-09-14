@@ -1,0 +1,25 @@
+{
+  "schema_checks": {
+    "complete_reviewed_record_accepted": true,
+    "success_rejected_with_status": true,
+    "success_rejected_with_verification": true,
+    "success_rejected_with_human_review": true,
+    "success_rejected_with_privacy_gate": true,
+    "success_rejected_with_unintended_paths": true,
+    "unavailable_tokens_cannot_be_reported_as_zero": true,
+    "provider_reported_requires_actual_counts": true,
+    "failed_attempt_retained_with_unavailable_usage": true
+  },
+  "trial_workspaces": 18,
+  "paired_groups_with_identical_visible_inputs": 6,
+  "only_task_visible_files_materialized": true,
+  "agents_started": 0,
+  "agent_scope_enforcement": "not_yet_verified",
+  "model_calls": 0,
+  "schema_sha256": "16881e18b1ccb6f0722dccc44b09c77793497dc95c720b1b8d5933775948c9eb",
+  "task_package_sha256": {
+    "run.py": "2727184cfa2416ab629a3f83f3f62252e0af3e4a35a43985d541ffcecd3e3e3f",
+    "cases.py": "d9e5b4968cf2b52a9fd867797f39023e5e60f4dcb6c489e75e3c68230bc8d4cd"
+  },
+  "agent_trials_executed": false
+}

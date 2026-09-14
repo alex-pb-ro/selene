@@ -51,3 +51,5 @@ python research/probes/context_acceptance.py \
 ```
 
 The research report also calls for paired task completion, unintended-edit rates, provider-reported tokens and representative repositories. **Those gates remain unmeasured.** These retrieval observations cannot establish coding success, end-to-end savings or broad backend coverage. No instruction variants or automatic memories were added, and no instruction-benefit claim is made. The full [completion audit](feature-completion-audit.md) keeps those limits separate from implemented functionality and PR publication.
+
+The subsequent [agent benchmark task package](agent-benchmark-preparation-verification.md) has validated authored checks and prepared eighteen matched synthetic workspaces. It has started no agents and reports no model task outcomes. An approved client, fresh-session authorization and verified client/verifier isolation are still required before running that pilot.
