@@ -83,6 +83,37 @@ def test_schema_pointer_and_generation_mappings_have_declared_versioned_evidence
     assert reasons >= {"remote_schema_reference_not_followed", "generation_freshness_unverified"}
 
 
+@pytest.mark.parametrize(
+    "before,after,affected",
+    [
+        (1, True, True),
+        (True, 1, True),
+        (0, False, True),
+        (False, 0, True),
+        ([1], [True], True),
+        ({"nested": [0]}, {"nested": [False]}, True),
+        ({"nested": [1]}, {"nested": [1.0]}, False),
+        ({"a": True, "b": 1}, {"b": 1, "a": True}, False),
+    ],
+)
+def test_schema_consumers_use_json_boolean_and_number_semantics(project, tmp_path, before, after, affected):
+    # declare consumers of the changed and unchanged schema locations
+    schema = {"properties": {"value": {"const": before}, "unchanged": {"type": "string"}}}
+    (tmp_path / "api.json").write_text(json.dumps(schema))
+    for path, reference in (
+        ("consumer.json", "api.json#/properties/value"),
+        ("root-consumer.json", "api.json"),
+        ("unaffected.json", "api.json#/properties/unchanged"),
+    ):
+        (tmp_path / path).write_text(json.dumps({"$ref": reference}))
+
+    # compare the proposed value through the public change impact report
+    schema["properties"]["value"]["const"] = after
+    report = json.loads(ChangeImpactAnalyzer(project).analyze(changes=(proposal(tmp_path, "api.json", json.dumps(schema)),)))
+    consumers = {finding["target"]["path"] for finding in report["declared_relationships"]}
+    assert consumers == ({"consumer.json", "root-consumer.json"} if affected else set())
+
+
 def test_each_heuristic_preserves_the_correct_changed_source_origin(project, tmp_path):
     (tmp_path / "independent.py").write_text("def zebra():\n    return 7\n")
     (tmp_path / "tests/test_zebra.py").write_text("from independent import zebra\n\ndef test_zebra():\n    assert zebra() == 7\n")
