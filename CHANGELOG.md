@@ -46,6 +46,7 @@ Status of the `main` branch. Changes prior to the next official version change w
     Selene's own tools to close the gap (#1852)
 
 * Language Servers:
+  - Add `persist_symbol_cache` to control storage and reload of document-symbol caches containing source text.
   - Fix: Release file buffers after a nested open fails on a conflicting external edit, allowing later requests to reopen the file.
   - Fix: Refresh source content when timestamps are preserved or decrease, detect conflicting disk changes to unsaved buffers,
     and retain failed language-server notifications for retry.
@@ -134,6 +135,8 @@ CLI:
     - Support function `embed_memory` in prompt templates to inline a memory's contents
 
 * Security:
+  - Add an isolated local stdio image and launcher with inherited Linux network restrictions,
+    one project mount, no host credential forwarding, and disabled payload logs and symbol-cache persistence.
   - ProjectServer: Configure trusted hosts (local hosts only) when listening on localhost
   - SeleneDashboardTrayManager: Configure trusted hosts (local hosts only)
   - Use sandboxed environment for prompt templating, preventing attackers from using custom prompts to

@@ -38,6 +38,8 @@ class SolidLSPSettings:
     For instance, if this is "/home/user/myproject/.solidlsp",
     then Solid-LSP will store project-specific data (e.g. caches) in that directory.
     """
+    persist_symbol_cache: bool = True
+    """Whether document-symbol caches may be loaded from or saved to disk."""
     ls_specific_settings: dict[Union[str, "LanguageServerId"], dict[str, Any]] = field(default_factory=dict)
     """
     Advanced configuration option allowing to configure language server implementation specific options.

@@ -94,6 +94,9 @@ log_level: 20
 # This is useful for debugging language server issues.
 trace_lsp_communication: False
 
+# Document-symbol caches can retain source text between sessions. Set False to use only in-memory caches.
+persist_symbol_cache: True
+
 # advanced configuration option allowing to configure language server-specific options.
 # Maps the language key to the options.
 # Have a look at the docstring of the constructors of the LS implementations within solidlsp (e.g., for C# or PHP) to see which options are available.

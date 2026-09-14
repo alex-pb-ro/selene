@@ -4,6 +4,8 @@ Date: 2026-09-13. Policy assessed: project data may leave the controlled local e
 
 ## Verdict
 
+**Subsequent isolated-profile change:** [the local stdio deployment](docs/02-usage/073_isolated_stdio.md) adds an OS-enforced container/network boundary, disables application and daemon stream logging, and disables document-symbol cache persistence. Its scope and test evidence are separate from this original audit. The native launch path assessed below remains unconfined.
+
 **The current build does not enforce this policy and should not yet be approved for a workload requiring that guarantee.**
 
 The standard MCP server returns requested information to its connected client. It does not select an AI model, authenticate a model provider, or enforce the client's company policies. It has no destination allowlist or operating-system restriction on its own subprocesses. Language servers and commands receive access to sensitive data and can communicate independently.

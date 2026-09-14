@@ -534,6 +534,7 @@ class Project(ToStringMixin):
                 ls_timeout=ls_timeout,
                 ls_specific_settings=ls_specific_settings,
                 trace_lsp_communication=self.selene_config.trace_lsp_communication,
+                persist_symbol_cache=self.selene_config.persist_symbol_cache,
             )
             self.language_server_manager = LanguageServerManager.from_languages(self.project_config.language_servers, factory, self)
             return self.language_server_manager

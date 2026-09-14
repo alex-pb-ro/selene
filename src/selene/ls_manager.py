@@ -34,6 +34,7 @@ class LanguageServerFactory:
         ls_timeout: float | None = None,
         ls_specific_settings: dict | None = None,
         trace_lsp_communication: bool = False,
+        persist_symbol_cache: bool = True,
     ):
         self.project_root = project_root
         self.project_config = project_config
@@ -43,6 +44,7 @@ class LanguageServerFactory:
         self.ls_timeout = ls_timeout
         self.ls_specific_settings = ls_specific_settings
         self.trace_lsp_communication = trace_lsp_communication
+        self.persist_symbol_cache = persist_symbol_cache
 
     def create_language_server(self, ls_id: LanguageServerIdLike) -> SolidLanguageServer:
         ls_config = LanguageServerConfig(
@@ -62,6 +64,7 @@ class LanguageServerFactory:
             solidlsp_settings=SolidLSPSettings(
                 solidlsp_dir=SelenePaths().selene_user_home_dir,
                 project_data_path=self.project_data_path,
+                persist_symbol_cache=self.persist_symbol_cache,
                 ls_specific_settings=self.ls_specific_settings or {},
             ),
         )
