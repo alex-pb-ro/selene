@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Connecting Your MCP Client &#8212; Selene Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02-usage/030_clients';</script>
+    <script src="../_static/vendor/tex-svg-full.js?v=fe9f5dce"></script>
+    <link rel="icon" href="../_static/selene-icon-32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Project Workflow" href="040_workflow.html" />
+    <link rel="prev" title="JetBrains compatibility backend" href="025_jetbrains_plugin.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/selene-logo.svg" class="logo__image only-light" alt="Selene Documentation - Home"/>
+    <script>document.write(`<img src="../_static/selene-logo-dark-mode.svg" class="logo__image only-dark" alt="Selene Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-about/000_intro.html">About Selene</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/020_programming-languages.html">Language Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/025_features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/030_selene-in-action.html">Selene in Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/035_tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-about/050_acknowledgements.html">Acknowledgements</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="000_intro.html">Usage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="010_installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="020_running.html">Running Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="025_jetbrains_plugin.html">JetBrains compatibility backend</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Connecting Your MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="040_workflow.html">The Project Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="045_memories.html">Memories &amp; Onboarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="050_configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="060_dashboard.html">The Dashboard and GUI Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="065_logs.html">Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="070_security.html">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="999_additional-usage.html">Additional Usage Pointers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-special-guides/000_intro.html">Special Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/cpp_setup.html">C/C++ Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/custom_agent.html">Custom Agents with Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/external_language_server_registration.html">External Language Server Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/godot_gdscript_setup_guide_for_selene.html">GDScript (Godot Engine) Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/groovy_setup_guide_for_selene.html">Groovy Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/ocaml_setup_guide_for_selene.html">OCaml Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/scala_setup_guide_for_selene.html">Scala Setup Guide for Selene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/selene_on_chatgpt.html">Connecting Selene MCP Server to ChatGPT via MCPO &amp; Cloudflare Tunnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-special-guides/unreal_engine_setup_guide_for_selene.html">Unreal Engine Setup Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-evaluation/000_evaluation-intro.html">Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-evaluation/010_methodology.html">Methodology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/020_prompts/000_prompts.html">Prompts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/010_evaluation-prompt.html">Evaluation Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/020_prompts/020_summary-prompt.html">Summary Prompt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../04-evaluation/030_results/000_evaluation-results.html">Results</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/010_cc_on_tianshou.html">Claude Code (Opus 4.6, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/020_codex_on_jbplugin.html">Codex (GPT-5.4, high)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/030_copilot_cli_on_ente.html">Copilot CLI (GPT-5.4, medium)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/040_glm_on_tianshou.html">Claude Code (GLM 5.1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-evaluation/030_results/050_junie_plugin_on_tianshou.html">JetBrains Junie Plugin (Opus 4.6)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02-usage/030_clients.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Connecting Your MCP Client</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-instructions">General Instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-in-jetbrains">Copilot in JetBrains</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-code">Claude Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vscode">VSCode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-cli">Copilot CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codex-cli-and-app">Codex (CLI and App)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grok">Grok</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-setup">Manual Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hooks">Hooks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-desktop">Claude Desktop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Copilot CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jetbrains-junie">JetBrains Junie</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jetbrains-ai-assistant">JetBrains AI Assistant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#antigravity">Antigravity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codebuddy">CodeBuddy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Manual Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Hooks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hook-descriptions">Hook Descriptions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-clients">Other Clients</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#terminal-based-clients">Terminal-Based Clients</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcp-enabled-ides-and-coding-clients-cline-roo-code-cursor-windsurf-etc">MCP-Enabled IDEs and Coding Clients (Cline, Roo-Code, Cursor, Windsurf, etc.)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-guis-and-agent-frameworks">Local GUIs and Agent Frameworks</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="connecting-your-mcp-client">
+<h1>Connecting Your MCP Client<a class="headerlink" href="#connecting-your-mcp-client" title="Link to this heading">#</a></h1>
+<p>In the following, we provide general instructions on how to connect Selene to your MCP-enabled client,
+as well as specific instructions for popular clients.</p>
+<section id="general-instructions">
+<span id="clients-general-instructions"></span><h2>General Instructions<a class="headerlink" href="#general-instructions" title="Link to this heading">#</a></h2>
+<p>In general, Selene can be used with any MCP-enabled client.
+To connect Selene to your favourite client, simply</p>
+<ol class="arabic simple">
+<li><p>determine how to add a custom MCP server to your client (refer to the client’s documentation).</p></li>
+<li><p>add a new MCP server entry by specifying either</p>
+<ul class="simple">
+<li><p>a <a class="reference internal" href="020_running.html#start-mcp-server"><span class="std std-ref">run command</span></a> that allows the client to start the MCP server in stdio mode as a subprocess, or</p></li>
+<li><p>the URL of the HTTP/SSE endpoint, having started the <a class="reference internal" href="020_running.html#streamable-http"><span class="std std-ref">Selene MCP server in HTTP/SSE mode</span></a> beforehand.</p></li>
+</ul>
+</li>
+</ol>
+<p>Find concrete examples for popular clients below.</p>
+<p>Depending on your needs, you might want to further customize Selene’s behaviour by</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="020_running.html#mcp-args"><span class="std std-ref">adding command-line arguments</span></a></p></li>
+<li><p><a class="reference internal" href="050_configuration.html"><span class="doc std std-doc">adjusting configuration</span></a>.</p></li>
+</ul>
+<p><strong>Mode of Operation</strong>.
+Note that some clients have a per-workspace MCP configuration (e.g, VSCode and Claude Code),
+while others have a global MCP configuration (e.g. Codex and Claude Desktop).</p>
+<ul class="simple">
+<li><p>In the per-workspace case, you typically want to start Selene with your workspace directory as the project directory
+and never switch to a different project. This is achieved by specifying the
+<code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">&lt;path&gt;</span></code> argument with a single-project <a class="reference internal" href="050_configuration.html#contexts"><span class="std std-ref">context</span></a> (e.g. <code class="docutils literal notranslate"><span class="pre">ide</span></code> or <code class="docutils literal notranslate"><span class="pre">claude-code</span></code>).</p></li>
+<li><p>In the global configuration case, you must first activate the project you want to work on, which you can do by asking
+the LLM to do so (e.g., “Activate the current dir as project using selene”). In such settings, the <code class="docutils literal notranslate"><span class="pre">activate_project</span></code>
+tool is required.</p></li>
+</ul>
+<p><strong>Tool Selection</strong>.
+While you may be able to turn off tools through your client’s interface (e.g., in VSCode or Claude Desktop),
+we recommend selecting your base tool set through Selene’s configuration, as Selene’s prompts automatically
+adjust based on which tools are enabled/disabled.<br>
+A key mechanism for this is to use the appropriate <a class="reference internal" href="050_configuration.html#contexts"><span class="std std-ref">context</span></a> when starting Selene.</p>
+<section id="common-pitfalls">
+<span id="clients-common-pitfalls"></span><h3>Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Link to this heading">#</a></h3>
+<p><strong>Discoverability of the <code class="docutils literal notranslate"><span class="pre">selene</span></code> command</strong>.
+Your client may not find the <code class="docutils literal notranslate"><span class="pre">selene</span></code> CLI command, even if it is on your system PATH.
+In this case, a workaround is to provide the full path to the <code class="docutils literal notranslate"><span class="pre">selene</span></code> executable.</p>
+<p><strong>Selene’s tools not being used</strong>.
+With some clients, you may experience that Selene’s tools are not being used.
+This is mainly due to problems in the client itself (like a poorly implemented tool discovery). To counteract this,
+Selene comes with a set of commands that can be used in <em>hooks</em>. See the sections on hooks for Claude Code and VSCode below.</p>
+<p><strong>Environment Variables</strong>.
+Some language servers may require additional environment variables to be set (e.g. F# on macOS with Homebrew),
+which you may need to explicitly add to the MCP server configuration.
+Note that for some clients (e.g. Claude Desktop), the spawned MCP server process may not inherit environment variables that
+are only configured in your shell profile (e.g. <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, <code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>, etc.); they would need to be set system-wide instead.
+An easy fix is to add them explicitly to the MCP server entry.
+For example, in Claude Desktop and other clients, you can simply add an <code class="docutils literal notranslate"><span class="pre">env</span></code> key to the <code class="docutils literal notranslate"><span class="pre">selene</span></code>
+object, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;env&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;DOTNET_ROOT&quot;</span><span class="p">:</span> <span class="s2">&quot;/opt/homebrew/Cellar/dotnet/9.0.8/libexec&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="copilot-in-jetbrains">
+<h2>Copilot in JetBrains<a class="headerlink" href="#copilot-in-jetbrains" title="Link to this heading">#</a></h2>
+<p>Open the settings of your JetBrains IDE and go to Tools / GitHub Copilot / Model Context Protocol (MCP). Then click
+on the Configure button. This will open your global <code class="docutils literal notranslate"><span class="pre">mcp.json</span></code> file, where you can add the following entry for Selene:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;selene&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;--context=jb-copilot-plugin&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Verification.</strong>
+Open Copilot, switch to Agent mode, and click on the configure tools button. You should see Selene’s tools in the list and be able to start
+the Selene server there (you do not generally have to start Selene in the future, Copilot will start the server by itself). If the server is shown as running, Copilot is successfully connected to Selene. Most models will understand how to use Selene’s tools out of the box, but for some models you may have to prompt “Activate the current project with Selene and read initial instructions” in the beginning of the chat.</p>
+<p><strong>Recommended Configuration</strong>.
+The <code class="docutils literal notranslate"><span class="pre">jb-copilot-plugin</span></code> context (see above) comes with our recommended subset of Selene’s tools for Copilot in JetBrains IDEs. We also
+recommend <em>disabling</em> the following built-in tools for optimal performance:
+replace_string_in_file, apply_patch, list_dir, file_search, grep_search. Note that running subagents may not use MCP servers, consider deactivating the run_subagent tool as well.</p>
+<p>Selene offers better alternatives to these basic tools. If you do prefer to use the built-in tools instead,
+you should disable corresponding Selene tools instead to prevent context bloat.</p>
+<p>We also recommend marking Selene’s tools as approved so you don’t have to manually approve them in agent sessions.
+You can do this in Tools / GitHub Copilot / Chat, where at the bottom you can click on the Configure button for MCP tool auto-approval.</p>
+</section>
+<section id="claude-code">
+<h2>Claude Code<a class="headerlink" href="#claude-code" title="Link to this heading">#</a></h2>
+<p>Selene is a great way to make Claude Code both more efficient and more powerful!
+To set up the Selene MCP server for Claude Code, you can simply run this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene setup claude-code
+</pre></div>
+</div>
+<p>Find manual setup instructions as well as workarounds for Claude Code’s recent regressions pertaining to (external) tool use below.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Recent updates to Claude Code (CC) and to the Opus line of models resulted in drastically reduced
+adherence to instructions pertaining to Selene’s tools.</p>
+<p>After extensive analysis, we identified part of the reason to be very long and detailed
+tool descriptions for built-in tools and parts of the default system prompt.
+The descriptions of CC’s system tools take almost 16k tokens, cannot be adjusted by the user,
+and introduce a very strong bias towards internal tools, making it almost impossible to convince Opus 4.7 to use Selene.</p>
+<p>As a workaround, we crafted a system prompt that counteracts this bias.
+When using Selene, we highly recommend that you start CC as</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>claude<span class="w"> </span>--system-prompt<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>selene<span class="w"> </span>prompts<span class="w"> </span>print-cc-system-prompt-override<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>You can also consider adding the content of <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">cc-system-prompt-override</span></code> to your <code class="docutils literal notranslate"><span class="pre">CLAUDE.md</span></code> files,
+but the effect be insufficient for counteracting Claude Code’s bias towards internal tools.</p>
+</div>
+<p><strong>Global Configuration</strong>. To add the Selene MCP server for all your projects, use the user-level configuration of claude code and the <code class="docutils literal notranslate"><span class="pre">--project-from-cwd</span></code> flag:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--scope<span class="w"> </span>user<span class="w"> </span>selene<span class="w"> </span>--<span class="w"> </span>selene<span class="w"> </span>start-mcp-server<span class="w"> </span>--context<span class="w"> </span>claude-code<span class="w"> </span>--project-from-cwd
+</pre></div>
+</div>
+<p><strong>Per-Project Configuration.</strong> Alternatively, to add Selene only for the current project in the current directory,
+use the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>selene<span class="w"> </span>--<span class="w"> </span>selene<span class="w"> </span>start-mcp-server<span class="w"> </span>--context<span class="w"> </span>claude-code<span class="w"> </span>--project<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>Verification.</strong>
+Confirm that Claude Code is connected to Selene by running the <code class="docutils literal notranslate"><span class="pre">/mcp</span></code> command and by reconnecting, if necessary.
+If Selene fails to start fast enough, you should set <code class="docutils literal notranslate"><span class="pre">MCP_TIMEOUT</span></code> to a sufficiently high value
+(e.g. by adding <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">MCP_TIMEOUT=60000</span></code> to your shell profile)</p>
+<p><strong>Hooks.</strong>
+Due to recent changes (especially dynamic tool loading) in Claude Code, the agent will often fail to make proper use
+of Selene’s tools, either by failing to load them in the beginning or by forgetting the instructions in a long session
+(a behavior known as agent drift). To counteract this, we provide reminder hooks. We <strong>strongly recommend</strong> setting
+up the hooks as below (or a variation thereof) for optimal performance of Selene in Claude Code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While recommended, hooks are an <strong>alpha feature</strong>. Review failures locally with the user; share diagnostics externally only at their explicit request.</p>
+</div>
+<p>To set up hooks, add the following to your Claude Code settings file
+(<code class="docutils literal notranslate"><span class="pre">.claude/settings.json</span></code> in your project directory, or <code class="docutils literal notranslate"><span class="pre">~/.claude/settings.json</span></code> globally):</p>
+<p>All hooks below are opt-in — include only the ones you want. Add the following to your
+Claude Code settings file (<code class="docutils literal notranslate"><span class="pre">.claude/settings.json</span></code> in your project directory, or
+<code class="docutils literal notranslate"><span class="pre">~/.claude/settings.json</span></code> globally):</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;PreToolUse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks remind --client=claude-code&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp__selene__*&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks auto-approve --client=claude-code&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;SessionStart&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks activate --client=claude-code&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;SessionEnd&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks cleanup --client=claude-code&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The hooks will:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">remind</span></code></strong>: Nudge the agent to use Selene’s symbolic tools when it makes too many consecutive
+<code class="docutils literal notranslate"><span class="pre">grep</span></code> or <code class="docutils literal notranslate"><span class="pre">read_file</span></code> calls without using any Selene tools in between.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">activate</span></code></strong>: Prompt the agent to activate the project and read Selene’s instructions at session start.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></strong>: Clean up hook session data when the session ends.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">auto-approve</span></code></strong>: Auto-approve Selene tool calls whenever Claude Code is in a permissive
+permission mode (<code class="docutils literal notranslate"><span class="pre">acceptEdits</span></code> or <code class="docutils literal notranslate"><span class="pre">auto</span></code>), so blanket approvals cover Selene’s destructive
+tools (e.g. <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code>, <code class="docutils literal notranslate"><span class="pre">rename_symbol</span></code>) instead of prompting on every call.</p></li>
+</ul>
+<p>For more details on Claude Code’s hook system, see the
+<a class="reference external" href="https://code.claude.com/docs/en/hooks">Claude Code hooks documentation</a>.</p>
+</section>
+<section id="vscode">
+<h2>VSCode<a class="headerlink" href="#vscode" title="Link to this heading">#</a></h2>
+<p>You can add Selene to VSCode by running the MCP: Add Server command.
+In that dialogue, select the Command (stdio) option. You can decide between installing it globally
+or in the workspace (only for the currently open project), and the command you should enter depends on that choice.
+(You will be asked to choose after entering the mcp run command.)</p>
+<p><strong>Global.</strong> (Recommended)
+Enter <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">start-mcp-server</span> <span class="pre">--context=vscode</span></code>. Unfortunately, due to a <a class="reference external" href="https://github.com/microsoft/vscode/issues/245905">bug in VSCode</a>,
+in this setting Selene won’t be able to activate the project automatically. You will have to remember to prompt
+“Activate the current dir as project using selene” at the start of each session.</p>
+<p><strong>Workspace.</strong>
+Enter <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">start-mcp-server</span> <span class="pre">--context=vscode</span> <span class="pre">--project</span> <span class="pre">${workspaceFolder}</span></code>. This will allow Selene to automatically activate the project,
+with the downside that you will have to add Selene to each project you want to use it in.</p>
+<p>In both cases, proceed to enter Selene as the name, then select either global or workspace.</p>
+<p><strong>Verification.</strong>
+You should be able to see Selene in the tools overview in the AI Chat window.</p>
+<p><strong>Hooks.</strong>
+Due to recent changes (especially dynamic tool loading) in VSCode, the agent will often fail to make proper use
+of Selene’s tools, either by failing to load them in the beginning or by forgetting the instructions in a long session
+(a behaviour known as agent drift). To counteract this, we provide reminder hooks. We <strong>strongly recommend</strong> setting
+up the hooks as below (or a variation thereof) for optimal performance of Selene in VSCode.</p>
+<p>The hooks will:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">remind</span></code></strong>: Nudge the agent to use Selene’s symbolic tools when it makes too many consecutive
+<code class="docutils literal notranslate"><span class="pre">grep</span></code> or <code class="docutils literal notranslate"><span class="pre">read_file</span></code> calls without using any Selene tools in between.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">activate</span></code></strong>: Prompt the agent to activate the project and read Selene’s instructions at session start.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></strong>: Clean up hook session data when the session ends.</p></li>
+</ul>
+<p>To set this up, create the file <code class="docutils literal notranslate"><span class="pre">~/.copilot/hooks/selene-hooks.json</span></code> with the following content:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;PreToolUse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks remind --client=vscode&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;SessionStart&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks activate --client=vscode&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Stop&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks cleanup --client=vscode&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SessionStart</span></code> hook also addresses the global configuration limitation mentioned above — it will
+automatically prompt the agent to activate the project directory, so you no longer need to do this manually.</p>
+</section>
+<section id="copilot-cli">
+<h2>Copilot CLI<a class="headerlink" href="#copilot-cli" title="Link to this heading">#</a></h2>
+<p>Use the interactive <code class="docutils literal notranslate"><span class="pre">/mcp</span> <span class="pre">add</span></code> slash command, choose Selene as the name, STDIO as the server type, and
+<code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">start-mcp-server</span> <span class="pre">--context=copilot-cli</span> <span class="pre">--project-from-cwd</span></code> as command. Copilot CLI will immediately notify you
+that Selene is running if everything is set up correctly or display an error otherwise.</p>
+<p>You should add the same <strong>hooks</strong> as in VSCode (see above) if Copilot CLI didn’t pick them up automatically.</p>
+</section>
+<section id="codex-cli-and-app">
+<h2>Codex (CLI and App)<a class="headerlink" href="#codex-cli-and-app" title="Link to this heading">#</a></h2>
+<p>You can simply run <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">setup</span> <span class="pre">codex</span></code>.</p>
+<p>Alternatively, you can manually add the following to <code class="docutils literal notranslate"><span class="pre">~/.codex/config.toml</span></code> (create the file if it does not exist):</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[mcp_servers.selene]</span>
+<span class="n">startup_timeout_sec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span>
+<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span>
+<span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--project-from-cwd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--context=codex&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Verification.</strong>
+Run the <code class="docutils literal notranslate"><span class="pre">/mcp</span></code> command and verify that Selene is connected.
+The Codex app does not start a session in the project’s directory, so when using the app, we recommend
+asking Codex to “Activate the current dir as project using selene” at the start of each session (though Codex might
+do this automatically).</p>
+<p><strong>Hooks.</strong>
+Codex supports lifecycle hooks; see the
+<a class="reference external" href="https://developers.openai.com/codex/hooks">Codex hooks documentation</a> for details. To enable
+Selene’s hooks for Codex, add this feature flag to <code class="docutils literal notranslate"><span class="pre">~/.codex/config.toml</span></code>:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[features]</span>
+<span class="n">codex_hooks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+<p>Then create <code class="docutils literal notranslate"><span class="pre">~/.codex/hooks.json</span></code> with the following content:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;PreToolUse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bash&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks remind --client=codex&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;PostToolUse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^mcp__selene__.*$&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks reset --client=codex&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;SessionStart&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;startup|resume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks activate --client=codex&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;SessionEnd&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks cleanup --client=codex&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SessionEnd</span></code> cleanup hook requires Codex 0.145.0 or newer. Older Codex versions only support
+<code class="docutils literal notranslate"><span class="pre">Stop</span></code> for cleanup, which currently has a [known compatibility issue](historical issue #1533).
+If you still configure it, replace <code class="docutils literal notranslate"><span class="pre">SessionEnd</span></code> with <code class="docutils literal notranslate"><span class="pre">Stop</span></code> in the example above. Configure cleanup
+under exactly one of these events, never both: <code class="docutils literal notranslate"><span class="pre">Stop</span></code> runs after every turn, while <code class="docutils literal notranslate"><span class="pre">SessionEnd</span></code> runs
+when Codex tears down the root thread.</p>
+<p>The hooks will:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">activate</span></code></strong>: Prompt the agent to activate the current project and read Selene’s instructions
+when a Codex session starts or resumes.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">remind</span></code></strong>: Nudge the agent to use Selene’s symbolic tools when it makes too many consecutive
+code-search or code-file-read calls without using Selene tools in between.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">reset</span></code></strong>: Clear the reminder counters after a successful Selene symbolic tool call, so using
+Selene’s tools starts a fresh count instead of leaving the prior grep/read streak in place.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></strong>: Clean up hook session data when the session ends.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">PreToolUse</span></code> matcher is intentionally restricted to <code class="docutils literal notranslate"><span class="pre">Bash</span></code>: the reminder hook tracks shell-based
+grep and code-file reads, so running it for every tool call is unnecessary. That matcher never sees
+<code class="docutils literal notranslate"><span class="pre">mcp__selene__*</span></code> tool names, though, so it cannot also perform the counter reset on Selene tool use
+the way it does for clients whose <code class="docutils literal notranslate"><span class="pre">PreToolUse</span></code> hook observes every tool call. The separate <code class="docutils literal notranslate"><span class="pre">reset</span></code>
+hook above, matched to <code class="docutils literal notranslate"><span class="pre">PostToolUse</span></code> on Selene’s own tools, covers that case for Codex instead.</p>
+</section>
+<section id="grok">
+<h2>Grok<a class="headerlink" href="#grok" title="Link to this heading">#</a></h2>
+<p>Selene provides native support for xAI’s Grok Build CLI. To set up the Selene MCP server for Grok,
+simply run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene setup grok
+</pre></div>
+</div>
+<section id="manual-setup">
+<h3>Manual Setup<a class="headerlink" href="#manual-setup" title="Link to this heading">#</a></h3>
+<p><strong>Global Configuration</strong>. To add the Selene MCP server for all your projects, use Grok’s user-level configuration and the <code class="docutils literal notranslate"><span class="pre">--project-from-cwd</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grok<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--scope<span class="w"> </span>user<span class="w"> </span>selene<span class="w"> </span>--<span class="w"> </span>selene<span class="w"> </span>start-mcp-server<span class="w"> </span>--context<span class="o">=</span>grok<span class="w"> </span>--project-from-cwd
+</pre></div>
+</div>
+<p>Alternatively, add the following to <code class="docutils literal notranslate"><span class="pre">~/.grok/config.toml</span></code>:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[mcp_servers.selene]</span>
+<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span>
+<span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--project-from-cwd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--context=grok&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Project-Level Configuration</strong>. To add the Selene MCP server for a single project only:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grok<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--scope<span class="w"> </span>project<span class="w"> </span>selene<span class="w"> </span>--<span class="w"> </span>selene<span class="w"> </span>start-mcp-server<span class="w"> </span>--context<span class="o">=</span>grok<span class="w"> </span>--project<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>Verification.</strong>
+Run <code class="docutils literal notranslate"><span class="pre">grok</span> <span class="pre">inspect</span></code> and verify that Selene is listed as an MCP server. You can also use Grok’s <code class="docutils literal notranslate"><span class="pre">/mcps</span></code>
+modal to inspect, refresh, enable, or disable configured MCP servers.</p>
+<p>Grok can also load existing Claude Code MCP configuration. If you previously ran <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">setup</span> <span class="pre">claude-code</span></code>,
+Selene may already appear in Grok, but it will use the <code class="docutils literal notranslate"><span class="pre">claude-code</span></code> context instead of the dedicated <code class="docutils literal notranslate"><span class="pre">grok</span></code> context.</p>
+</section>
+<section id="hooks">
+<h3>Hooks<a class="headerlink" href="#hooks" title="Link to this heading">#</a></h3>
+<p>Grok supports lifecycle hooks; see Grok’s bundled hooks documentation for details. To enable Selene’s hooks
+for Grok globally, create <code class="docutils literal notranslate"><span class="pre">~/.grok/hooks/selene-hooks.json</span></code> with the following content. For a single project,
+create <code class="docutils literal notranslate"><span class="pre">.grok/hooks/selene-hooks.json</span></code> in that project instead; note that Grok loads project-scoped hooks
+only after you have trusted the project for hook execution (via Grok’s <code class="docutils literal notranslate"><span class="pre">/hooks-trust</span></code> command).</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;PreToolUse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;grep|read_file|run_terminal_command&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks remind --client=grok&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Stop&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks cleanup --client=grok&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The hooks will:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">remind</span></code></strong>: Nudge the agent to use Selene’s symbolic tools when it makes too many consecutive
+code-search or code-file-read calls without using Selene tools in between.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></strong>: Clean up hook session data when the agent turn ends.</p></li>
+</ul>
+<p>Grok ignores stdout from passive hooks such as <code class="docutils literal notranslate"><span class="pre">SessionStart</span></code>, so the Grok hook setup intentionally
+uses only <code class="docutils literal notranslate"><span class="pre">PreToolUse</span></code> for reminders and <code class="docutils literal notranslate"><span class="pre">Stop</span></code> for cleanup.</p>
+</section>
+</section>
+<section id="claude-desktop">
+<h2>Claude Desktop<a class="headerlink" href="#claude-desktop" title="Link to this heading">#</a></h2>
+<p>On Windows and macOS, there are official <a class="reference external" href="https://claude.ai/download">Claude Desktop applications by Anthropic</a>; for Linux, there is an <a class="reference external" href="https://github.com/aaddrick/claude-desktop-debian">open-source
+community version</a>.</p>
+<p>To configure MCP server settings, go to File / Settings / Developer / MCP Servers / Edit Config,
+which will let you open the JSON file <code class="docutils literal notranslate"><span class="pre">claude_desktop_config.json</span></code>.</p>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">selene</span></code> MCP server configuration</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;selene&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--context=desktop-app&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If your language server requires specific environment variables to be set (e.g. F# on macOS with Homebrew),
+you can add them via an <code class="docutils literal notranslate"><span class="pre">env</span></code> key (see <a class="reference internal" href="#clients-common-pitfalls">above</a>).</p>
+<p><strong>Verification.</strong>
+Once you have created the new MCP server entry, save the config and then restart Claude Desktop.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Be sure to fully quit the Claude Desktop application via File / Exit, as regularly closing the application will just
+minimize it.</p>
+</div>
+<p>After restarting, you should see Selene’s tools in your chat interface (notice the small hammer icon).</p>
+</section>
+<section id="id1">
+<h2>Copilot CLI<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>In the interactive mode, you can call <code class="docutils literal notranslate"><span class="pre">/mcp</span> <span class="pre">add</span></code> from within the copilot CLI. There, use selene as name,
+STDIO as the server type, and <code class="docutils literal notranslate"><span class="pre">selene</span> <span class="pre">start-mcp-server</span> <span class="pre">--context=copilot-cli</span> <span class="pre">--project-from-cwd</span></code> as command.</p>
+<p>Alternatively, add the following to <code class="docutils literal notranslate"><span class="pre">~/.copilot/mcp-config.json</span></code> (create the file if it does not exist):</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;selene&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;*&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--context=copilot-cli&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--project-from-cwd&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Verification.</strong>
+Copilot should now show that Selene is running, though you may have to restart it.</p>
+</section>
+<section id="jetbrains-junie">
+<h2>JetBrains Junie<a class="headerlink" href="#jetbrains-junie" title="Link to this heading">#</a></h2>
+<p>For the Junie plugin in JetBrains IDEs you can add Selene either to the global configuration in <code class="docutils literal notranslate"><span class="pre">~/.junie/mcp/mcp.json</span></code>
+or to the project configuration in <code class="docutils literal notranslate"><span class="pre">&lt;project&gt;/.junie/mcp/mcp.json</span></code>. Important, don’t add both!
+In both cases the entry should be:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;selene&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--context=junie&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--project-from-cwd&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With the global configuration, Selene will be available in all projects. However,
+within the Junie plugin, projects will not be automatically activated in Selene.
+You may thus have to prompt
+Junie to “Activate the current project using selene’s activation tool” at the start of each session (though some models are
+smart enough to activate the project automatically).</p>
+<p>With the project-scoped configuration, Selene will be available only in that project, and the project will automatically
+be recognized as active by Selene.</p>
+</section>
+<section id="jetbrains-ai-assistant">
+<h2>JetBrains AI Assistant<a class="headerlink" href="#jetbrains-ai-assistant" title="Link to this heading">#</a></h2>
+<p>Go to Settings / Tools / AI Assistant / MCP and enter the following configuration:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;selene&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--context=jb-ai-assistant&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--project-from-cwd&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Like for Junie, you have the choice between the global and the project-scoped configuration,
+with the same trade-off.</p>
+</section>
+<section id="antigravity">
+<h2>Antigravity<a class="headerlink" href="#antigravity" title="Link to this heading">#</a></h2>
+<p>Add this configuration:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;selene&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;start-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;--context=antigravity&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You will have to prompt Antigravity’s agent to “Activate the current project using selene’s activation tool” after starting Antigravity in the project directory (once in the first chat enough, all other chat sessions will continue using the same Selene session).</p>
+<p>Unlike VSCode, Antigravity does not currently support including the working directory in the MCP configuration.
+Also, the current client will be shown as <code class="docutils literal notranslate"><span class="pre">none</span></code> in Selene’s dashboard (Antigravity currently does not fully support the MCP specifications). This is not a problem, all tools will work as expected.</p>
+</section>
+<section id="codebuddy">
+<h2>CodeBuddy<a class="headerlink" href="#codebuddy" title="Link to this heading">#</a></h2>
+<p>Selene provides native support for CodeBuddy, a CLI coding agent that shares a similar architecture with Claude Code.
+To set up the Selene MCP server for CodeBuddy, simply run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>selene setup codebuddy
+</pre></div>
+</div>
+<section id="id2">
+<h3>Manual Setup<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><strong>Global Configuration</strong>. To add the Selene MCP server for all your projects, use the user-level configuration of CodeBuddy and the <code class="docutils literal notranslate"><span class="pre">--project-from-cwd</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>codebuddy<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--scope<span class="w"> </span>user<span class="w"> </span>selene<span class="w"> </span>--<span class="w"> </span>selene<span class="w"> </span>start-mcp-server<span class="w"> </span>--context<span class="w"> </span>codebuddy<span class="w"> </span>--project-from-cwd
+</pre></div>
+</div>
+<p><strong>Project-Level Configuration</strong>. To add the Selene MCP server for a single project only:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>codebuddy<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>selene<span class="w"> </span>--<span class="w"> </span>selene<span class="w"> </span>start-mcp-server<span class="w"> </span>--context<span class="w"> </span>codebuddy<span class="w"> </span>--project<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Confirm that CodeBuddy is connected to Selene by running the <code class="docutils literal notranslate"><span class="pre">/mcp</span></code> command and reconnecting if necessary.</p>
+</section>
+<section id="id3">
+<h3>Hooks<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>CodeBuddy supports the same hook system as Claude Code. To set up hooks, add the following to your CodeBuddy settings file (<code class="docutils literal notranslate"><span class="pre">.codebuddy/settings.json</span></code> in your project directory, or <code class="docutils literal notranslate"><span class="pre">~/.codebuddy/settings.json</span></code> globally):</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;PostToolUse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks remind --client=codebuddy&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Notification&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks auto-approve --client=codebuddy&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;SessionStart&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks activate --client=codebuddy&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Stop&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;matcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selene-hooks cleanup --client=codebuddy&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="hook-descriptions">
+<h3>Hook Descriptions<a class="headerlink" href="#hook-descriptions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">remind</span></code></strong>: Remind the agent to use Selene’s tools instead of built-in <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">read</span></code> tools.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">activate</span></code></strong>: Prompt the agent to activate the project at session start and read Selene’s instructions.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></strong>: Clean up hook session data when the session ends.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">auto-approve</span></code></strong>: Auto-approve Selene tool calls whenever CodeBuddy is in a permissive
+permission mode (<code class="docutils literal notranslate"><span class="pre">acceptEdits</span></code> or <code class="docutils literal notranslate"><span class="pre">auto</span></code>), so blanket approvals cover Selene’s destructive
+tools (e.g. <code class="docutils literal notranslate"><span class="pre">replace_symbol_body</span></code>, <code class="docutils literal notranslate"><span class="pre">rename_symbol</span></code>) instead of prompting on every call.</p></li>
+</ul>
+</section>
+</section>
+<section id="other-clients">
+<h2>Other Clients<a class="headerlink" href="#other-clients" title="Link to this heading">#</a></h2>
+<p>For other clients, follow the <a class="reference internal" href="#clients-general-instructions">general instructions</a> above to set up Selene as an MCP server.</p>
+<section id="terminal-based-clients">
+<h3>Terminal-Based Clients<a class="headerlink" href="#terminal-based-clients" title="Link to this heading">#</a></h3>
+<p>There are many terminal-based coding assistants that support MCP servers, such as</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/google-gemini/gemini-cli">Gemini-CLI</a>,</p></li>
+<li><p><a class="reference external" href="https://github.com/QwenLM/Qwen3-Coder">Qwen3-Coder</a>,</p></li>
+<li><p><a class="reference external" href="https://community.atlassian.com/forums/Rovo-for-Software-Teams-Beta/Introducing-Rovo-Dev-CLI-AI-Powered-Development-in-your-terminal/ba-p/3043623">rovodev</a>,</p></li>
+<li><p><a class="reference external" href="https://docs.all-hands.dev/usage/how-to/cli-mode">OpenHands CLI</a>,</p></li>
+<li><p><a class="reference external" href="https://github.com/sst/opencode">opencode</a> and</p></li>
+<li><p><a class="reference external" href="https://www.codebuddy.cn/cli/">CodeBuddy-Code</a>.</p></li>
+</ul>
+<p>They generally benefit from the symbolic tools provided by Selene. You might want to customize some aspects of Selene
+by writing your own context, modes or prompts to adjust it to the client’s respective internal capabilities (and your general workflow).</p>
+<p>In most cases, the <code class="docutils literal notranslate"><span class="pre">ide</span></code> context is likely to be appropriate for such clients, i.e. add the arguments <code class="docutils literal notranslate"><span class="pre">--context</span> <span class="pre">ide</span></code>
+in order to reduce tool duplication.</p>
+</section>
+<section id="mcp-enabled-ides-and-coding-clients-cline-roo-code-cursor-windsurf-etc">
+<h3>MCP-Enabled IDEs and Coding Clients (Cline, Roo-Code, Cursor, Windsurf, etc.)<a class="headerlink" href="#mcp-enabled-ides-and-coding-clients-cline-roo-code-cursor-windsurf-etc" title="Link to this heading">#</a></h3>
+<p>Most of the popular existing coding assistants (e.g. IDE extensions) and AI-enabled IDEs themselves support connections
+to MCP Servers. Selene generally boosts performance by providing efficient tools for symbolic operations.</p>
+<p>We generally recommend using the <code class="docutils literal notranslate"><span class="pre">ide</span></code> context for these integrations by adding the arguments <code class="docutils literal notranslate"><span class="pre">--context</span> <span class="pre">ide</span></code>
+in order to reduce tool duplication.</p>
+</section>
+<section id="local-guis-and-agent-frameworks">
+<h3>Local GUIs and Agent Frameworks<a class="headerlink" href="#local-guis-and-agent-frameworks" title="Link to this heading">#</a></h3>
+<p>Over the last months, several technologies have emerged that allow you to run a local GUI client
+and connect it to an MCP server. The respective applications will typically work with Selene out of the box.
+Some of the leading open source GUI applications are</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jan.ai/docs/mcp">Jan</a>,</p></li>
+<li><p><a class="reference external" href="https://github.com/All-Hands-AI/OpenHands/">OpenHands</a>,</p></li>
+<li><p><a class="reference external" href="https://docs.openwebui.com/openapi-servers/mcp">OpenWebUI</a> and</p></li>
+<li><p><a class="reference external" href="https://docs.agno.com/introduction/playground">Agno</a>.</p></li>
+</ul>
+<p>These applications allow combining Selene with almost any LLM (including locally running ones)
+and offer various other integrations.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02-usage"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="025_jetbrains_plugin.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">JetBrains compatibility backend</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="040_workflow.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Project Workflow</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-instructions">General Instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-in-jetbrains">Copilot in JetBrains</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-code">Claude Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vscode">VSCode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-cli">Copilot CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codex-cli-and-app">Codex (CLI and App)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grok">Grok</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-setup">Manual Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hooks">Hooks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-desktop">Claude Desktop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Copilot CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jetbrains-junie">JetBrains Junie</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jetbrains-ai-assistant">JetBrains AI Assistant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#antigravity">Antigravity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codebuddy">CodeBuddy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Manual Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Hooks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hook-descriptions">Hook Descriptions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-clients">Other Clients</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#terminal-based-clients">Terminal-Based Clients</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcp-enabled-ides-and-coding-clients-cline-roo-code-cursor-windsurf-etc">MCP-Enabled IDEs and Coding Clients (Cline, Roo-Code, Cursor, Windsurf, etc.)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-guis-and-agent-frameworks">Local GUIs and Agent Frameworks</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Selene contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 by Selene contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
