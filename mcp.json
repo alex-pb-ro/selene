@@ -1,0 +1,31 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "selene": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "${PLUGIN_ROOT}",
+        "--locked",
+        "--no-dev",
+        "--no-editable",
+        "--no-env-file",
+        "selene",
+        "start-mcp-server",
+        "--context",
+        "copilot-cli",
+        "--enable-web-dashboard",
+        "false",
+        "--open-web-dashboard",
+        "false",
+        "--enable-gui-log-window",
+        "false"
+      ],
+      "env": {
+        "UV_PROJECT_ENVIRONMENT": "${PLUGIN_DATA}/venv"
+      }
+    }
+  }
+}

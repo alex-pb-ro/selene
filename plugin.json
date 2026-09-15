@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "selene",
+  "version": "1.7.1-dev.0",
+  "description": "Local semantic code search, navigation, editing, and project memories.",
+  "author": {
+    "name": "Selene contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "copilot",
+    "code-intelligence",
+    "mcp",
+    "language-server",
+    "memory"
+  ]
+}

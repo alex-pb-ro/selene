@@ -5,6 +5,20 @@ It is a clone of [Serena](https://github.com/oraios/serena).
 
 Selene uses language servers to give your chosen AI agent symbol-aware tools across more than 40 programming languages. Code and tool results are returned to the MCP client you connect. Usage statistics are calculated locally.
 
+## Install as an agent plugin
+
+For GitHub Copilot CLI, register this checkout's marketplace and install Selene:
+
+```sh
+copilot plugin marketplace add /absolute/path/to/selene
+copilot plugin install selene@selene-plugins
+```
+
+The package also includes marketplace catalogs for GitHub Copilot App, Codex,
+and Claude Code, plus a skill that initializes Selene for the working project.
+Install `uv` first. See the [plugin guide](PLUGIN.md) for client-specific setup,
+runtime requirements, and building a clean distribution.
+
 ## Run from this checkout
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and Python 3.11–3.14, then run:
