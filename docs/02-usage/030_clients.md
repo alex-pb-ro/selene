@@ -3,6 +3,10 @@
 In the following, we provide general instructions on how to connect Selene to your MCP-enabled client,
 as well as specific instructions for popular clients.
 
+For installation as a plugin in GitHub Copilot App/CLI, Codex, or Claude Code,
+see the [agent plugin guide](../../PLUGIN.md). The instructions below cover
+direct MCP registration and additional client configuration.
+
 (clients-general-instructions)=
 ## General Instructions
 

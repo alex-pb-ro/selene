@@ -1,0 +1,19 @@
+{
+  "name": "selene",
+  "version": "1.7.1-dev.0",
+  "description": "Local semantic code search, navigation, editing, and project memories.",
+  "author": {
+    "name": "Selene contributors"
+  },
+  "skills": "./skills/",
+  "license": "MIT",
+  "interface": {
+    "displayName": "Selene",
+    "shortDescription": "Navigate and edit code with language servers.",
+    "longDescription": "Use local language servers for symbol search, references, code edits, and persistent project memories. Activate the working project through Selene before using its code tools.",
+    "developerName": "Selene contributors",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": "Use Selene to activate this project and explore its code."
+  }
+}

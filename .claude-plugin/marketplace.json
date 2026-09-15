@@ -1,0 +1,17 @@
+{
+  "name": "selene-plugins",
+  "owner": {
+    "name": "Selene contributors"
+  },
+  "metadata": {
+    "description": "Selene code intelligence for local coding agents."
+  },
+  "plugins": [
+    {
+      "name": "selene",
+      "source": "./",
+      "description": "Local semantic code search, navigation, editing, and project memories.",
+      "category": "development"
+    }
+  ]
+}
